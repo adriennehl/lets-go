@@ -97,8 +97,8 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
     * Settings
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+[Sketched Wireframes]
+<img src="https://github.com/adriennehl/lets-go/blob/master/09A1F976-BD99-49F1-B8EC-0B1D70B2CFB7.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
