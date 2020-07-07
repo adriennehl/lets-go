@@ -26,54 +26,56 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
 **Required Must-have Stories**
 
 * user can create a new account
-* user can login
-* user can search places and see yelp reviews
-* user can see a list of popular places
+* user can login/logout
+* user can search places (Google Maps or Yelp)
 * user can create and save a trip
 * user can see details about their trip and who they've invited
-* user can share trip and send invites to friends
-* user can upload a photo to a trip memory
-* user can see photos that other attendees have added to their trip
+* user can share trip and send invites to friends 
+* app recommends meeting times depending on who is invited(complex algorithm)
+* user can take and upload a photo to a trip memory
 * user can see their profile page with past trips
-* user can configure app options
+* user can edit their profile
+* user can see a list of upcoming trips
 
 
 **Optional Nice-to-have Stories**
 
+* user can see a list of popular places
+* user see yelp reviews
+* user can edit trips
+* user can delete trips
 * user can search and add other users
+* user can see photos that other attendees have added to their trip
+* user gets notifications before their trips
+* user can see if their friend has accepted their invite
+* user can configure app options
 * user can see photos from other users' trips
 * app recommends new places for users
-* app recommends meeting times depending on who is invited
-* user can add a comment to a photo or trip
 * user can visit other user's profiles and see their past trips
 * app provides budget planning for trip
-* user gets notifications before their trips
-* user can see if their friends. has accepted their invite
 * user can create a trip message chat with users who are invited to the trip
 
 
 ### 2. Screen Archetypes
 
-* Login Screen
+* Login/Registration Screen
    * User can log in 
-* Registration Screen
    * User can create a new account
 * Trip Stream (could later be a map view of locations of previous trips)
-   * User can see their previous trips
+   * User can see their upcoming trips
 * Creation
    * User can create and save a new trip
 * Trip Detail
     * User can see details about their trip and who they've invited
     * user can share trip and send invites to friends
-    * user can upload a photo to a trip memory
-    * user can see photos that other attendees have added to their trip
+    * user can take and upload a photo to a trip memory
+    * app recommends meeting times depending on who is invited
 * Search
     * User can search places for trips
-    * User can see a list of popular places
 * Profile
-    * User can see their profile and a list of their trips
-* settings
-    * user can configure app options
+    * User can see their profile with past trips
+    * user can edit their profile
+    * User can log out
 
 ### 3. Navigation
 
@@ -86,15 +88,12 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
 
 **Flow Navigation** (Screen to Screen)
 
-* Login Screen
+* Login/Registration Screen
     * Trip Stream
-* Registration Screen
-   * Trip Stream
 * Trip Stream
    * Trip Detail
 * Profile
     * Trip Detail
-    * Settings
 
 ## Wireframes
 [Sketched Wireframes]
