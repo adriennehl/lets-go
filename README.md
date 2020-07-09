@@ -1,3 +1,6 @@
+Original App Design Project - README Template
+===
+
 # Let's Go
 
 ## Table of Contents
@@ -8,7 +11,7 @@
 
 ## Overview
 ### Description
-Let's Go helps users plan outings and meetings with their friends. Afterwards, users can upload images to create memories of their trops and share them with their friends.  
+Let's Go helps users plan outings and meetings with their friends. Afterwards, users can upload images to create memories of their trips and share them with their friends.  
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -33,24 +36,25 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
 * user can share trip and send invites to friends 
 * app recommends meeting times depending on who is invited(complex algorithm)
 * user can take and upload a photo to a trip memory
-* user can see their profile page with past trips
-* user can edit their profile
 * user can see a list of upcoming trips
 
 
 **Optional Nice-to-have Stories**
 
+* user can see photos that other attendees have added to their trip
+* user can see their profile page with past trips
 * user can see a list of popular places
 * user see yelp reviews
-* user can edit trips
 * user can delete trips
-* user can search and add other users
-* user can see photos that other attendees have added to their trip
-* user gets notifications before their trips
+
+**Extra Stretch**
+
 * user can see if their friend has accepted their invite
-* user can configure app options
-* user can see photos from other users' trips
+* user can edit their profile
+* user can search and add other users
+* user gets notifications before their trips
 * app recommends new places for users
+* user can edit trips
 * user can visit other user's profiles and see their past trips
 * app provides budget planning for trip
 * user can create a trip message chat with users who are invited to the trip
@@ -96,7 +100,7 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
     * Trip Detail
 
 ## Wireframes
-[Sketched Wireframes]
+[Sketched wireframes]
 <img src="https://github.com/adriennehl/lets-go/blob/master/09A1F976-BD99-49F1-B8EC-0B1D70B2CFB7.jpeg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
@@ -104,10 +108,176 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+User
+| Property | Type | Description |
+| -------- | -------- | -------- |
+| objectId| String| unique id for the user post (default field)|
+|profileImage|File| user profile image|
+|username|String|username|
+|password|String|password|
+|name|String|user name|
+|number of trips|number|number of trips|
+|createdAt|DateTime|date when trip is created (default field)|
+|updatedAt|DateTime|date when post is last update (default field)|
+|trips|Array/Relation|list of trip Ids/pointers to trips the user is invited to|
+
+Trip
+
+| Property | Type | Description |
+| -------- | -------- | -------- |
+| objectId| String| unique id for the user post (default field)|
+|author|Pointer to user| trip creator|
+|invitees|Array/Relation|list of usernames/pointers to users who are invited|
+|images|Array|list of trip images|
+|description|String|trip description|
+|title|String|trip title|
+|location|String|address of trip location|
+|startDate|DateTime|trip start date and time|
+|endDate|DateTime|trip end date and time|
+|createdAt|DateTime|date when trip is created (default field)|
+|updatedAt|DateTime|date when post is last update (default field)|
+
+
+
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
+Register/Login
+- Authenticate user
+```objectivec=
+[PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+        
+        if (error != nil) {
+            NSLog(@"%@", error.localizedDescription);
+            }];
+        } else {
+            NSLog(@"User logged in successfully");
+            
+            // display view controller that needs to shown after successful login
+        }
+    }];
+}
+
+```
+- (POST) Create a new user
+```objectivec=
+ [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+            if (error != nil) {
+                NSLog(@"%@", error.localizedDescription);
+                }];
+                
+            } else {
+                NSLog(@"User registered successfully");
+                // display view controller that needs to shown after successful signup
+            }
+        }];
+```
+Trip Stream
+- (GET) Query all trips where user is invited
+```objectivec=
+PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    [query includeKey:@"author"];
+    [query includeKey:@"invitees"];
+    [query orderByDescending:@"createdAt"];
+    [query whereKey:@"invitees" equalTo:[PFUser currentUser]];
+    [query whereKey:@"endDate" greaterThanOrEqualTo:[NSDate date]];
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
+        if (trips != nil) {
+            self.trips = trips;
+            [self.tripsTableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+```
+Creation
+- (Post) Create a new trip
+```objectivec=
+PFObject *trip = [PFObject objectWithClassName:@"Trip"];
+// add trip fields
+
+ [trip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"The message was saved!");
+            self.chatMessageField.text = @"";
+        } else {
+            NSLog(@"Problem saving message: %@", error.localizedDescription);
+        }
+    }];
+```
+
+Profile
+- (GET) Query current user details
+
+```objectivec=
+self.user = [PFUser currentUser];
+```
+- (GET) Query current user's trips
+```objectivec=
+PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    [query includeKey:@"author"];
+    [query includeKey:@"invitees"];
+    [query orderByDescending:@"createdAt"];
+    [query whereKey:@"invitees" equalTo:[PFUser currentUser]];
+    [query whereKey:@"endDate" lessThan:[NSDate date]];
+    
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
+        if (trips != nil) {
+            self.trips = trips;
+            [self.tripsTableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+```
+
+
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+Yelp API
+Base URL - https://api.yelp.com/v3/businesses/
+
+|HTTP Verb|Endpoint|Description|
+|--------|---------|--------|
+|GET|search|businesses based on provided search criteria|
+|GET|{id}|detailed business content|
+|GET|{id}/reviews|up to 3 review excerpts|
+|GET|/v3/categories/{alias}|detailed information about the Yelp category|
+
+
+Foursquare API
+Base URL - https://api.foursquare.com/v2/venues/
+|HTTP Verb|Endpoint|Description|
+|---------|---------|--------|
+|GET|/trending|list of venues near the current location with the most people currently checked in|
+|GET|/VENUE_ID/similar|list of venues similar to the specified venue|
+|GET|/search?|search venues|
+
+-(GET) Query locations near a city
+```objectivec=
+ [self fetchLocationsWithQuery:searchBar.text nearCity:@"San Francisco"];
+```
+ -(GET) Query locations from search
+```objectivec=
+  NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@,CA&query=%@", clientID, clientSecret, city, query];
+    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"response: %@", responseDictionary);
+            self.results = [responseDictionary valueForKeyPath:@"response.venues"];
+            [self.tableView reloadData];
+        }
+    }];
+```
