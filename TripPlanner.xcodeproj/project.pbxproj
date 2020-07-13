@@ -22,6 +22,7 @@
 		C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534E424BD04BA006C3A67 /* ProfileViewController.m */; };
 		C8B534EE24BD080A006C3A67 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534ED24BD080A006C3A67 /* Trip.m */; };
 		C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F024BD0C91006C3A67 /* TripStreamViewController.m */; };
+		C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F624BD104E006C3A67 /* TripViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		C8B534ED24BD080A006C3A67 /* Trip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		C8B534EF24BD0C91006C3A67 /* TripStreamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripStreamViewController.h; sourceTree = "<group>"; };
 		C8B534F024BD0C91006C3A67 /* TripStreamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripStreamViewController.m; sourceTree = "<group>"; };
+		C8B534F524BD104E006C3A67 /* TripViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripViewController.h; sourceTree = "<group>"; };
+		C8B534F624BD104E006C3A67 /* TripViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripViewController.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +198,8 @@
 				C8B534E424BD04BA006C3A67 /* ProfileViewController.m */,
 				C8B534EF24BD0C91006C3A67 /* TripStreamViewController.h */,
 				C8B534F024BD0C91006C3A67 /* TripStreamViewController.m */,
+				C8B534F524BD104E006C3A67 /* TripViewController.h */,
+				C8B534F624BD104E006C3A67 /* TripViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 				C8B534EE24BD080A006C3A67 /* Trip.m in Sources */,
 				C8B534BD24BCCC45006C3A67 /* main.m in Sources */,
 				C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */,
+				C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */,
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */,
 			);

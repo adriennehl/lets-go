@@ -46,7 +46,7 @@
         <!--New Trip-->
         <scene sceneID="EDs-jq-xs4">
             <objects>
-                <viewController id="e2L-Pi-0tS" sceneMemberID="viewController">
+                <viewController id="e2L-Pi-0tS" customClass="TripViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="675-cC-kJ3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,9 +98,28 @@
                         <viewLayoutGuide key="safeArea" id="TCK-Ql-KBc"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Trip" id="JFc-x7-cEi">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="dRn-hA-eE9"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="Kvb-1r-U3l"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="dRn-hA-eE9">
+                            <connections>
+                                <action selector="onCancel:" destination="e2L-Pi-0tS" id="Nc7-tx-mls"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Kvb-1r-U3l">
+                            <connections>
+                                <action selector="onSave:" destination="e2L-Pi-0tS" id="bSu-Qq-Pns"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="dRn-hA-eE9" id="UdW-F4-MmX"/>
+                        <outlet property="dateField" destination="bCz-W2-sXn" id="IbE-f1-4M3"/>
+                        <outlet property="descriptionTextView" destination="BfH-Yg-Z47" id="CNB-3w-twr"/>
+                        <outlet property="endTimeField" destination="xZk-jV-JKS" id="o7w-lR-Zbc"/>
+                        <outlet property="guestsField" destination="ESg-yj-cnR" id="aNS-uA-uNM"/>
+                        <outlet property="locationField" destination="beZ-El-wAZ" id="QFn-WI-iC6"/>
+                        <outlet property="saveButton" destination="Kvb-1r-U3l" id="Qfn-cP-Xa4"/>
+                        <outlet property="startTimeField" destination="6ED-TK-MWK" id="Rko-XA-zpS"/>
+                        <outlet property="tripImageView" destination="jJs-Z8-PaO" id="i5I-6x-g9t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3zI-bX-mrx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
