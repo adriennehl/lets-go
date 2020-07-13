@@ -122,7 +122,7 @@ User
 |number of trips|number|number of trips|
 |createdAt|DateTime|date when trip is created (default field)|
 |updatedAt|DateTime|date when post is last update (default field)|
-|trips|Array/Relation|list of trip Ids/pointers to trips the user is invited to|
+|trips|Array|list of trip Ids of trips the user is invited to|
 
 Trip
 
@@ -130,7 +130,7 @@ Trip
 | -------- | -------- | -------- |
 | objectId| String| unique id for the user post (default field)|
 |author|Pointer to user| trip creator|
-|invitees|Array/Relation|list of usernames/pointers to users who are invited|
+|guests|Array|list of usernames of users who are invited|
 |images|Array|list of trip images|
 |description|String|trip description|
 |title|String|trip title|
