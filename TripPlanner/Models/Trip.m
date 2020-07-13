@@ -36,7 +36,7 @@
     return createdAtString;
 }
 
-+ (void) postUserTrip: (UIImage * _Nullable)image withGuests: (NSMutableArray *)guests withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) postUserTrip:(NSMutableArray *)guests withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     Trip *newTrip = [Trip new];
     newTrip.author = PFUser.currentUser.username;
     newTrip.guests = guests;
