@@ -19,6 +19,7 @@
 		C8B534C724BCCC45006C3A67 /* TripPlannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534C624BCCC45006C3A67 /* TripPlannerTests.m */; };
 		C8B534D224BCCC45006C3A67 /* TripPlannerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534D124BCCC45006C3A67 /* TripPlannerUITests.m */; };
 		C8B534E224BCFD82006C3A67 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534E124BCFD82006C3A67 /* LoginViewController.m */; };
+		C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534E424BD04BA006C3A67 /* ProfileViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		C8B534D324BCCC45006C3A67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B534E024BCFD82006C3A67 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C8B534E124BCFD82006C3A67 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C8B534E324BD04BA006C3A67 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		C8B534E424BD04BA006C3A67 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,6 +184,8 @@
 			children = (
 				C8B534E024BCFD82006C3A67 /* LoginViewController.h */,
 				C8B534E124BCFD82006C3A67 /* LoginViewController.m */,
+				C8B534E324BD04BA006C3A67 /* ProfileViewController.h */,
+				C8B534E424BD04BA006C3A67 /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 				C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */,
 				C8B534BD24BCCC45006C3A67 /* main.m in Sources */,
 				C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */,
+				C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
