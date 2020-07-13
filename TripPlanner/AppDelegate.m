@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +17,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    // configure Parse server
+    ParseClientConfiguration *config = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration>  _Nonnull configuration) {
+        
+        configuration.applicationId = @"letsGoPlay";
+        configuration.server = @"https://lets-go-play.herokuapp.com/parse";
+    }];
+    
+    [Parse initializeWithConfiguration:config];
+    
     return YES;
 }
 
