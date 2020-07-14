@@ -8,6 +8,7 @@
 
 #import "TripViewController.h"
 #import "Trip.h"
+#import <Parse/Parse.h>
 
 @interface TripViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
@@ -16,9 +17,12 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *guestsField;
+@property (weak, nonatomic) IBOutlet UILabel *guestList;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (strong, nonatomic) NSMutableArray *guests;
+@property (strong, nonatomic) NSMutableArray *guestUsernames;
 
 
 @end
@@ -28,6 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.guests = [[NSMutableArray alloc] init];
+    self.guestUsernames = [[NSMutableArray alloc] init];
+    self.descriptionTextView.layer.borderWidth = 2;
 }
 
 // get guests array
@@ -101,7 +108,7 @@
 
 // allow user to pick an image source type on tap
 - (IBAction)onViewTap:(id)sender {
-    UIAlertController *sourceTypeAlert = [self createAlert];
+    UIAlertController *sourceTypeAlert = [self createSourceTypeAlert];
     
     // show the alert controller
     [self presentViewController: sourceTypeAlert animated:YES completion:^{
@@ -109,23 +116,25 @@
 }
 
 - (IBAction)onSave:(id)sender {
-    NSMutableArray *guests = [self getGuestsArray:self.guestsField.text];
     NSMutableArray *images = [[NSMutableArray alloc] init];
     [images addObject:[self getPFFileFromImage:self.tripImageView.image]];
-    [Trip postUserTrip:guests withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"error: %@", error.localizedDescription);
-        }
-        else {
-            NSLog(@"Trip posted successfully!");
-        }
-    }];
+    [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self];
 }
 
 - (IBAction)onCancel:(id)sender {
+    // reset fields
+    self.titleField.text = nil;
+    self.locationField.text = nil;
+    self.guestsField.text = nil;
+    self.guestList.text = @"Guests: ";
+    self.guests = [[NSMutableArray alloc] init];
+    self.startDatePicker.date = [NSDate date];
+    self.endDatePicker.date = [NSDate date];
+    self.descriptionTextView.text = nil;
+    self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
 }
 
-- (UIAlertController *) createAlert {
+- (UIAlertController *) createSourceTypeAlert {
     // create a camera choice action
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera"
                                                            style:UIAlertActionStyleDefault
@@ -144,10 +153,10 @@
                                                                    message: @"Choose upload source"
                                                             preferredStyle:(UIAlertControllerStyleAlert)];
     
-    // add the cancel action to the alertController
+    // add the camera action to the alertController
     [alert addAction:cameraAction];
     
-    // add the OK action to the alert controller
+    // add the album action to the alert controller
     [alert addAction:albumAction];
     
     return alert;
@@ -168,6 +177,73 @@
     }
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
+- (BOOL)hasGuest: (NSString *)username guests: (NSMutableArray *)guests {
+    for(NSString *guestUsername in guests) {
+        if ([username isEqualToString:guestUsername]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (IBAction)onAdd:(id)sender {
+    // check if user is in database
+    NSString *username = self.guestsField.text;
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:username];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
+        // user does not exist
+        if(users.count == 0) {
+            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"Username does not exist"];
+            [self presentViewController: alert animated:YES completion:^{
+            }];
+        }
+        // user is already added
+        else if([self hasGuest:username guests:self.guestUsernames]) {
+            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"User already added"];
+            [self presentViewController: alert animated:YES completion:^{
+            }];
+        }
+        // user is current user
+        else if([username isEqualToString:PFUser.currentUser.username]) {
+            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"Can't add yourself"];
+            [self presentViewController: alert animated:YES completion:^{
+            }];
+        }
+        // user can be added to list
+        else {
+            UIAlertController *alert = [self createUserAlert:@"Successful" action:@"Ok" message:@"Guest was successfully added"];
+            [self presentViewController: alert animated:YES completion:^{
+            }];
+            self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, username];
+            [self.guestUsernames addObject:username];
+            [self.guests addObject:users[0]];
+        }
+        self.guestsField.text = @"";
+    }];
+}
+
+- (UIAlertController *)createUserAlert: (NSString *)title action:(NSString *)action message:(NSString *)message{
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:action
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // add the camera action to the alertController
+    [alert addAction:alertAction];
+    return alert;
+    
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 /*

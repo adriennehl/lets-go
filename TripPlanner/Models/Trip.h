@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import "TripViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *endDate;
 
 + (NSString *)dateToString: (NSDate *)dateTime;
-+ (void) postUserTrip:(NSMutableArray *)guests withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller;
 + (PFFileObject *_Nullable)getPFFileFromImage: (UIImage * _Nullable)image;
 
 @end

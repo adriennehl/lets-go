@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TripViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
+- (IBAction)onCancel:(id)sender;
 @end
 
 NS_ASSUME_NONNULL_END
