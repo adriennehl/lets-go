@@ -52,16 +52,19 @@
 // update user's list of trips
 - (void)updateTrips {
     PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
-    NSLog(@"%@", PFUser.currentUser);
-    NSLog(@"%@", PFUser.currentUser[@"updatedAt"]);
     [query whereKey:@"createdAt" greaterThan:PFUser.currentUser.updatedAt];
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
         if (!error) {
             PFRelation *relation;
-            // add each trip to user's list of trips
+            // add each trip where user is a guest to user's list of trips
             relation = [PFUser.currentUser relationForKey:@"trips"];
             for(Trip *trip in trips) {
-                [relation addObject:trip];
+                for(NSString *guestUsername in trip[@"guests"]) {
+                    if ([PFUser.currentUser.username isEqualToString:guestUsername]) {
+                        [relation addObject:trip];
+                        break;
+                    }
+                }
             }
             [PFUser.currentUser saveInBackground];
         } else {

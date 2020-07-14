@@ -14,6 +14,7 @@
 @interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
 @property (strong, nonatomic) NSArray *trips;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation TripStreamViewController
@@ -24,10 +25,21 @@
     self.tripsTableView.delegate = self;
     self.tripsTableView.dataSource = self;
     
-    // get trips
+    // add a UIRefreshControl
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchTrips) forControlEvents:UIControlEventValueChanged];
+    [self.tripsTableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self fetchTrips];
+}
+
+// get trips from user's trips relation
+- (void)fetchTrips {
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
-    [query orderByDescending:@"startDate"];
+    [query orderByAscending:@"startDate"];
     [query whereKey:@"startDate" greaterThan:[NSDate date]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
@@ -37,6 +49,7 @@
       } else {
           NSLog(@"Error: %@", error.localizedDescription);
       }
+        [self.refreshControl endRefreshing];
     }];
 }
 
