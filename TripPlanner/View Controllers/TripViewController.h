@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Parse;
+@class Trip;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TripViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@property (strong, nonatomic) Trip *trip;
 - (IBAction)onCancel:(id)sender;
 @end
 

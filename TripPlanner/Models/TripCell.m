@@ -25,7 +25,7 @@
 - (TripCell *)setCell:(Trip *)trip {
     self.trip = trip;
     self.titleLabel.text = self.trip[@"title"];
-    self.hostLabel.text = self.trip[@"author"];
+    self.hostLabel.text = [NSString stringWithFormat:@"Host: %@", self.trip[@"author"]];
     self.locationLabel.text = self.trip[@"location"];
     self.guestsLabel.text = @"Guests: ";
     for(NSString *guestUsername in trip[@"guests"]) {

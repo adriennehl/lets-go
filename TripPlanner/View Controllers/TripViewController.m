@@ -8,11 +8,12 @@
 
 #import "TripViewController.h"
 #import "Trip.h"
-#import <Parse/Parse.h>
+@import Parse;
 
 @interface TripViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
-@property (weak, nonatomic) IBOutlet UIImageView *tripImageView;
+@property (weak, nonatomic) IBOutlet UILabel *hostField;
+@property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
 
@@ -35,6 +37,46 @@
     self.guests = [[NSMutableArray alloc] init];
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.descriptionTextView.layer.borderWidth = 2;
+    if(self.trip) {
+        [self setElements];
+        // prevent editing
+        self.view.userInteractionEnabled = NO;
+    }
+    else {
+        self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
+    }
+}
+
+- (void)backToFeed {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setElements {
+    // add back button
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToFeed)];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    // remove other buttons
+    self.navigationItem.rightBarButtonItem = nil;
+    self.addButton.alpha = 0;
+    self.guestsField.alpha = 0;
+    
+    // set trip details
+    self.titleField.text = self.trip[@"title"];
+    self.hostField.text = [NSString stringWithFormat:@"Host: %@",self.trip[@"author"]];
+    self.locationField.text = self.trip[@"location"];
+    self.guestList.text = @"Guests: ";
+    for(NSString *guestUsername in self.trip[@"guests"]) {
+        self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, guestUsername];
+    }
+    self.startDatePicker.date = self.trip[@"startDate"];
+    self.endDatePicker.date = self.trip[@"endDate"];
+    self.descriptionTextView.text = self.trip[@"description"];
+    NSArray *images = self.trip[@"images"];
+    if(images.count > 0) {
+        self.tripImageView.file = self.trip[@"images"][0];
+        [self.tripImageView loadInBackground];
+    }
 }
 
 // get guests array from a string

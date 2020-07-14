@@ -7,6 +7,7 @@
 //
 
 #import "TripStreamViewController.h"
+#import "TripViewController.h"
 #import "Trip.h"
 #import "TripCell.h"
 
@@ -49,14 +50,22 @@
     return cell;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"detailSegue"]){
+        // get destination view controller
+        TripViewController *destinationViewController = [segue destinationViewController];
+        TripCell *tappedCell = sender;
+        // get indexPath of tapped cell
+        NSIndexPath *indexPath = [self.tripsTableView indexPathForCell:tappedCell];
+        // get trip of tapped cell
+        destinationViewController.trip = self.trips[indexPath.row];
+    }
 }
-*/
 
 @end

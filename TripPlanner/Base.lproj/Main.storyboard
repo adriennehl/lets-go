@@ -105,7 +105,7 @@
                                             <outlet property="startDateLabel" destination="ueb-SB-Kb3" id="Yqv-dy-Hym"/>
                                             <outlet property="titleLabel" destination="wdb-oY-NMZ" id="cge-eK-CfS"/>
                                             <outlet property="tripView" destination="emM-SA-zeF" id="acq-KH-VXS"/>
-                                            <segue destination="e2L-Pi-0tS" kind="show" id="FpV-4b-lAa"/>
+                                            <segue destination="e2L-Pi-0tS" kind="show" identifier="detailSegue" id="FpV-4b-lAa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -131,7 +131,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jJs-Z8-PaO">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="jJs-Z8-PaO" customClass="PFImageView">
                                 <rect key="frame" x="0.0" y="88" width="180" height="206"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -173,13 +173,6 @@
                                     <action selector="onAdd:" destination="e2L-Pi-0tS" eventType="touchUpInside" id="fKr-eh-e5B"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Guests: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flH-91-zvV">
-                                <rect key="frame" x="184" y="185" width="215" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Au5-7g-NeH">
                                 <rect key="frame" x="13" y="302" width="93" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -209,6 +202,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Host: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlv-fL-pps">
+                                <rect key="frame" x="188" y="185" width="198" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Guests: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flH-91-zvV">
+                                <rect key="frame" x="188" y="209" width="215" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -230,11 +237,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="Kdt-pK-Ypn" id="Fgy-YL-3WN"/>
                         <outlet property="cancelButton" destination="dRn-hA-eE9" id="UdW-F4-MmX"/>
                         <outlet property="descriptionTextView" destination="BfH-Yg-Z47" id="CNB-3w-twr"/>
                         <outlet property="endDatePicker" destination="hWo-MT-pxx" id="fSk-W4-8bW"/>
                         <outlet property="guestList" destination="flH-91-zvV" id="rvX-tL-dEx"/>
                         <outlet property="guestsField" destination="ESg-yj-cnR" id="aNS-uA-uNM"/>
+                        <outlet property="hostField" destination="jlv-fL-pps" id="ah1-MY-g6r"/>
                         <outlet property="locationField" destination="beZ-El-wAZ" id="QFn-WI-iC6"/>
                         <outlet property="saveButton" destination="Kvb-1r-U3l" id="Qfn-cP-Xa4"/>
                         <outlet property="startDatePicker" destination="179-bt-RHQ" id="Y5c-Ah-vpo"/>
