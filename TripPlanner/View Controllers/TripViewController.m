@@ -127,6 +127,7 @@
     self.locationField.text = nil;
     self.guestsField.text = nil;
     self.guestList.text = @"Guests: ";
+    self.guestUsernames = [[NSMutableArray alloc] init];
     self.guests = [[NSMutableArray alloc] init];
     self.startDatePicker.date = [NSDate date];
     self.endDatePicker.date = [NSDate date];
