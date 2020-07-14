@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import "Trip.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -39,8 +40,32 @@
         } else {
             NSLog(@"User logged in successfully");
             
+            // update user's list of trips
+            [self updateTrips];
+            
             // display view controller that needs to shown after successful login
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+        }
+    }];
+}
+
+// update user's list of trips
+- (void)updateTrips {
+    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    NSLog(@"%@", PFUser.currentUser);
+    NSLog(@"%@", PFUser.currentUser[@"updatedAt"]);
+    [query whereKey:@"createdAt" greaterThan:PFUser.currentUser.updatedAt];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
+        if (!error) {
+            PFRelation *relation;
+            // add each trip to user's list of trips
+            relation = [PFUser.currentUser relationForKey:@"trips"];
+            for(Trip *trip in trips) {
+                [relation addObject:trip];
+            }
+            [PFUser.currentUser saveInBackground];
+        } else {
+            NSLog(@"Error: %@", error.localizedDescription);
         }
     }];
 }
@@ -71,8 +96,7 @@
     newUser.password = self.passwordField.text;
     newUser[@"profileImage"] = [self getPFFileFromImage:[UIImage imageNamed:@"image_placeholder"]];
     newUser[@"name"] = @"";
-    newUser[@"numTrips"] = @0;
-    newUser[@"trips"] = [[NSMutableArray alloc] init];
+    newUser[@"numTrips"] = [[NSNumber alloc] initWithInt:0];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {

@@ -58,12 +58,12 @@
             [controller presentViewController: alert animated:YES completion:^{
             }];
             [controller onCancel:self];
-            
-            // add trip to each guests trip list
-            for(PFUser *guest in guests) {
-                [guest[@"trips"] addObject:newTrip];
-                [guest saveInBackground];
-            }
+
+            PFRelation *relation;
+            // add trip to author's list of trips
+            relation = [PFUser.currentUser relationForKey:@"trips"];
+            [relation addObject:newTrip];
+            [PFUser.currentUser saveInBackground];
         }
     }];
 }

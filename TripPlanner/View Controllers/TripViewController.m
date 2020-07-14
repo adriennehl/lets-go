@@ -37,7 +37,7 @@
     self.descriptionTextView.layer.borderWidth = 2;
 }
 
-// get guests array
+// get guests array from a string
 - (NSMutableArray *)getGuestsArray:(NSString *)guestsString {
     // separate guests in guestsString
     NSArray *guestItems = [guestsString componentsSeparatedByString:@","];
