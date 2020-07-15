@@ -59,6 +59,10 @@
 }
 
 - (void)setLocation {
+    // add back button
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToFeed)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     self.titleField.text = [NSString stringWithFormat:@"%@ Trip", self.place.name];
     self.locationField.text = self.place.address;
     self.tripImageView.image = [UIImage imageWithData:self.place.photoData];
