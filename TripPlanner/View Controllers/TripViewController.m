@@ -37,6 +37,8 @@
     self.guests = [[NSMutableArray alloc] init];
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.descriptionTextView.layer.borderWidth = 2;
+    
+    // if self.trip is set, show trip detail
     if(self.trip) {
         [self setElements];
         // prevent editing
@@ -45,10 +47,22 @@
     else {
         self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
     }
+    
+    // if self.place is set, autofill value
+    if(self.place) {
+        [self setLocation];
+    }
 }
 
 - (void)backToFeed {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setLocation {
+    self.titleField.text = [NSString stringWithFormat:@"%@ Trip", self.place.name];
+    self.locationField.text = self.place.address;
+    self.tripImageView.image = [UIImage imageWithData:self.place.photoData];
+    [self.tripImageView loadInBackground];
 }
 
 - (void)setElements {

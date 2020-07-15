@@ -26,6 +26,8 @@
 		C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F024BD0C91006C3A67 /* TripStreamViewController.m */; };
 		C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F624BD104E006C3A67 /* TripViewController.m */; };
 		C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F924BE2664006C3A67 /* TripCell.m */; };
+		C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171A24BF5E6B005227D9 /* LocationCell.m */; };
+		C8D7171E24BF5FF2005227D9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171D24BF5FF2005227D9 /* Location.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,10 @@
 		C8B534F624BD104E006C3A67 /* TripViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripViewController.m; sourceTree = "<group>"; };
 		C8B534F824BE2664006C3A67 /* TripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripCell.h; sourceTree = "<group>"; };
 		C8B534F924BE2664006C3A67 /* TripCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripCell.m; sourceTree = "<group>"; };
+		C8D7171924BF5E6B005227D9 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		C8D7171A24BF5E6B005227D9 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		C8D7171C24BF5FF2005227D9 /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		C8D7171D24BF5FF2005227D9 /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +171,7 @@
 		C8B534A924BCCC44006C3A67 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				C8D7171824BF5E4C005227D9 /* Views */,
 				C8B534E724BD07A7006C3A67 /* Models */,
 				C8B534AA24BCCC44006C3A67 /* AppDelegate.h */,
 				C8B534AB24BCCC44006C3A67 /* AppDelegate.m */,
@@ -220,12 +227,23 @@
 			children = (
 				C8B534EC24BD080A006C3A67 /* Trip.h */,
 				C8B534ED24BD080A006C3A67 /* Trip.m */,
-				C8B534F824BE2664006C3A67 /* TripCell.h */,
-				C8B534F924BE2664006C3A67 /* TripCell.m */,
 				C88995F024BEB71E0061EC0A /* Key.h */,
 				C88995F124BEB71E0061EC0A /* Key.m */,
+				C8D7171C24BF5FF2005227D9 /* Location.h */,
+				C8D7171D24BF5FF2005227D9 /* Location.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C8D7171824BF5E4C005227D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C8B534F824BE2664006C3A67 /* TripCell.h */,
+				C8B534F924BE2664006C3A67 /* TripCell.m */,
+				C8D7171924BF5E6B005227D9 /* LocationCell.h */,
+				C8D7171A24BF5E6B005227D9 /* LocationCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,11 +521,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8B534E224BCFD82006C3A67 /* LoginViewController.m in Sources */,
+				C8D7171E24BF5FF2005227D9 /* Location.m in Sources */,
 				C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */,
 				C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */,
 				C8B534EE24BD080A006C3A67 /* Trip.m in Sources */,
 				C8B534BD24BCCC45006C3A67 /* main.m in Sources */,
 				C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */,
+				C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */,
 				C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */,
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */,
