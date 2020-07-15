@@ -30,6 +30,7 @@
 		C8D7172824BF8198005227D9 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7172724BF8198005227D9 /* Key.m */; };
 		C8D7172C24BFAC7B005227D9 /* AlertUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7172B24BFAC7B005227D9 /* AlertUtility.m */; };
 		C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7172E24BFAD66005227D9 /* ImagePickerUtility.m */; };
+		C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173124BFB14E005227D9 /* ImageUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,8 @@
 		C8D7172B24BFAC7B005227D9 /* AlertUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertUtility.m; sourceTree = "<group>"; };
 		C8D7172D24BFAD66005227D9 /* ImagePickerUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerUtility.h; sourceTree = "<group>"; };
 		C8D7172E24BFAD66005227D9 /* ImagePickerUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerUtility.m; sourceTree = "<group>"; };
+		C8D7173024BFB14E005227D9 /* ImageUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageUtility.h; sourceTree = "<group>"; };
+		C8D7173124BFB14E005227D9 /* ImageUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageUtility.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,6 +263,8 @@
 				C8D7172B24BFAC7B005227D9 /* AlertUtility.m */,
 				C8D7172D24BFAD66005227D9 /* ImagePickerUtility.h */,
 				C8D7172E24BFAD66005227D9 /* ImagePickerUtility.m */,
+				C8D7173024BFB14E005227D9 /* ImageUtility.h */,
+				C8D7173124BFB14E005227D9 /* ImageUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */,
 				C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */,
 				C8D7172824BF8198005227D9 /* Key.m in Sources */,
 				C8B534E224BCFD82006C3A67 /* LoginViewController.m in Sources */,

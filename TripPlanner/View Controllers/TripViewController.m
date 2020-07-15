@@ -8,6 +8,7 @@
 
 #import "TripViewController.h"
 #import "AlertUtility.h"
+#import "ImageUtility.h"
 #import "Trip.h"
 @import Parse;
 
@@ -49,12 +50,13 @@
         self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
     }
     
-    // if self.place is set, autofill value
+    // if self.place is set, autofill location, title, and image
     if(self.place) {
         [self setLocation];
     }
 }
 
+// switches to previous controller
 - (void)backToFeed {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -98,21 +100,6 @@
     }
 }
 
-// resize image
-- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
 // after user picks image, set image view to resized image
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
@@ -120,7 +107,7 @@
     
     // resize image
     CGSize size = CGSizeMake(180, 250);
-    UIImage *resizedImage = [self resizeImage:originalImage withSize:size];
+    UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
     
     // set image
     [self.tripImageView setImage:resizedImage];
@@ -140,7 +127,7 @@
 
 - (IBAction)onSave:(id)sender {
     NSMutableArray *images = [[NSMutableArray alloc] init];
-    [images addObject:[self getPFFileFromImage:self.tripImageView.image]];
+    [images addObject:[ImageUtility getPFFileFromImage:self.tripImageView.image]];
     [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self];
 }
 
@@ -156,23 +143,6 @@
     self.endDatePicker.date = [NSDate date];
     self.descriptionTextView.text = nil;
     self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
-}
-
-// returns PFFFileObject from UIImage
-- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
-    
-    // check if image is not nil
-    if (!image) {
-        return nil;
-    }
-    
-    NSData *imageData = UIImagePNGRepresentation(image);
-    // get image data and check if that is not nil
-    if (!imageData) {
-        return nil;
-    }
-    
-    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
 // checks if guest is in the guest list
