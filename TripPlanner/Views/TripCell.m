@@ -7,6 +7,7 @@
 //
 
 #import "TripCell.h"
+#import "DateUtility.h"
 
 @implementation TripCell
 
@@ -31,8 +32,8 @@
     for(NSString *guestUsername in trip[@"guests"]) {
         self.guestsLabel.text = [NSString stringWithFormat:@"%@%@, ", self.guestsLabel.text, guestUsername];
     }
-    self.startDateLabel.text = [self dateToString:self.trip[@"startDate"]];
-    self.endDateLabel.text = [self dateToString:self.trip[@"endDate"]];
+    self.startDateLabel.text = [DateUtility dateToString:self.trip[@"startDate"]];
+    self.endDateLabel.text = [DateUtility dateToString:self.trip[@"endDate"]];
     self.descriptionLabel.text = self.trip[@"description"];
     NSArray *images = self.trip[@"images"];
     if(images.count > 0) {
@@ -40,18 +41,6 @@
         [self.tripView loadInBackground];
     }
     return self;
-}
-
-- (NSString *)dateToString: (NSDate *)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    // set formatter style
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterShortStyle;
-    
-    // Convert Date to String
-    NSString *dateString = [formatter stringFromDate:date];
-    return dateString;
 }
 
 @end

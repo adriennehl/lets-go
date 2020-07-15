@@ -6,6 +6,8 @@
 //  Copyright © 2020 ahli. All rights reserved.
 //
 
+#import "AlertUtility.h"
+#import "ImageUtility.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
 #import "Trip.h"
@@ -31,7 +33,7 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         
         if (error != nil) {
-            UIAlertController *loginAlert = [self createAlert:error.localizedDescription title:@"Error Logging In"];
+            UIAlertController *loginAlert = [AlertUtility createDoubleActionAlert:error.localizedDescription title:@"Error Logging In"];
             
             // show the alert controller
             [self presentViewController: loginAlert animated:YES completion:^{
@@ -77,7 +79,7 @@
 - (IBAction)onSignUp:(id)sender {
     // show error if fields are empty
     if ([self.usernameField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
-        UIAlertController *alert = [self createAlert:@"Please enter a username and password" title:@"Username and Password Required"];
+        UIAlertController *alert = [AlertUtility createDoubleActionAlert:@"Please enter a username and password" title:@"Username and Password Required"];
         
         // show the alert controller
         [self presentViewController:alert animated:YES completion:^{
@@ -97,14 +99,14 @@
     // set user properties
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
-    newUser[@"profileImage"] = [self getPFFileFromImage:[UIImage imageNamed:@"image_placeholder"]];
+    newUser[@"profileImage"] = [ImageUtility getPFFileFromImage:[UIImage imageNamed:@"image_placeholder"]];
     newUser[@"name"] = @"";
     newUser[@"numTrips"] = [[NSNumber alloc] initWithInt:0];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
-            UIAlertController *signupAlert = [self createAlert:error.localizedDescription title:@"Error Signing Up"];
+            UIAlertController *signupAlert = [AlertUtility createDoubleActionAlert:error.localizedDescription title:@"Error Signing Up"];
             NSLog(@"%@", error);
             
             // show the alert controller
@@ -120,63 +122,5 @@
         }
     }];
 }
-
-// given an error description and title, return an alert with cancel and ok buttons
-- (UIAlertController *) createAlert: (NSString *) errorDescription title: (NSString *) title {
-    
-    
-    // create a cancel action
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        // handle cancel response here. Doing nothing will dismiss the view.
-    }];
-    
-    // create an OK action
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-        // handle response here.
-    }];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
-                                                                   message:errorDescription
-                                                            preferredStyle:(UIAlertControllerStyleAlert)];
-    
-    // add the cancel action to the alertController
-    [alert addAction:cancelAction];
-    
-    // add the OK action to the alert controller
-    [alert addAction:okAction];
-    
-    return alert;
-    
-}
-
-- (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
-    
-    // check if image is not nil
-    if (!image) {
-        return nil;
-    }
-    
-    NSData *imageData = UIImagePNGRepresentation(image);
-    // get image data and check if that is not nil
-    if (!imageData) {
-        return nil;
-    }
-    
-    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

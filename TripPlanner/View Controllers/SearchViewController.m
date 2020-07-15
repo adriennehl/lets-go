@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "TripViewController.h"
 #import "LocationCell.h"
+#import "APIUtility.h"
 #import "Location.h"
 #import "Key.h"
 
@@ -32,23 +33,16 @@
 }
 
 - (void)getRequest {
-    Key *key = [[Key alloc] init];
-    NSString *queryTerm = [self.searchTerm stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=%@&input=%@&inputtype=%@&fields=business_status,formatted_address,geometry,icon,name,photos,place_id,plus_code,types,price_level,rating", key.key, queryTerm, @"textquery"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-           }
-           else {
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.locations = [dataDictionary valueForKeyPath:@"candidates"];
-               [self.locationsTableView reloadData];
-           }
-       }];
-    [task resume];
+    [APIUtility getPlaces:self.searchTerm withCompletion: ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            self.locations = [dataDictionary valueForKeyPath:@"candidates"];
+            [self.locationsTableView reloadData];
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

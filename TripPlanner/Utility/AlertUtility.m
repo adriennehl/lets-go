@@ -11,6 +11,39 @@
 
 @implementation AlertUtility
 
+// alert with cancel and ok buttons
++ (UIAlertController *) createDoubleActionAlert: (NSString *) errorDescription title: (NSString *) title {
+    
+    
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        // handle cancel response here. Doing nothing will dismiss the view.
+    }];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+        // handle response here.
+    }];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message:errorDescription
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // add the cancel action to the alertController
+    [alert addAction:cancelAction];
+    
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    return alert;
+    
+}
+
+// alert with single cancel action
 + (UIAlertController *)createCancelActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message {
     UIAlertAction *alertAction = [UIAlertAction actionWithTitle:action
                                                           style:UIAlertActionStyleCancel
@@ -27,6 +60,7 @@
     
 }
 
+// alert that allows user to choose between camera or album photo source
 + (UIAlertController *) createSourceTypeAlert: (TripViewController *)controller {
     // create a camera choice action
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera"
