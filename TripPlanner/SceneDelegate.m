@@ -22,11 +22,11 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     
     // check for persistent user session
-       if (PFUser.currentUser) {
-           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-           
-           self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-       }
+    if (PFUser.currentUser) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    }
 }
 
 

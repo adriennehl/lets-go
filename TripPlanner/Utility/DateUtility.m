@@ -10,6 +10,7 @@
 
 @implementation DateUtility
 
+// convert date to string
 + (NSString *)dateToString: (NSDate *)date {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     

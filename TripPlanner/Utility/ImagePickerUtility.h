@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImagePickerUtility : NSObject
-+ (void)createImagePicker:(NSString *)sourceType controller: (TripViewController *)controller;
++ (void)createImagePicker:(UIImagePickerControllerSourceType)sourceType controller: (TripViewController *)controller;
 @end
 
 NS_ASSUME_NONNULL_END

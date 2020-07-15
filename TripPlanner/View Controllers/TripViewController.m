@@ -100,37 +100,24 @@
     }
 }
 
-// after user picks image, set image view to resized image
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    
-    // resize image
-    CGSize size = CGSizeMake(180, 250);
-    UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
-    
-    // set image
-    [self.tripImageView setImage:resizedImage];
-    
-    // Dismiss UIImagePickerController to go back to original view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
+// checks if user with username is in the guest list
+- (BOOL)hasGuest: (NSString *)username guests: (NSMutableArray *)guests {
+    for(NSString *guestUsername in guests) {
+        if ([username isEqualToString:guestUsername]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
-// allow user to pick an image source type on tap
-- (IBAction)onViewTap:(id)sender {
-    UIAlertController *sourceTypeAlert = [AlertUtility createSourceTypeAlert:self];
-    
-    // show the alert controller
-    [self presentViewController: sourceTypeAlert animated:YES completion:^{
-    }];
-}
-
+// save trip to Parse database
 - (IBAction)onSave:(id)sender {
     NSMutableArray *images = [[NSMutableArray alloc] init];
     [images addObject:[ImageUtility getPFFileFromImage:self.tripImageView.image]];
     [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self];
 }
 
+// clear fields on cancel
 - (IBAction)onCancel:(id)sender {
     // reset fields
     self.titleField.text = nil;
@@ -143,16 +130,6 @@
     self.endDatePicker.date = [NSDate date];
     self.descriptionTextView.text = nil;
     self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
-}
-
-// checks if guest is in the guest list
-- (BOOL)hasGuest: (NSString *)username guests: (NSMutableArray *)guests {
-    for(NSString *guestUsername in guests) {
-        if ([username isEqualToString:guestUsername]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 // verify if username is valid and add guest to the list
@@ -197,6 +174,31 @@
 // hide keyboard anytime user taps outside of fields
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
+}
+
+// allow user to pick an image source type on tap
+- (IBAction)onViewTap:(id)sender {
+    UIAlertController *sourceTypeAlert = [AlertUtility createSourceTypeAlert:self];
+    
+    // show the alert controller
+    [self presentViewController: sourceTypeAlert animated:YES completion:^{
+    }];
+}
+
+// after user picks image, set image view to resized image
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    
+    // resize image
+    CGSize size = CGSizeMake(180, 250);
+    UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
+    
+    // set image
+    [self.tripImageView setImage:resizedImage];
+    
+    // Dismiss UIImagePickerController to go back to original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

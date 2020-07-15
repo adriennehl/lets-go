@@ -10,6 +10,7 @@
 #import "ImageUtility.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import "ParseUtility.h"
 #import "Trip.h"
 
 @interface LoginViewController ()
@@ -32,45 +33,21 @@
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         
-        if (error != nil) {
+        if (error == nil) {
+            NSLog(@"User logged in successfully");
+            
+            // update user's list of trips
+            [ParseUtility updateCurrentUserTrips];
+            
+            // display view controller that needs to shown after successful login
+            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+        } else {
             UIAlertController *loginAlert = [AlertUtility createDoubleActionAlert:error.localizedDescription title:@"Error Logging In"];
             
             // show the alert controller
             [self presentViewController: loginAlert animated:YES completion:^{
                 // optional code for what happens after the alert controller has finished presenting
             }];
-        } else {
-            NSLog(@"User logged in successfully");
-            
-            // update user's list of trips
-            [self updateTrips];
-            
-            // display view controller that needs to shown after successful login
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-        }
-    }];
-}
-
-// update user's list of trips
-- (void)updateTrips {
-    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
-    [query whereKey:@"createdAt" greaterThan:PFUser.currentUser.updatedAt];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
-        if (!error) {
-            PFRelation *relation;
-            // add each trip where user is a guest to user's list of trips
-            relation = [PFUser.currentUser relationForKey:@"trips"];
-            for(Trip *trip in trips) {
-                for(NSString *guestUsername in trip[@"guests"]) {
-                    if ([PFUser.currentUser.username isEqualToString:guestUsername]) {
-                        [relation addObject:trip];
-                        break;
-                    }
-                }
-            }
-            [PFUser.currentUser saveInBackground];
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
         }
     }];
 }

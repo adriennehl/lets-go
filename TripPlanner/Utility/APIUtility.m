@@ -10,6 +10,8 @@
 #import "Key.h"
 
 @implementation APIUtility
+
+// get list of places from search query
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
     Key *key = [[Key alloc] init];
        NSString *queryTerm = [searchTerm stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -21,6 +23,7 @@
        [task resume];
 }
 
+// get photo using photo reference
 + (void)getPhoto:(NSArray *)photos photoReference:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
     Key *key = [[Key alloc] init];
     

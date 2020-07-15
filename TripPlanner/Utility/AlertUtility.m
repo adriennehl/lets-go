@@ -66,14 +66,14 @@
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
-        [ImagePickerUtility createImagePicker:@"Camera" controller:controller];
+        [ImagePickerUtility createImagePicker:UIImagePickerControllerSourceTypeCamera controller:controller];
     }];
     
     // create a photo album choice action
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"Album"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
-        [ImagePickerUtility createImagePicker:@"Album" controller:controller];
+        [ImagePickerUtility createImagePicker:UIImagePickerControllerSourceTypePhotoLibrary controller:controller];
     }];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle: @"Photo Upload"

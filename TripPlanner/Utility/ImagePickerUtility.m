@@ -12,11 +12,11 @@
 @implementation ImagePickerUtility
 
 // show an image picker that allows user to choose source type
-+ (void)createImagePicker:(NSString *)sourceType controller: (TripViewController *)controller {
++ (void)createImagePicker:(UIImagePickerControllerSourceType)sourceType controller: (TripViewController *)controller {
     
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     
-    if([sourceType isEqualToString:@"Camera"]) {
+    if(sourceType == UIImagePickerControllerSourceTypeCamera) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         }
