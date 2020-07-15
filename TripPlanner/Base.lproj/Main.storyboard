@@ -268,7 +268,7 @@
         <!--Search Places-->
         <scene sceneID="nvV-jk-bhM">
             <objects>
-                <viewController id="JCq-Ov-ixP" sceneMemberID="viewController">
+                <viewController id="JCq-Ov-ixP" customClass="SearchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PN0-8b-B1I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
