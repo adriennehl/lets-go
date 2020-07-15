@@ -228,9 +228,9 @@
 				C8B534EC24BD080A006C3A67 /* Trip.h */,
 				C8B534ED24BD080A006C3A67 /* Trip.m */,
 				C88995F024BEB71E0061EC0A /* Key.h */,
+				C8D7172724BF8198005227D9 /* Key.m */,
 				C8D7171C24BF5FF2005227D9 /* Location.h */,
 				C8D7171D24BF5FF2005227D9 /* Location.m */,
-				C8D7172724BF8198005227D9 /* Key.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
