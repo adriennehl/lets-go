@@ -10,7 +10,6 @@
 		58D064918149501CA72D5AA8 /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */; };
 		82170202CF7DEC4B6FED7820 /* Pods_TripPlannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */; };
 		C187D05650BEA5293BE8A066 /* Pods_TripPlanner_TripPlannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8A0B9BF50FF65D3AE0CD16 /* Pods_TripPlanner_TripPlannerUITests.framework */; };
-		C88995F224BEB71E0061EC0A /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F124BEB71E0061EC0A /* Key.m */; };
 		C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F424BEB94D0061EC0A /* SearchViewController.m */; };
 		C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AB24BCCC44006C3A67 /* AppDelegate.m */; };
 		C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AE24BCCC44006C3A67 /* SceneDelegate.m */; };
@@ -28,6 +27,7 @@
 		C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F924BE2664006C3A67 /* TripCell.m */; };
 		C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171A24BF5E6B005227D9 /* LocationCell.m */; };
 		C8D7171E24BF5FF2005227D9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171D24BF5FF2005227D9 /* Location.m */; };
+		C8D7172824BF8198005227D9 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7172724BF8198005227D9 /* Key.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,6 @@
 		AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88995F024BEB71E0061EC0A /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
-		C88995F124BEB71E0061EC0A /* Key.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
 		C88995F324BEB94D0061EC0A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C88995F424BEB94D0061EC0A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		C8B534A724BCCC44006C3A67 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +90,7 @@
 		C8D7171A24BF5E6B005227D9 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		C8D7171C24BF5FF2005227D9 /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		C8D7171D24BF5FF2005227D9 /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		C8D7172724BF8198005227D9 /* Key.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Key.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -228,9 +228,9 @@
 				C8B534EC24BD080A006C3A67 /* Trip.h */,
 				C8B534ED24BD080A006C3A67 /* Trip.m */,
 				C88995F024BEB71E0061EC0A /* Key.h */,
-				C88995F124BEB71E0061EC0A /* Key.m */,
 				C8D7171C24BF5FF2005227D9 /* Location.h */,
 				C8D7171D24BF5FF2005227D9 /* Location.m */,
+				C8D7172724BF8198005227D9 /* Key.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -520,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D7172824BF8198005227D9 /* Key.m in Sources */,
 				C8B534E224BCFD82006C3A67 /* LoginViewController.m in Sources */,
 				C8D7171E24BF5FF2005227D9 /* Location.m in Sources */,
 				C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */,
@@ -532,7 +533,6 @@
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */,
 				C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */,
-				C88995F224BEB71E0061EC0A /* Key.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
