@@ -7,6 +7,7 @@
 //
 
 #import "TripViewController.h"
+#import "AlertUtility.h"
 #import "Trip.h"
 @import Parse;
 
@@ -97,20 +98,6 @@
     }
 }
 
-// get guests array from a string
-- (NSMutableArray *)getGuestsArray:(NSString *)guestsString {
-    // separate guests in guestsString
-    NSArray *guestItems = [guestsString componentsSeparatedByString:@","];
-    // strip spaces and add to a new mutable array
-    NSMutableArray *guests = [[NSMutableArray alloc] init];
-    for (NSString* guestItem in guestItems) {
-        NSString *trimmed = [guestItem stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        [guests addObject:trimmed];
-    }
-    
-    return guests;
-}
-
 // resize image
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
@@ -142,33 +129,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-// show an image picker that allows user to choose source type
-- (void)createImagePicker:(NSString *)sourceType{
-    
-    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
-    
-    if([sourceType isEqualToString:@"Camera"]) {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        else {
-            NSLog(@"Camera 🚫 available so we will use photo library instead");
-            imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-    }
-    else {
-        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    
-    imagePickerVC.delegate = self;
-    imagePickerVC.allowsEditing = YES;
-    
-    [self presentViewController:imagePickerVC animated:YES completion:nil];
-}
-
 // allow user to pick an image source type on tap
 - (IBAction)onViewTap:(id)sender {
-    UIAlertController *sourceTypeAlert = [self createSourceTypeAlert];
+    UIAlertController *sourceTypeAlert = [AlertUtility createSourceTypeAlert:self];
     
     // show the alert controller
     [self presentViewController: sourceTypeAlert animated:YES completion:^{
@@ -195,35 +158,7 @@
     self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
 }
 
-- (UIAlertController *) createSourceTypeAlert {
-    // create a camera choice action
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        [self createImagePicker:@"Camera"];
-    }];
-    
-    // create a photo album choice action
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"Album"
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * _Nonnull action) {
-        [self createImagePicker:@"Album"];
-    }];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle: @"Photo Upload"
-                                                                   message: @"Choose upload source"
-                                                            preferredStyle:(UIAlertControllerStyleAlert)];
-    
-    // add the camera action to the alertController
-    [alert addAction:cameraAction];
-    
-    // add the album action to the alert controller
-    [alert addAction:albumAction];
-    
-    return alert;
-    
-}
-
+// returns PFFFileObject from UIImage
 - (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
     
     // check if image is not nil
@@ -240,6 +175,7 @@
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
+// checks if guest is in the guest list
 - (BOOL)hasGuest: (NSString *)username guests: (NSMutableArray *)guests {
     for(NSString *guestUsername in guests) {
         if ([username isEqualToString:guestUsername]) {
@@ -249,6 +185,7 @@
     return NO;
 }
 
+// verify if username is valid and add guest to the list
 - (IBAction)onAdd:(id)sender {
     // check if user is in database
     NSString *username = self.guestsField.text;
@@ -258,25 +195,25 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
         // user does not exist
         if(users.count == 0) {
-            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"Username does not exist"];
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Username does not exist"];
             [self presentViewController: alert animated:YES completion:^{
             }];
         }
         // user is already added
         else if([self hasGuest:username guests:self.guestUsernames]) {
-            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"User already added"];
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"User already added"];
             [self presentViewController: alert animated:YES completion:^{
             }];
         }
         // user is current user
         else if([username isEqualToString:PFUser.currentUser.username]) {
-            UIAlertController *alert = [self createUserAlert:@"Error Adding Guest" action:@"Cancel" message:@"Can't add yourself"];
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Can't add yourself"];
             [self presentViewController: alert animated:YES completion:^{
             }];
         }
         // user can be added to list
         else {
-            UIAlertController *alert = [self createUserAlert:@"Successful" action:@"Ok" message:@"Guest was successfully added"];
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Successful" action:@"Ok" message:@"Guest was successfully added"];
             [self presentViewController: alert animated:YES completion:^{
             }];
             self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, username];
@@ -287,22 +224,7 @@
     }];
 }
 
-- (UIAlertController *)createUserAlert: (NSString *)title action:(NSString *)action message:(NSString *)message{
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:action
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
-                                                                   message: message
-                                                            preferredStyle:(UIAlertControllerStyleAlert)];
-    
-    // add the camera action to the alertController
-    [alert addAction:alertAction];
-    return alert;
-    
-}
-
+// hide keyboard anytime user taps outside of fields
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
 }
