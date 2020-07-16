@@ -156,8 +156,15 @@
 
 // save trip to Parse database
 - (IBAction)onSave:(id)sender {
-    NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
-    [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
+    // check to make sure end date is after start date
+    if([self.endDatePicker.date compare:self.startDatePicker.date] != NSOrderedAscending) {
+        NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
+        [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
+    }
+    else {
+        UIAlertController *invalidDateAlert = [AlertUtility createCancelActionAlert:@"Invalid Date" action:@"Cancel" message:@"End date must be after start date"];
+        [self presentViewController:invalidDateAlert animated:YES completion:nil];
+    }
 }
 
 // clear fields on cancel
