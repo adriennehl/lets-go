@@ -16,14 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *tripID;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSMutableArray *guests;
-@property (nonatomic, strong) NSMutableArray *images;
+@property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 
-+ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller;
++ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller;
 
 @end
 

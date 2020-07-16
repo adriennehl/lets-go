@@ -7,12 +7,13 @@
 //
 
 #import "TripViewController.h"
+#import "photoAlbumCell.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
 #import "Trip.h"
 @import Parse;
 
-@interface TripViewController ()
+@interface TripViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UILabel *hostField;
 @property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
 
@@ -39,12 +41,12 @@
     self.guests = [[NSMutableArray alloc] init];
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.descriptionTextView.layer.borderWidth = 2;
+    self.albumCollectionView.delegate = self;
+    self.albumCollectionView.dataSource = self;
     
     // if self.trip is set, show trip detail
     if(self.trip) {
         [self setElements];
-        // prevent editing
-        self.view.userInteractionEnabled = NO;
     }
     else {
         self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
@@ -54,6 +56,23 @@
     if(self.place) {
         [self setLocation];
     }
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 5;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 5;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat minimumInteritemSpacing = 5;
+    
+    CGFloat postersPerLine = 3;
+    CGFloat itemWidth = (self.albumCollectionView.frame.size.width - minimumInteritemSpacing * (postersPerLine - 1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    return CGSizeMake(itemWidth, itemHeight);
 }
 
 // switches to previous controller
@@ -80,7 +99,7 @@
     // add upload photo button
     UIBarButtonItem *uploadButton = [[UIBarButtonItem alloc] initWithTitle:@"Upload Photo" style:UIBarButtonItemStylePlain target:self action:@selector(onViewTap:)];
     self.navigationItem.rightBarButtonItem = uploadButton;
-
+    
     // remove other buttons
     self.addButton.alpha = 0;
     self.guestsField.alpha = 0;
@@ -101,6 +120,25 @@
         self.tripImageView.file = self.trip[@"images"][0];
         [self.tripImageView loadInBackground];
     }
+    
+    // prevent editing
+    self.titleField.userInteractionEnabled = NO;
+    self.hostField.userInteractionEnabled = NO;
+    self.locationField.userInteractionEnabled = NO;
+    self.descriptionTextView.userInteractionEnabled = NO;
+    self.startDatePicker.userInteractionEnabled = NO;
+    self.endDatePicker.userInteractionEnabled = NO;
+    self.tripImageView.userInteractionEnabled = NO;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.trip.images.count - 1;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    photoAlbumCell *cell = [self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoAlbumCell" forIndexPath:indexPath];
+    cell = [cell setCell:self.trip.images[indexPath.row + 1]];
+    return cell;
 }
 
 // checks if user with username is in the guest list
@@ -115,8 +153,7 @@
 
 // save trip to Parse database
 - (IBAction)onSave:(id)sender {
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    [images addObject:[ImageUtility getPFFileFromImage:self.tripImageView.image]];
+    NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
     [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self];
 }
 
@@ -199,8 +236,16 @@
     
     // if in detail view, upload photo to photo album
     if(self.trip) {
-        [self.trip.images addObject:[ImageUtility getPFFileFromImage:resizedImage]];
-        [self.trip saveInBackground];
+        NSArray *images = [self.trip.images arrayByAddingObject:[ImageUtility getPFFileFromImage:resizedImage]];
+        self.trip.images = images;
+        [self.trip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(succeeded) {
+                [self.albumCollectionView reloadData];
+            }
+            else {
+                NSLog(@"Error: %@", error.localizedDescription);
+            }
+        }];
     }
     // otherwise, in creation view, upload photo to image view
     else {

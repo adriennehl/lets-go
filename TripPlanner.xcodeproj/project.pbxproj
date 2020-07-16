@@ -34,6 +34,7 @@
 		C8D7173524BFB276005227D9 /* DateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173424BFB276005227D9 /* DateUtility.m */; };
 		C8D7173824BFB323005227D9 /* APIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173724BFB323005227D9 /* APIUtility.m */; };
 		C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173A24BFBD31005227D9 /* ParseUtility.m */; };
+		C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		C8D7173724BFB323005227D9 /* APIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIUtility.m; sourceTree = "<group>"; };
 		C8D7173924BFBD31005227D9 /* ParseUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseUtility.h; sourceTree = "<group>"; };
 		C8D7173A24BFBD31005227D9 /* ParseUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseUtility.m; sourceTree = "<group>"; };
+		C8F0317A24C0A9B6009B5430 /* photoAlbumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = photoAlbumCell.h; sourceTree = "<group>"; };
+		C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = photoAlbumCell.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,6 +264,8 @@
 				C8B534F924BE2664006C3A67 /* TripCell.m */,
 				C8D7171924BF5E6B005227D9 /* LocationCell.h */,
 				C8D7171A24BF5E6B005227D9 /* LocationCell.m */,
+				C8F0317A24C0A9B6009B5430 /* photoAlbumCell.h */,
+				C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 			files = (
 				C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */,
 				C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */,
+				C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */,
 				C8D7172824BF8198005227D9 /* Key.m in Sources */,
 				C8B534E224BCFD82006C3A67 /* LoginViewController.m in Sources */,
 				C8D7171E24BF5FF2005227D9 /* Location.m in Sources */,
