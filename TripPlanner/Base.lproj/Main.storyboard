@@ -283,11 +283,20 @@
                                     <constraint firstAttribute="height" constant="85" id="oQw-fF-BMj"/>
                                 </constraints>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfR-bc-65f">
+                                <rect key="frame" x="241" y="579" width="162" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Suggest Meeting Times"/>
+                                <connections>
+                                    <segue destination="xao-pe-10h" kind="show" identifier="suggestSegue" id="HNG-Xs-UAo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="179-bt-RHQ" secondAttribute="trailing" constant="8" id="3Xp-6u-bnj"/>
+                            <constraint firstItem="dfR-bc-65f" firstAttribute="top" secondItem="hWo-MT-pxx" secondAttribute="bottom" constant="8" id="48L-mD-e3T"/>
                             <constraint firstItem="beZ-El-wAZ" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="5Kx-mS-P5z"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jlv-fL-pps" secondAttribute="trailing" constant="8" id="5vb-gW-52Z"/>
                             <constraint firstItem="179-bt-RHQ" firstAttribute="top" secondItem="BfH-Yg-Z47" secondAttribute="bottom" constant="8" id="81J-sW-Uu1"/>
@@ -303,6 +312,7 @@
                             <constraint firstItem="hWo-MT-pxx" firstAttribute="leading" secondItem="fN9-Ee-Dz4" secondAttribute="trailing" constant="8" id="SMN-dH-w2M"/>
                             <constraint firstItem="flH-91-zvV" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="TjY-Nu-6wx"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="flH-91-zvV" secondAttribute="trailing" constant="8" id="UaV-lR-abc"/>
+                            <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="dfR-bc-65f" secondAttribute="trailing" constant="11" id="Ud4-GZ-K01"/>
                             <constraint firstItem="u26-2b-EPh" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" id="X5A-5N-0Aq"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="beZ-El-wAZ" secondAttribute="trailing" constant="11" id="ZbU-se-SH6"/>
                             <constraint firstItem="B4m-FF-0FB" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="auW-CK-vpL"/>
@@ -357,6 +367,7 @@
                         <outlet property="locationField" destination="beZ-El-wAZ" id="QFn-WI-iC6"/>
                         <outlet property="saveButton" destination="Kvb-1r-U3l" id="Qfn-cP-Xa4"/>
                         <outlet property="startDatePicker" destination="179-bt-RHQ" id="Y5c-Ah-vpo"/>
+                        <outlet property="suggestTimesButton" destination="dfR-bc-65f" id="PJ9-MN-0ON"/>
                         <outlet property="titleField" destination="B4m-FF-0FB" id="xrS-gH-Iqd"/>
                         <outlet property="tripImageView" destination="jJs-Z8-PaO" id="i5I-6x-g9t"/>
                     </connections>
@@ -374,6 +385,22 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="60.869565217391312" y="588.61607142857144"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Kvd-D8-ecf">
+            <objects>
+                <viewController id="xao-pe-10h" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C9F-eP-NOQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="YXW-xF-3R1"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mht-dw-0PK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f1s-1c-XoJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61" y="1407"/>
         </scene>
         <!--Search Places-->
         <scene sceneID="nvV-jk-bhM">
@@ -682,7 +709,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FpV-4b-lAa"/>
+        <segue reference="yhI-L7-Vge"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

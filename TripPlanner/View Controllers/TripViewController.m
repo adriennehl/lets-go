@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
@@ -104,6 +105,7 @@
     // remove other buttons
     self.addButton.alpha = 0;
     self.guestsField.alpha = 0;
+    self.suggestTimesButton.alpha = 0;
     
     // set trip details
     self.titleField.text = self.trip[@"title"];
