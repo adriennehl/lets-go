@@ -76,9 +76,12 @@
     // add back button
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToFeed)];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    // add upload photo button
+    UIBarButtonItem *uploadButton = [[UIBarButtonItem alloc] initWithTitle:@"Upload Photo" style:UIBarButtonItemStylePlain target:self action:@selector(onViewTap:)];
+    self.navigationItem.rightBarButtonItem = uploadButton;
 
     // remove other buttons
-    self.navigationItem.rightBarButtonItem = nil;
     self.addButton.alpha = 0;
     self.guestsField.alpha = 0;
     
@@ -194,8 +197,16 @@
     CGSize size = CGSizeMake(180, 250);
     UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
     
-    // set image
-    [self.tripImageView setImage:resizedImage];
+    // if in detail view, upload photo to photo album
+    if(self.trip) {
+        [self.trip.images addObject:[ImageUtility getPFFileFromImage:resizedImage]];
+        [self.trip saveInBackground];
+    }
+    // otherwise, in creation view, upload photo to image view
+    else {
+        // set image
+        [self.tripImageView setImage:resizedImage];
+    }
     
     // Dismiss UIImagePickerController to go back to original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
