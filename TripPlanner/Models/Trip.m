@@ -20,12 +20,13 @@
 @dynamic location;
 @dynamic startDate;
 @dynamic endDate;
+@dynamic aspectRatio;
 
 + (nonnull NSString *)parseClassName {
     return @"Trip";
 }
 
-+ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller {
++ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller withAspectRatio:(CGFloat)aspectRatio {
     Trip *newTrip = [Trip new];
     newTrip.author = PFUser.currentUser.username;
     newTrip.guests = guestUsernames;
@@ -35,6 +36,7 @@
     newTrip.location = location;
     newTrip.startDate = startDate;
     newTrip.endDate = endDate;
+    newTrip.aspectRatio = aspectRatio;
     
     [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
@@ -47,7 +49,7 @@
             [controller presentViewController: alert animated:YES completion:^{
             }];
             [controller onCancel:self];
-
+            
             PFRelation *relation;
             // add trip to author's list of trips
             relation = [PFUser.currentUser relationForKey:@"trips"];

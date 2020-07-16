@@ -58,9 +58,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TripCell *cell = [self.tripsTableView dequeueReusableCellWithIdentifier:@"TripCell" forIndexPath:indexPath];
+    TripCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TripCell" forIndexPath:indexPath];
     cell = [cell setCell:self.trips[indexPath.row]];
     return cell;
+}
+
+//// set height based on the photo aspect ratio
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Trip *trip = self.trips[indexPath.row];
+    if (trip.aspectRatio != 0 ){
+        return 150 * trip.aspectRatio + 90;
+    }
+    return 150 * 1.5 + 70;
 }
 
 #pragma mark - Navigation

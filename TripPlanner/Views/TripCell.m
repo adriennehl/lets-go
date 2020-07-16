@@ -37,7 +37,8 @@
     self.descriptionLabel.text = self.trip[@"description"];
     NSArray *images = self.trip[@"images"];
     if(images.count > 0) {
-        self.tripView.file = self.trip[@"images"][0];
+        PFFileObject *tripImage = self.trip[@"images"][0];
+        self.tripView.file = tripImage;
         [self.tripView loadInBackground];
     }
     return self;

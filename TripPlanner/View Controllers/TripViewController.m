@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
+@property (nonatomic) CGFloat aspectRatio;
 
 
 @end
@@ -154,7 +155,7 @@
 // save trip to Parse database
 - (IBAction)onSave:(id)sender {
     NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
-    [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self];
+    [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
 }
 
 // clear fields on cancel
@@ -250,6 +251,7 @@
     // otherwise, in creation view, upload photo to image view
     else {
         // set image
+        self.aspectRatio = originalImage.size.height/originalImage.size.width;
         [self.tripImageView setImage:resizedImage];
     }
     
