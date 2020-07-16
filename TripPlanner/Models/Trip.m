@@ -25,7 +25,7 @@
     return @"Trip";
 }
 
-+ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSMutableArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller {
++ (void) postUserTrip:(NSMutableArray *)guestUsernames withImages: (NSArray *)images withDescription: (NSString * _Nullable)description withTitle: (NSString *)title withLocation: (NSString *)location withStartDate: (NSDate *)startDate withEndDate: (NSDate *)endDate withGuests: (NSMutableArray *) guests withController:(TripViewController *) controller {
     Trip *newTrip = [Trip new];
     newTrip.author = PFUser.currentUser.username;
     newTrip.guests = guestUsernames;
