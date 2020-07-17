@@ -7,6 +7,7 @@
 //
 
 #import "SuggestViewController.h"
+#import "TripViewController.h"
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 #import "EventsUtility.h"
@@ -106,10 +107,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TimeSlotCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimeSlotCell" forIndexPath:indexPath];
     cell = [cell setCell:self.freeTimes[indexPath.row]];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onCellTap:)];
+    [cell addGestureRecognizer:tapRecognizer];
     return cell;
 }
 
-/*
+- (void)onCellTap:(UITapGestureRecognizer *)sender {
+    TimeSlotCell *tappedCell = (TimeSlotCell *) sender.view;
+    NSIndexPath *indexPath = [self.timesTableView indexPathForCell:tappedCell];
+    NSDictionary *timeslot = self.freeTimes[indexPath.row];
+    [self.navigationController popViewControllerAnimated:YES];
+    TripViewController *destinationViewController = (TripViewController *) self.navigationController.topViewController;
+    destinationViewController.startDatePicker.date = timeslot[@"startDate"];
+    destinationViewController.endDatePicker.date = timeslot[@"endDate"];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -117,6 +129,5 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 @end

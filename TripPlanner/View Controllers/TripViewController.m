@@ -19,8 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *hostField;
 @property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
-@property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *guestsField;
 @property (weak, nonatomic) IBOutlet UILabel *guestList;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
