@@ -85,9 +85,12 @@
         else {
             endBound = self.endRangePicker.date;
         }
-        if([endBound timeIntervalSinceDate:startBound] >= self.durationPicker.countDownDuration) {
-            NSDictionary *timeslot = [[NSDictionary alloc] initWithObjectsAndKeys:startBound, @"startDate", endBound, @"endDate", nil];
+        // break blocks into time slots equal to specified duration
+        while([endBound timeIntervalSinceDate:startBound] >= self.durationPicker.countDownDuration) {
+            NSDate *timeslotEnd = [startBound dateByAddingTimeInterval:self.durationPicker.countDownDuration];
+            NSDictionary *timeslot = [[NSDictionary alloc] initWithObjectsAndKeys:startBound, @"startDate", timeslotEnd, @"endDate", nil];
             [self.freeTimes addObject:timeslot];
+            startBound = timeslotEnd;
         }
     }
     completion(YES);
