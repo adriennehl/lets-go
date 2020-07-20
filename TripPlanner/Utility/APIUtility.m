@@ -8,8 +8,15 @@
 
 #import "APIUtility.h"
 #import "Key.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation APIUtility
+
+// initialize Google maps SDK
++ (void)initializeMapsSDK {
+    Key *key = [[Key alloc] init];
+    [GMSServices provideAPIKey:key.key];
+}
 
 // get list of places from search query
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{

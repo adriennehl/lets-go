@@ -8,12 +8,14 @@
 
 #import "SearchViewController.h"
 #import "TripViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 #import "LocationCell.h"
 #import "APIUtility.h"
 #import "Location.h"
 #import "Key.h"
 
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIView *mapViewParent;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
 @property (nonatomic, strong) NSString *searchTerm;
@@ -30,6 +32,20 @@
     self.locationsTableView.delegate = self;
     self.locationsTableView.dataSource = self;
     
+    // add Map
+    [self loadMapView];
+}
+
+- (void)loadMapView {
+    // add map
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 29.7174
+                                                            longitude:-95.4018
+                                                                 zoom:16.0];
+    CGRect parentFrame = self.mapViewParent.frame;
+    CGRect frame = CGRectMake(0, 0, parentFrame.size.width, parentFrame.size.height);
+    GMSMapView *mapView = [GMSMapView mapWithFrame:frame camera:camera];
+    mapView.myLocationEnabled = YES;
+    [self.mapViewParent addSubview:mapView];
 }
 
 - (void)getRequest {
