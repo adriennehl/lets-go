@@ -17,6 +17,7 @@
     self.rating = [NSString stringWithFormat:@"%@", self.place[@"rating"]];
     self.address = self.place[@"formatted_address"];
     self.photosArray = self.place[@"photos"];
+    self.placeId = self.place[@"place_id"];
     return self;
 }
 

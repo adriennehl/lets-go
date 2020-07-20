@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface APIUtility : NSObject
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion;
++ (void)getPlaceDetails:(NSString *)placeId withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion;
 + (void)getPhoto:(NSArray *)photos photoReference:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion;
 @end
 

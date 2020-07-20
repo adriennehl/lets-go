@@ -276,6 +276,9 @@
      if ([segue.identifier isEqualToString:@"suggestSegue"]) {
          SuggestViewController *destinationViewController = [segue destinationViewController];
          destinationViewController.guests = self.guests;
+         if(self.place) {
+             destinationViewController.place = self.place;
+         }
      }
  }
 

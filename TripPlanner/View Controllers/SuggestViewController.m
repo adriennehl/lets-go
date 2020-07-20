@@ -11,10 +11,13 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 #import "EventsUtility.h"
+#import "APIUtility.h"
 #import "AppDelegate.h"
 #import "TimeSlotCell.h"
 
 @interface SuggestViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UILabel *openHoursLabel;
+@property (weak, nonatomic) IBOutlet UITextView *openHoursText;
 @property (weak, nonatomic) IBOutlet UIDatePicker *durationPicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startRangePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *endRangePicker;
@@ -46,7 +49,29 @@
             eventManager.eventsAccessGranted = NO;
         }
     }];
-    self.freeTimes = [[NSMutableArray alloc] init];
+    
+    // if location is chosen, display open hours
+    if(self.place)
+        [self displayOpenHours];
+}
+
+- (void)displayOpenHours {
+    self.openHoursLabel.text = [NSString stringWithFormat:@"%@ Opening Hours: ", self.place.name];
+    [APIUtility getPlaceDetails:self.place.placeId withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
+            NSArray *openHours = details[@"opening_hours"][@"weekday_text"];
+            if(openHours) {
+                for(NSString *day in openHours) {
+                    self.openHoursText.text = [self.openHoursText.text stringByAppendingFormat:@"%@\n", day];
+                }
+            }
+        }
+    }];
 }
 
 // get all events between start range and end range
@@ -54,18 +79,16 @@
     // Create the predicate from the event store's instance method
     NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:self.startRangePicker.date
                                                                       endDate:self.endRangePicker.date
-                                                          calendars:nil];
-     
+                                                                    calendars:nil];
+    
     // Fetch all events that match the predicate
     NSArray *events = [self.eventStore eventsMatchingPredicate:predicate];
-    for(EKEvent *event in events) {
-        NSLog(@"%@", event);
-    }
     return events;
 }
 
 // given a list of events, find free times in range between events.
 - (void)findFreeTimes:(NSArray *)events withCompletion:(void(^)(BOOL finished))completion {
+    self.freeTimes = [[NSMutableArray alloc] init];
     NSDate *startBound;
     NSDate *endBound;
     EKEvent *startEvent;
@@ -97,9 +120,10 @@
 }
 
 - (IBAction)showTimes:(id)sender {
+    // find free times around events
     NSArray *events = [self retrieveEvents];
-   [self findFreeTimes:events withCompletion:^(BOOL finished) {
-       [self.timesTableView reloadData];
+    [self findFreeTimes:events withCompletion:^(BOOL finished) {
+        [self.timesTableView reloadData];
     }];
 }
 
