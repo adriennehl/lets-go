@@ -90,32 +90,40 @@
 // given a list of events, find free times in range between events.
 - (void)findFreeTimes:(NSArray *)events withCompletion:(void(^)(BOOL finished))completion {
     self.freeTimes = [[NSMutableArray alloc] init];
-    NSDate *startBound;
-    NSDate *endBound;
     EKEvent *startEvent;
     EKEvent *endEvent;
+    NSDate *startBound;
+    NSDate *endBound;
+    // iterate through events to find gaps between start and end dates
     for(int i = 0; i <= events.count; i++) {
-        if(i != 0) {
-            startEvent = events[i-1];
-            startBound = startEvent.endDate;
-        }
-        else {
+        // set start bound
+        if(i == 0) {
             startBound = self.startRangePicker.date;
         }
-        if(i != events.count) {
+        else {
+            startEvent = events[i-1];
+            if([startBound compare:startEvent.endDate] == NSOrderedAscending) {
+                startBound = startEvent.endDate;
+            }
+        }
+        // set end bound
+        if(i == events.count) {
+            endBound = self.endRangePicker.date;
+        }
+        else {
             endEvent = events[i];
             endBound = endEvent.startDate;
         }
-        else {
-            endBound = self.endRangePicker.date;
-        }
+        
         // break blocks into time slots equal to specified duration
         while([endBound timeIntervalSinceDate:startBound] >= self.durationPicker.countDownDuration) {
             NSDate *timeslotEnd = [startBound dateByAddingTimeInterval:self.durationPicker.countDownDuration];
             NSDictionary *timeslot = [[NSDictionary alloc] initWithObjectsAndKeys:startBound, @"startDate", timeslotEnd, @"endDate", nil];
             [self.freeTimes addObject:timeslot];
             startBound = timeslotEnd;
+            NSLog(@"time interval %@ %f",endBound, [endBound timeIntervalSinceDate:startBound]);
         }
+        NSLog(@"%f", self.durationPicker.countDownDuration);
     }
     completion(YES);
 }
