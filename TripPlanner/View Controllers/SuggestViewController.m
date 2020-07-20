@@ -12,6 +12,7 @@
 #import <EventKitUI/EventKitUI.h>
 #import "EventsUtility.h"
 #import "APIUtility.h"
+#import "AlertUtility.h"
 #import "AppDelegate.h"
 #import "TimeSlotCell.h"
 
@@ -124,6 +125,11 @@
     NSArray *events = [self retrieveEvents];
     [self findFreeTimes:events withCompletion:^(BOOL finished) {
         [self.timesTableView reloadData];
+        // show alert if no free times are found
+        if(self.freeTimes.count == 0) {
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"No Times Available" action:@"Cancel" message:@"No available time was found for specified range and duration"];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }];
 }
 
