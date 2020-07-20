@@ -39,7 +39,10 @@
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            self.locations = [dataDictionary valueForKeyPath:@"candidates"];
+            NSArray *unfiltered = [dataDictionary valueForKeyPath:@"results"];
+            // filter locations that are not operational
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"business_status == [c] %@", @"OPERATIONAL"];
+            self.locations = [unfiltered filteredArrayUsingPredicate:pred];
             [self.locationsTableView reloadData];
         }
     }];
