@@ -7,6 +7,7 @@
 //
 
 #import "TripViewController.h"
+#import "SuggestViewController.h"
 #import "photoAlbumCell.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
@@ -18,14 +19,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *hostField;
 @property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
-@property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *guestsField;
 @property (weak, nonatomic) IBOutlet UILabel *guestList;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
@@ -104,6 +104,7 @@
     // remove other buttons
     self.addButton.alpha = 0;
     self.guestsField.alpha = 0;
+    self.suggestTimesButton.alpha = 0;
     
     // set trip details
     self.titleField.text = self.trip[@"title"];
@@ -154,8 +155,15 @@
 
 // save trip to Parse database
 - (IBAction)onSave:(id)sender {
-    NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
-    [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
+    // check to make sure end date is after start date
+    if([self.endDatePicker.date compare:self.startDatePicker.date] != NSOrderedAscending) {
+        NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
+        [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
+    }
+    else {
+        UIAlertController *invalidDateAlert = [AlertUtility createCancelActionAlert:@"Invalid Date" action:@"Cancel" message:@"End date must be after start date"];
+        [self presentViewController:invalidDateAlert animated:YES completion:nil];
+    }
 }
 
 // clear fields on cancel
@@ -259,14 +267,19 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"suggestSegue"]) {
+         SuggestViewController *destinationViewController = [segue destinationViewController];
+         destinationViewController.guests = self.guests;
+         if(self.place) {
+             destinationViewController.place = self.place;
+         }
+     }
  }
- */
 
 @end

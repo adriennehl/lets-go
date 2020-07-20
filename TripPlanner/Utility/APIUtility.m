@@ -15,7 +15,18 @@
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
     Key *key = [[Key alloc] init];
        NSString *queryTerm = [searchTerm stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]];
-       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=%@&input=%@&inputtype=%@&fields=business_status,formatted_address,geometry,icon,name,photos,place_id,plus_code,types,price_level,rating", key.key, queryTerm, @"textquery"];
+       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?key=%@&query=%@", key.key, queryTerm];
+       NSURL *url = [NSURL URLWithString:urlString];
+       NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+       NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+       NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completion];
+       [task resume];
+}
+
+// get place details: opening hours, atmostphere, etc
++ (void)getPlaceDetails:(NSString *)placeId withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
+    Key *key = [[Key alloc] init];
+       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?key=%@&place_id=%@&fields=opening_hours", key.key, placeId];
        NSURL *url = [NSURL URLWithString:urlString];
        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];

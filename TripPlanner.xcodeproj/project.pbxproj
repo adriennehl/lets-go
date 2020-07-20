@@ -10,6 +10,7 @@
 		58D064918149501CA72D5AA8 /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */; };
 		82170202CF7DEC4B6FED7820 /* Pods_TripPlannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */; };
 		C187D05650BEA5293BE8A066 /* Pods_TripPlanner_TripPlannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8A0B9BF50FF65D3AE0CD16 /* Pods_TripPlanner_TripPlannerUITests.framework */; };
+		C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C85323FD24C1FA700059C90E /* TimeSlotCell.m */; };
 		C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F424BEB94D0061EC0A /* SearchViewController.m */; };
 		C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AB24BCCC44006C3A67 /* AppDelegate.m */; };
 		C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AE24BCCC44006C3A67 /* SceneDelegate.m */; };
@@ -35,6 +36,8 @@
 		C8D7173824BFB323005227D9 /* APIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173724BFB323005227D9 /* APIUtility.m */; };
 		C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173A24BFBD31005227D9 /* ParseUtility.m */; };
 		C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */; };
+		C8F0318224C0F943009B5430 /* SuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0318124C0F942009B5430 /* SuggestViewController.m */; };
+		C8F0318524C0FD53009B5430 /* EventsUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0318424C0FD53009B5430 /* EventsUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,8 @@
 		9317418C6D8BE1EBC63FDFD7 /* Pods-TripPlannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.release.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C85323FC24C1FA700059C90E /* TimeSlotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeSlotCell.h; sourceTree = "<group>"; };
+		C85323FD24C1FA700059C90E /* TimeSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeSlotCell.m; sourceTree = "<group>"; };
 		C88995F024BEB71E0061EC0A /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		C88995F324BEB94D0061EC0A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C88995F424BEB94D0061EC0A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
@@ -112,6 +117,10 @@
 		C8D7173A24BFBD31005227D9 /* ParseUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseUtility.m; sourceTree = "<group>"; };
 		C8F0317A24C0A9B6009B5430 /* photoAlbumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = photoAlbumCell.h; sourceTree = "<group>"; };
 		C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = photoAlbumCell.m; sourceTree = "<group>"; };
+		C8F0318024C0F942009B5430 /* SuggestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestViewController.h; sourceTree = "<group>"; };
+		C8F0318124C0F942009B5430 /* SuggestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestViewController.m; sourceTree = "<group>"; };
+		C8F0318324C0FD53009B5430 /* EventsUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsUtility.h; sourceTree = "<group>"; };
+		C8F0318424C0FD53009B5430 /* EventsUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsUtility.m; sourceTree = "<group>"; };
 		F33ADB652DF5C7CC40A534AB /* Pods-TripPlanner-TripPlannerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner-TripPlannerUITests/Pods-TripPlanner-TripPlannerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E302490C97F63BA113982 /* Pods-TripPlannerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.debug.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,6 +249,8 @@
 				C8B534F624BD104E006C3A67 /* TripViewController.m */,
 				C88995F324BEB94D0061EC0A /* SearchViewController.h */,
 				C88995F424BEB94D0061EC0A /* SearchViewController.m */,
+				C8F0318024C0F942009B5430 /* SuggestViewController.h */,
+				C8F0318124C0F942009B5430 /* SuggestViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -266,6 +277,8 @@
 				C8D7171A24BF5E6B005227D9 /* LocationCell.m */,
 				C8F0317A24C0A9B6009B5430 /* photoAlbumCell.h */,
 				C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */,
+				C85323FC24C1FA700059C90E /* TimeSlotCell.h */,
+				C85323FD24C1FA700059C90E /* TimeSlotCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +298,8 @@
 				C8D7173724BFB323005227D9 /* APIUtility.m */,
 				C8D7173924BFBD31005227D9 /* ParseUtility.h */,
 				C8D7173A24BFBD31005227D9 /* ParseUtility.m */,
+				C8F0318324C0FD53009B5430 /* EventsUtility.h */,
+				C8F0318424C0FD53009B5430 /* EventsUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -563,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8F0318224C0F943009B5430 /* SuggestViewController.m in Sources */,
 				C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */,
 				C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */,
 				C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */,
@@ -571,6 +587,7 @@
 				C8D7171E24BF5FF2005227D9 /* Location.m in Sources */,
 				C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */,
 				C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */,
+				C8F0318524C0FD53009B5430 /* EventsUtility.m in Sources */,
 				C8B534EE24BD080A006C3A67 /* Trip.m in Sources */,
 				C8D7173524BFB276005227D9 /* DateUtility.m in Sources */,
 				C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */,
@@ -579,6 +596,7 @@
 				C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */,
 				C8D7172C24BFAC7B005227D9 /* AlertUtility.m in Sources */,
 				C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */,
+				C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */,
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C8D7173824BFB323005227D9 /* APIUtility.m in Sources */,
 				C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */,

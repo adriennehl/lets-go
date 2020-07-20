@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSData *photoData;
 @property (strong, nonatomic) NSArray *photosArray;
 @property (strong, nonatomic) NSDictionary *place;
+@property (strong, nonatomic) NSString *placeId;
 
 - (instancetype)initWithPlace:(NSDictionary *)place;
 @end
