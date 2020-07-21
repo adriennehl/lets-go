@@ -164,6 +164,11 @@
     if([self.endDatePicker.date compare:self.startDatePicker.date] != NSOrderedAscending) {
         NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
         [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
+        
+        // if not on creation tab, dismiss view controller
+        if(self.place) {
+            [self backToFeed];
+        }
     }
     else {
         UIAlertController *invalidDateAlert = [AlertUtility createCancelActionAlert:@"Invalid Date" action:@"Cancel" message:@"End date must be after start date"];
