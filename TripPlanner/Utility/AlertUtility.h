@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AlertUtility : NSObject
 + (UIAlertController *) createDoubleActionAlert: (NSString *) errorDescription title: (NSString *) title;
 + (UIAlertController *)createCancelActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message;
++ (UIAlertController *)createSingleActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message withCompletion:(void(^)(BOOL finished))completion;
 + (UIAlertController *) createSourceTypeAlert: (TripViewController *)controller;
 @end
 

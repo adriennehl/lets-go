@@ -192,15 +192,12 @@
 
 // save trip to Parse database
 - (IBAction)onSave:(id)sender {
+    [self.savingIndicator startAnimating];
+    
     // check to make sure end date is after start date
     if([self.endDatePicker.date compare:self.startDatePicker.date] != NSOrderedAscending) {
         NSArray *images = [[NSArray alloc] initWithObjects:[ImageUtility getPFFileFromImage:self.tripImageView.image], nil];
         [Trip postUserTrip:self.guestUsernames withImages:images withDescription:self.descriptionTextView.text withTitle:self.titleField.text withLocation:self.locationField.text withStartDate:self.startDatePicker.date withEndDate:self.endDatePicker.date withGuests:self.guests withController:self withAspectRatio:self.aspectRatio];
-        
-        // if not on creation tab, dismiss view controller
-        if(self.place) {
-            [self backToFeed];
-        }
     }
     else {
         UIAlertController *invalidDateAlert = [AlertUtility createCancelActionAlert:@"Invalid Date" action:@"Cancel" message:@"End date must be after start date"];
@@ -221,6 +218,9 @@
     self.endDatePicker.date = [NSDate date];
     self.descriptionTextView.text = nil;
     self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
+    if(self.place) {
+        [self backToFeed];
+    }
 }
 
 // verify if username is valid and add guest to the list

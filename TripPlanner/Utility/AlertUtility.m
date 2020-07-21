@@ -60,6 +60,25 @@
     
 }
 
+// alert with single action
++ (UIAlertController *)createSingleActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message withCompletion:(void(^)(BOOL finished))completion {
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:action
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+        completion(YES);
+    }];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
+                                                                   message: message
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // add the action to the alertController
+    [alert addAction:alertAction];
+    return alert;
+    
+}
+
+
 // alert that allows user to choose between camera or album photo source
 + (UIAlertController *) createSourceTypeAlert: (TripViewController *)controller {
     // create a camera choice action

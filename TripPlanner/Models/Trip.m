@@ -39,16 +39,18 @@
     newTrip.aspectRatio = aspectRatio;
     
     [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        [controller.savingIndicator stopAnimating];
         if (error != nil) {
             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Trip" action:@"Cancel" message:error.localizedDescription];
             [controller presentViewController: alert animated:YES completion:^{
             }];
         }
         else {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Successful" action:@"Ok" message:@"Trip was successfully added"];
+            UIAlertController *alert = [AlertUtility createSingleActionAlert:@"Successful" action:@"Ok" message:@"Trip was successfully added" withCompletion:^(BOOL finished) {
+                [controller onCancel:self];
+            }];
             [controller presentViewController: alert animated:YES completion:^{
             }];
-            [controller onCancel:self];
             
             PFRelation *relation;
             // add trip to author's list of trips
