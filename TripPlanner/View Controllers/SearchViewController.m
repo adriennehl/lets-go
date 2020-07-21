@@ -100,7 +100,6 @@
 
 // allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
-    NSLog(@"tapped!");
     [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
