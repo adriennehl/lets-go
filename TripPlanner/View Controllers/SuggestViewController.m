@@ -58,7 +58,7 @@
 
 - (void)displayOpenHours {
     self.openHoursLabel.text = [NSString stringWithFormat:@"%@ Opening Hours: ", self.place.name];
-    [APIUtility getPlaceDetails:self.place.placeId withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+    [APIUtility getPlaceDetails:self.place.placeId fields:@"opening_hours" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }

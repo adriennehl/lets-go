@@ -412,10 +412,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSlotCell" id="IIn-Pi-iJW" customClass="TimeSlotCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="74.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IIn-Pi-iJW" id="R6n-3Z-bKe">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ1-HU-ofR">
@@ -425,7 +425,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="End Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pq2-bW-tjv">
-                                                    <rect key="frame" x="11" y="42.5" width="75" height="21"/>
+                                                    <rect key="frame" x="11" y="42.5" width="75" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -605,6 +605,7 @@
                         <outlet property="locationsTableView" destination="K8F-Pe-iDY" id="aSD-Q9-ZX7"/>
                         <outlet property="mapViewParent" destination="tZM-CK-Wfy" id="Z8h-Vd-OnL"/>
                         <outlet property="searchBar" destination="EM7-gy-s9o" id="qz7-69-l5D"/>
+                        <segue destination="e2L-Pi-0tS" kind="show" identifier="mapSegue" id="ZEw-fD-GRW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zi9-E5-vO5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -842,7 +843,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yhI-L7-Vge"/>
+        <segue reference="ZEw-fD-GRW"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

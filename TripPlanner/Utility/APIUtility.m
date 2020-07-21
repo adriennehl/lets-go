@@ -31,9 +31,9 @@
 }
 
 // get place details: opening hours, atmostphere, etc
-+ (void)getPlaceDetails:(NSString *)placeId withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
++ (void)getPlaceDetails:(NSString *)placeId fields:(NSString *)fields withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
     Key *key = [[Key alloc] init];
-       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?key=%@&place_id=%@&fields=opening_hours", key.key, placeId];
+       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?key=%@&place_id=%@&fields=%@", key.key, placeId, fields];
        NSURL *url = [NSURL URLWithString:urlString];
        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -42,7 +42,7 @@
 }
 
 // get photo using photo reference
-+ (void)getPhoto:(NSArray *)photos photoReference:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
++ (void)getPhoto:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
     Key *key = [[Key alloc] init];
     
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxheight=185&photoreference=%@&key=%@", photoReference, key.key];

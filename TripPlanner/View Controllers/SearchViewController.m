@@ -16,7 +16,7 @@
 #import "Location.h"
 #import "Key.h"
 
-@interface SearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@interface SearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,GMSMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *mapViewParent;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
@@ -55,6 +55,7 @@
     CGRect frame = CGRectMake(0, 0, parentFrame.size.width, parentFrame.size.height);
     self.mapView = [GMSMapView mapWithFrame:frame camera:camera];
     self.mapView.myLocationEnabled = YES;
+    self.mapView.delegate = self;
     [self.mapViewParent addSubview:self.mapView];
 }
 
@@ -74,12 +75,14 @@
     }];
 }
 
+// respond when user allows/denies location access
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if(status != kCLAuthorizationStatusDenied) {
         [self.locationManager requestLocation];
     }
 }
 
+// move camera when user's location is updated
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = [locations lastObject];
     CLLocationDegrees latitude = location.coordinate.latitude;
@@ -89,9 +92,34 @@
     [self.locationManager stopUpdatingLocation];
 }
 
+// show alert if location manager fails
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Getting Location" action:@"Cancel" message:error.localizedDescription];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+// allow user to create trip when POI is tapped
+- (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
+    NSLog(@"tapped!");
+    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
+            Location *place = [[Location alloc] initWithPlace:details];
+            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+                if (error != nil) {
+                    NSLog(@"%@", [error localizedDescription]);
+                }
+                else {
+                    place.photoData = data;
+                    [self performSegueWithIdentifier:@"mapSegue" sender:place];
+                }
+            }];
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -143,6 +171,10 @@
         LocationCell *tappedCell = sender;
         // get location of tapped cell
         destinationViewController.place = tappedCell.place;
+    }
+    else if([segue.identifier isEqualToString:@"mapSegue"]) {
+        TripViewController *destinationViewController = [segue destinationViewController];
+        destinationViewController.place = sender;
     }
 }
 

@@ -39,7 +39,7 @@
         // get photo reference
         NSString *photoReference = photos[0][@"photo_reference"];
         // call get photo method
-        [APIUtility getPhoto:photos photoReference:photoReference withCompletion: ^(NSData *data, NSURLResponse *response, NSError *error) {
+        [APIUtility getPhoto:photoReference withCompletion: ^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error != nil) {
                 NSLog(@"%@", [error localizedDescription]);
                 self.locationView.image = [UIImage imageNamed:@"image_placeholder"];
