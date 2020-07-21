@@ -35,6 +35,7 @@
     self.searchBar.delegate = self;
     self.locationsTableView.delegate = self;
     self.locationsTableView.dataSource = self;
+    self.locationsTableView.alpha = 0.0;
     
     // get location
     self.locationManager = [[CLLocationManager alloc] init];
@@ -144,6 +145,8 @@
 // show cancel button on type
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
+    [self.mapViewParent setHidden:YES];
+    self.locationsTableView.alpha = 1.0;
 }
 
 // removed text and hide keyboard on cancel
@@ -151,6 +154,8 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
+    [self.mapViewParent setHidden:NO];
+    self.locationsTableView.alpha = 0.0;
 }
 
 // fetch results when search button is clicked
