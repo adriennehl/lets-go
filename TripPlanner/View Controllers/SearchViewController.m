@@ -9,17 +9,21 @@
 #import "SearchViewController.h"
 #import "TripViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <CoreLocation/CoreLocation.h>
 #import "LocationCell.h"
 #import "APIUtility.h"
+#import "AlertUtility.h"
 #import "Location.h"
 #import "Key.h"
 
-@interface SearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SearchViewController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *mapViewParent;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *locations;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic) GMSMapView *mapView;
 
 @end
 
@@ -32,20 +36,26 @@
     self.locationsTableView.delegate = self;
     self.locationsTableView.dataSource = self;
     
+    // get location
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    [self.locationManager startUpdatingLocation];
+    
     // add Map
     [self loadMapView];
 }
 
 - (void)loadMapView {
     // add map
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 29.7174
-                                                            longitude:-95.4018
-                                                                 zoom:16.0];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 37.0902
+                                                            longitude: -95.7129
+                                                                 zoom: 5.0];
     CGRect parentFrame = self.mapViewParent.frame;
     CGRect frame = CGRectMake(0, 0, parentFrame.size.width, parentFrame.size.height);
-    GMSMapView *mapView = [GMSMapView mapWithFrame:frame camera:camera];
-    mapView.myLocationEnabled = YES;
-    [self.mapViewParent addSubview:mapView];
+    self.mapView = [GMSMapView mapWithFrame:frame camera:camera];
+    self.mapView.myLocationEnabled = YES;
+    [self.mapViewParent addSubview:self.mapView];
 }
 
 - (void)getRequest {
@@ -62,6 +72,26 @@
             [self.locationsTableView reloadData];
         }
     }];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if(status != kCLAuthorizationStatusDenied) {
+        [self.locationManager requestLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    CLLocation *location = [locations lastObject];
+    CLLocationDegrees latitude = location.coordinate.latitude;
+    CLLocationDegrees longitude = location.coordinate.longitude;
+    GMSCameraUpdate *newCamera = [GMSCameraUpdate setCamera:[GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:16.0]];
+    [self.mapView moveCamera:newCamera];
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Getting Location" action:@"Cancel" message:error.localizedDescription];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
