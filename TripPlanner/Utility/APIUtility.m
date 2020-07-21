@@ -8,8 +8,15 @@
 
 #import "APIUtility.h"
 #import "Key.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation APIUtility
+
+// initialize Google maps SDK
++ (void)initializeMapsSDK {
+    Key *key = [[Key alloc] init];
+    [GMSServices provideAPIKey:key.key];
+}
 
 // get list of places from search query
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
@@ -24,9 +31,9 @@
 }
 
 // get place details: opening hours, atmostphere, etc
-+ (void)getPlaceDetails:(NSString *)placeId withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
++ (void)getPlaceDetails:(NSString *)placeId fields:(NSString *)fields withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion{
     Key *key = [[Key alloc] init];
-       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?key=%@&place_id=%@&fields=opening_hours", key.key, placeId];
+       NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?key=%@&place_id=%@&fields=%@", key.key, placeId, fields];
        NSURL *url = [NSURL URLWithString:urlString];
        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -35,7 +42,7 @@
 }
 
 // get photo using photo reference
-+ (void)getPhoto:(NSArray *)photos photoReference:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
++ (void)getPhoto:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
     Key *key = [[Key alloc] init];
     
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxheight=185&photoreference=%@&key=%@", photoReference, key.key];

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "APIUtility.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +30,9 @@
     
     // create event manager
        self.eventManager = [[EventsUtility alloc] init];
+    
+    // initialize maps sdk
+    [APIUtility initializeMapsSDK];
     
     return YES;
 }

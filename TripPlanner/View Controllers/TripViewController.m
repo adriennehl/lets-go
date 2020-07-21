@@ -88,7 +88,12 @@
     
     self.titleField.text = [NSString stringWithFormat:@"%@ Trip", self.place.name];
     self.locationField.text = self.place.address;
-    self.tripImageView.image = [UIImage imageWithData:self.place.photoData];
+    if(self.place.photoData) {
+        self.tripImageView.image = [UIImage imageWithData:self.place.photoData];
+    }
+    else {
+        self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
+    }
     [self.tripImageView loadInBackground];
 }
 
