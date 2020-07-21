@@ -67,9 +67,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Trip *trip = self.trips[indexPath.row];
     if (trip.aspectRatio != 0 ){
-        return 150 * trip.aspectRatio + 90;
+        return 150 * trip.aspectRatio + 130;
     }
-    return 150 * 1.5 + 70;
+    return 150 * 1.5 +70;
 }
 
 #pragma mark - Navigation
