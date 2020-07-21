@@ -11,6 +11,7 @@
 #import "photoAlbumCell.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
+#import "DateUtility.h"
 #import "Trip.h"
 @import Parse;
 
@@ -27,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (weak, nonatomic) IBOutlet UITextField *startDateField;
+@property (weak, nonatomic) IBOutlet UITextField *endDateField;
 @property (strong, nonatomic) NSMutableArray *guests;
 @property (strong, nonatomic) NSMutableArray *guestUsernames;
 @property (nonatomic) CGFloat aspectRatio;
@@ -45,6 +48,10 @@
     self.albumCollectionView.delegate = self;
     self.albumCollectionView.dataSource = self;
     
+    // set date pickers
+    [self setDatePickers];
+    
+    
     // if self.trip is set, show trip detail
     if(self.trip) {
         [self setElements];
@@ -57,6 +64,31 @@
     if(self.place) {
         [self setLocation];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self updateStartField];
+    [self updateEndField];
+}
+
+- (void)setDatePickers {
+    // set start date picker
+    self.startDatePicker = [DateUtility createDatePicker];
+    [self.startDatePicker addTarget:self action:@selector(updateStartField) forControlEvents:UIControlEventValueChanged];
+    [self.startDateField setInputView:self.startDatePicker];
+    
+    // set end date picker
+    self.endDatePicker = [DateUtility createDatePicker];
+    [self.endDatePicker addTarget:self action:@selector(updateEndField) forControlEvents:UIControlEventValueChanged];
+    [self.endDateField setInputView:self.endDatePicker];
+}
+
+- (void)updateStartField {
+    self.startDateField.text = [DateUtility dateToString:self.startDatePicker.date];
+}
+
+- (void)updateEndField {
+    self.endDateField.text = [DateUtility dateToString:self.endDatePicker.date];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {

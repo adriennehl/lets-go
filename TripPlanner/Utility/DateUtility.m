@@ -22,4 +22,14 @@
     NSString *dateString = [formatter stringFromDate:date];
     return dateString;
 }
+
++ (UIDatePicker *)createDatePicker {
+    UIDatePicker *startDatePicker = [[UIDatePicker alloc] init];
+    startDatePicker.minuteInterval = 5;
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval roundedInterval = ceil((interval / 300)) * 300;
+    NSDate *roundedDate = [NSDate dateWithTimeIntervalSince1970:roundedInterval];
+    [startDatePicker setDate:roundedDate animated:YES];
+    return startDatePicker;
+}
 @end

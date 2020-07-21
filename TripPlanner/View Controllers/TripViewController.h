@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TripViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) Trip *trip;
 @property (strong, nonatomic) Location *place;
-@property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *endDatePicker;
+@property (strong, nonatomic) UIDatePicker *startDatePicker;
+@property (strong, nonatomic) UIDatePicker *endDatePicker;
 - (IBAction)onCancel:(id)sender;
 @end
 

@@ -12,6 +12,7 @@
 #import <EventKitUI/EventKitUI.h>
 #import "EventsUtility.h"
 #import "APIUtility.h"
+#import "DateUtility.h"
 #import "AlertUtility.h"
 #import "AppDelegate.h"
 #import "TimeSlotCell.h"
@@ -19,9 +20,11 @@
 @interface SuggestViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *openHoursLabel;
 @property (weak, nonatomic) IBOutlet UITextView *openHoursText;
+@property (weak, nonatomic) IBOutlet UITextField *startRangeField;
+@property (weak, nonatomic) IBOutlet UITextField *endRangeField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *durationPicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *startRangePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker *endRangePicker;
+@property (strong, nonatomic) UIDatePicker *startRangePicker;
+@property (strong, nonatomic) UIDatePicker *endRangePicker;
 @property (weak, nonatomic) IBOutlet UITableView *timesTableView;
 @property (strong, nonatomic) NSMutableArray *freeTimes;
 @property (strong, nonatomic) EKEventStore *eventStore;
@@ -35,6 +38,9 @@
     // Do any additional setup after loading the view.
     self.timesTableView.delegate = self;
     self.timesTableView.dataSource = self;
+    
+    [self setDatePickers];
+    
     // Request access to calendar
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -54,6 +60,28 @@
     // if location is chosen, display open hours
     if(self.place)
         [self displayOpenHours];
+}
+
+- (void)setDatePickers {
+    // set start range picker
+    self.startRangePicker = [DateUtility createDatePicker];
+    [self.startRangePicker addTarget:self action:@selector(updateStartField) forControlEvents:UIControlEventValueChanged];
+    [self.startRangeField setInputView:self.startRangePicker];
+    [self updateStartField];
+    
+    // set end range picker
+    self.endRangePicker = [DateUtility createDatePicker];
+    [self.endRangePicker addTarget:self action:@selector(updateEndField) forControlEvents:UIControlEventValueChanged];
+    [self.endRangeField setInputView:self.endRangePicker];
+    [self updateEndField];
+}
+
+- (void)updateStartField {
+    self.startRangeField.text = [DateUtility dateToString:self.startRangePicker.date];
+}
+
+- (void)updateEndField {
+    self.endRangeField.text = [DateUtility dateToString:self.endRangePicker.date];
 }
 
 - (void)displayOpenHours {
@@ -169,6 +197,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 @end
