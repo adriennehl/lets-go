@@ -8,6 +8,7 @@
 
 #import "TripViewController.h"
 #import "SuggestViewController.h"
+#import "ImageViewController.h"
 #import "photoAlbumCell.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
@@ -325,6 +326,13 @@
              destinationViewController.place = self.place;
          }
      }
+     else if ([segue.identifier isEqualToString:@"photoSegue"]) {
+         ImageViewController *destinationViewController = [segue destinationViewController];
+         photoAlbumCell *tappedCell = sender;
+         NSIndexPath *indexPath = [self.albumCollectionView indexPathForCell:tappedCell];
+         destinationViewController.image = self.trip.images[indexPath.row + 1];
+     }
+     
  }
 
 @end

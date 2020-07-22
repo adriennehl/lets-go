@@ -25,7 +25,7 @@
     return newImage;
 }
 
-// returns PFFFileObject from UIImage
+// returns PFFileObject from UIImage
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
     
     // check if image is not nil
@@ -40,5 +40,13 @@
     }
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
+// return UIImage from PFFileObject
++ (void)getImageFromPFFile: (PFFileObject *)image completion: (void(^)(BOOL finished, UIImage *image))completion {
+    [image getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+        UIImage *image = [UIImage imageWithData:data];
+        completion(YES, image);
+    }];
 }
 @end

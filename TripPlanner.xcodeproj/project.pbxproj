@@ -27,6 +27,7 @@
 		C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F624BD104E006C3A67 /* TripViewController.m */; };
 		C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534F924BE2664006C3A67 /* TripCell.m */; };
 		C8BEA85624C8A39600921748 /* ImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BEA85524C8A39600921748 /* ImagePickerViewController.m */; };
+		C8BEA85924C8AF9200921748 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BEA85824C8AF9200921748 /* ImageViewController.m */; };
 		C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171A24BF5E6B005227D9 /* LocationCell.m */; };
 		C8D7171E24BF5FF2005227D9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7171D24BF5FF2005227D9 /* Location.m */; };
 		C8D7172824BF8198005227D9 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7172724BF8198005227D9 /* Key.m */; };
@@ -101,6 +102,8 @@
 		C8B534F924BE2664006C3A67 /* TripCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripCell.m; sourceTree = "<group>"; };
 		C8BEA85424C8A39600921748 /* ImagePickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerViewController.h; sourceTree = "<group>"; };
 		C8BEA85524C8A39600921748 /* ImagePickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerViewController.m; sourceTree = "<group>"; };
+		C8BEA85724C8AF9200921748 /* ImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		C8BEA85824C8AF9200921748 /* ImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		C8D7171924BF5E6B005227D9 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		C8D7171A24BF5E6B005227D9 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		C8D7171C24BF5FF2005227D9 /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				C8F0318124C0F942009B5430 /* SuggestViewController.m */,
 				C8BEA85424C8A39600921748 /* ImagePickerViewController.h */,
 				C8BEA85524C8A39600921748 /* ImagePickerViewController.m */,
+				C8BEA85724C8AF9200921748 /* ImageViewController.h */,
+				C8BEA85824C8AF9200921748 /* ImageViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8BEA85924C8AF9200921748 /* ImageViewController.m in Sources */,
 				C8F0318224C0F943009B5430 /* SuggestViewController.m in Sources */,
 				C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */,
 				C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */,
