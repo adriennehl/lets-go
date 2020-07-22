@@ -286,7 +286,9 @@
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     
     // resize image
-    CGSize size = CGSizeMake(180, 250);
+    CGFloat aspectRatio = originalImage.size.height / originalImage.size.width;
+    CGFloat width = 700;
+    CGSize size = CGSizeMake(width, width * aspectRatio);
     UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
     
     // if in detail view, upload photo to photo album
