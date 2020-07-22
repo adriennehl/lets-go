@@ -149,9 +149,7 @@
             NSDictionary *timeslot = [[NSDictionary alloc] initWithObjectsAndKeys:startBound, @"startDate", timeslotEnd, @"endDate", nil];
             [self.freeTimes addObject:timeslot];
             startBound = timeslotEnd;
-            NSLog(@"time interval %@ %f",endBound, [endBound timeIntervalSinceDate:startBound]);
         }
-        NSLog(@"%f", self.durationPicker.countDownDuration);
     }
     completion(YES);
 }
