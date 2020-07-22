@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageUtility : NSObject
 + (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size;
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
++ (void)getImageFromPFFile: (PFFileObject *)image completion:(void(^)(BOOL finished, UIImage *image))completion;
 @end
 
 NS_ASSUME_NONNULL_END
