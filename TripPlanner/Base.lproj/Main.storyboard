@@ -762,46 +762,77 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="xcq-Kb-jAF">
-                                <rect key="frame" x="20" y="110" width="100" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="xcq-Kb-jAF" customClass="PFImageView">
+                                <rect key="frame" x="20" y="108" width="100" height="100"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="0gQ-s7-Dx6"/>
+                                    <constraint firstAttribute="height" constant="100" id="Mgx-3Q-q7B"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="UKl-o2-lPo" appends="YES" id="Gqq-gM-8OT"/>
+                                </connections>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALm-jI-Muz">
-                                <rect key="frame" x="142" y="180" width="161" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dp-gD-CRi">
-                                <rect key="frame" x="142" y="207" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit Profile"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQY-Qa-2kA">
-                                <rect key="frame" x="263" y="207" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6P-zd-NF6">
-                                <rect key="frame" x="142" y="110" width="161" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDf-60-2iF">
-                                <rect key="frame" x="142" y="143" width="161" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDf-60-2iF">
+                                <rect key="frame" x="131" y="141.5" width="66" height="34"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="name"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dp-gD-CRi">
+                                <rect key="frame" x="131" y="186.5" width="75" height="30"/>
+                                <state key="normal" title="Edit Profile"/>
+                                <connections>
+                                    <action selector="onEdit:" destination="MUx-QB-wLq" eventType="touchUpInside" id="60e-iU-MoC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6P-zd-NF6">
+                                <rect key="frame" x="131" y="110" width="82" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQY-Qa-2kA">
+                                <rect key="frame" x="131" y="227.5" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="onSave:" destination="MUx-QB-wLq" eventType="touchUpInside" id="z44-e0-o7q"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rt8-6m-7aF">
+                                <rect key="frame" x="176" y="227.5" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="onCancel:" destination="MUx-QB-wLq" eventType="touchUpInside" id="7sb-Te-QpW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="NDf-60-2iF" firstAttribute="leading" secondItem="xcq-Kb-jAF" secondAttribute="trailing" constant="11" id="1Eh-0t-7s4"/>
+                            <constraint firstItem="u6P-zd-NF6" firstAttribute="top" secondItem="3fK-JJ-4YQ" secondAttribute="top" constant="22" id="ENF-WF-lte"/>
+                            <constraint firstItem="3fK-JJ-4YQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="u6P-zd-NF6" secondAttribute="trailing" constant="11" id="Etv-r5-2gV"/>
+                            <constraint firstItem="4Dp-gD-CRi" firstAttribute="top" secondItem="NDf-60-2iF" secondAttribute="bottom" constant="11" id="Mj0-XR-UBZ"/>
+                            <constraint firstItem="u6P-zd-NF6" firstAttribute="leading" secondItem="xcq-Kb-jAF" secondAttribute="trailing" constant="11" id="NJY-9M-R0V"/>
+                            <constraint firstItem="vQY-Qa-2kA" firstAttribute="leading" secondItem="4Dp-gD-CRi" secondAttribute="leading" id="Nzc-XB-8Td"/>
+                            <constraint firstItem="4Dp-gD-CRi" firstAttribute="leading" secondItem="NDf-60-2iF" secondAttribute="leading" id="P6i-im-AsG"/>
+                            <constraint firstItem="vQY-Qa-2kA" firstAttribute="top" secondItem="4Dp-gD-CRi" secondAttribute="bottom" constant="11" id="T2b-zT-Y34"/>
+                            <constraint firstItem="rt8-6m-7aF" firstAttribute="leading" secondItem="vQY-Qa-2kA" secondAttribute="trailing" constant="11" id="UPp-0f-eMJ"/>
+                            <constraint firstItem="xcq-Kb-jAF" firstAttribute="top" secondItem="3fK-JJ-4YQ" secondAttribute="top" constant="20" id="UtX-uA-dE9"/>
+                            <constraint firstItem="xcq-Kb-jAF" firstAttribute="leading" secondItem="3fK-JJ-4YQ" secondAttribute="leading" constant="20" id="bMK-YN-8VD"/>
+                            <constraint firstItem="3fK-JJ-4YQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Dp-gD-CRi" secondAttribute="trailing" constant="11" id="d4v-4Z-Uq8"/>
+                            <constraint firstItem="3fK-JJ-4YQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NDf-60-2iF" secondAttribute="trailing" constant="11" id="eda-a1-rRa"/>
+                            <constraint firstItem="rt8-6m-7aF" firstAttribute="top" secondItem="4Dp-gD-CRi" secondAttribute="bottom" constant="11" id="iX1-wZ-rbl"/>
+                            <constraint firstItem="NDf-60-2iF" firstAttribute="top" secondItem="u6P-zd-NF6" secondAttribute="bottom" constant="11" id="iyy-iA-vw8"/>
+                            <constraint firstItem="3fK-JJ-4YQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rt8-6m-7aF" secondAttribute="trailing" constant="11" id="pd6-eP-h10"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3fK-JJ-4YQ"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="JGB-Ic-XEH" appends="YES" id="BO8-bZ-cZW"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="cfd-ZH-L4V">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="BMA-GI-ias">
@@ -811,10 +842,26 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="rt8-6m-7aF" id="ezx-Zg-z4K"/>
+                        <outlet property="editButton" destination="4Dp-gD-CRi" id="ViZ-hA-60e"/>
+                        <outlet property="nameLabel" destination="NDf-60-2iF" id="0ap-uU-Bel"/>
                         <outlet property="pastTripsTableView" destination="N5w-8m-6oH" id="Lxa-yc-iwk"/>
+                        <outlet property="profileImageView" destination="xcq-Kb-jAF" id="5m1-m5-DKq"/>
+                        <outlet property="saveButton" destination="vQY-Qa-2kA" id="WkA-F9-CzO"/>
+                        <outlet property="usernameLabel" destination="u6P-zd-NF6" id="nao-vw-nQi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gxy-rd-ace" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="UKl-o2-lPo">
+                    <connections>
+                        <action selector="onImageTap:" destination="MUx-QB-wLq" id="G7o-US-sFy"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="JGB-Ic-XEH">
+                    <connections>
+                        <action selector="onTap:" destination="MUx-QB-wLq" id="1G2-c9-PJW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1718.840579710145" y="588.61607142857144"/>
         </scene>

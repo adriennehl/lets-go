@@ -80,7 +80,7 @@
 
 
 // alert that allows user to choose between camera or album photo source
-+ (UIAlertController *) createSourceTypeAlert: (TripViewController *)controller {
++ (UIAlertController *) createSourceTypeAlert: (ImagePickerViewController *)controller {
     // create a camera choice action
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera"
                                                            style:UIAlertActionStyleDefault

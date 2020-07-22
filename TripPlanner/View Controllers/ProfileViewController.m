@@ -8,12 +8,20 @@
 
 #import "ProfileViewController.h"
 #import "LoginViewController.h"
+#import "ImageUtility.h"
+#import "AlertUtility.h"
 #import "SceneDelegate.h"
 #import "TripCell.h"
 #import <Parse/Parse.h>
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *pastTripsTableView;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UITextField *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic, strong) NSArray *trips;
 @end
 
@@ -24,6 +32,12 @@
     // Do any additional setup after loading the view.
     self.pastTripsTableView.delegate = self;
     self.pastTripsTableView.dataSource = self;
+    [self.saveButton setHidden:YES];
+    
+    self.usernameLabel.text = PFUser.currentUser.username;
+    self.nameLabel.text = PFUser.currentUser[@"name"];
+    self.profileImageView.file = PFUser.currentUser[@"profileImage"];
+    [self.profileImageView loadInBackground];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -42,6 +56,63 @@
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         // PFUser.current() will now be nil
     }];
+}
+
+// allow user to edit name and profile photo
+- (IBAction)onEdit:(id)sender {
+    [self.saveButton setHidden:NO];
+    [self.cancelButton setHidden:NO];
+    [self.editButton setHidden:YES];
+    self.nameLabel.userInteractionEnabled = YES;
+    self.profileImageView.userInteractionEnabled = YES;
+    
+    
+}
+
+- (IBAction)onCancel:(id)sender {
+    [self.saveButton setHidden:YES];
+    [self.cancelButton setHidden:YES];
+    [self.editButton setHidden:NO];
+    self.nameLabel.userInteractionEnabled = NO;
+    self.profileImageView.userInteractionEnabled = NO;
+    self.nameLabel.text = PFUser.currentUser[@"name"];
+    self.profileImageView.file = PFUser.currentUser[@"profileImage"];
+    [self.profileImageView loadInBackground];
+}
+
+// save changes to Parse
+- (IBAction)onSave:(id)sender {
+    [self.saveButton setHidden:YES];
+    [self.cancelButton setHidden:YES];
+    [self.editButton setHidden:NO];
+    self.nameLabel.userInteractionEnabled = NO;
+    self.profileImageView.userInteractionEnabled = NO;
+    PFUser.currentUser[@"name"] = self.nameLabel.text;
+    PFFileObject *profileImage = [ImageUtility getPFFileFromImage:self.profileImageView.image];
+    PFUser.currentUser[@"profileImage"] = profileImage;
+    [PFUser.currentUser saveInBackground];
+}
+
+- (IBAction)onImageTap:(id)sender {
+    UIAlertController *sourceTypeAlert = [AlertUtility createSourceTypeAlert:self];
+    
+    // show the alert controller
+    [self presentViewController: sourceTypeAlert animated:YES completion:^{
+    }];
+}
+
+// after user picks image, set image view to resized image
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    
+    // resize image
+    CGSize size = CGSizeMake(100, 100);
+    UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
+    self.profileImageView.image = resizedImage;
+    
+    // Dismiss UIImagePickerController to go back to original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // get past trips from user's trips relation
@@ -96,6 +167,10 @@
            // get trip of tapped cell
            destinationViewController.trip = self.trips[indexPath.row];
        }
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 @end
