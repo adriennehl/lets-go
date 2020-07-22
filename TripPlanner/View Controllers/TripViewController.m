@@ -120,7 +120,7 @@
     
     self.titleField.text = [NSString stringWithFormat:@"%@ Trip", self.place.name];
     self.locationField.text = self.place.address;
-    if(self.place.photoData) {
+    if(self.place.photosArray) {
         NSNumber *width = self.place.photosArray[0][@"width"];
         NSNumber *height = self.place.photosArray[0][@"height"];
         self.aspectRatio = height.doubleValue / width.doubleValue;
