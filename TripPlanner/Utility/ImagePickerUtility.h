@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TripViewController.h"
+#import "ImagePickerViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImagePickerUtility : NSObject
-+ (void)createImagePicker:(UIImagePickerControllerSourceType)sourceType controller: (TripViewController *)controller;
++ (void)createImagePicker:(UIImagePickerControllerSourceType)sourceType controller: (ImagePickerViewController *)controller;
 @end
 
 NS_ASSUME_NONNULL_END

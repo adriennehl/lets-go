@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImagePickerViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : ImagePickerViewController
 
 @end
 

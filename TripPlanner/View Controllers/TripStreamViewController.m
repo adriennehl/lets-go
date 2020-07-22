@@ -40,7 +40,7 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"startDate"];
-    [query whereKey:@"startDate" greaterThan:[NSDate date]];
+    [query whereKey:@"endDate" greaterThan:[NSDate date]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
       if (!error) {
@@ -63,7 +63,7 @@
     return cell;
 }
 
-//// set height based on the photo aspect ratio
+// set height based on the photo aspect ratio
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Trip *trip = self.trips[indexPath.row];
     if (trip.aspectRatio != 0 ){

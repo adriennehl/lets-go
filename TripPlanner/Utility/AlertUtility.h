@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TripViewController.h"
+#import "ImagePickerViewController.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIAlertController *) createDoubleActionAlert: (NSString *) errorDescription title: (NSString *) title;
 + (UIAlertController *)createCancelActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message;
 + (UIAlertController *)createSingleActionAlert: (NSString *)title action:(NSString *)action message:(NSString *)message withCompletion:(void(^)(BOOL finished))completion;
-+ (UIAlertController *) createSourceTypeAlert: (TripViewController *)controller;
++ (UIAlertController *) createSourceTypeAlert: (ImagePickerViewController *)controller;
 @end
 
 NS_ASSUME_NONNULL_END
