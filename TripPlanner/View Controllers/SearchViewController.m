@@ -20,10 +20,16 @@
 @property (weak, nonatomic) IBOutlet UIView *mapViewParent;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *detailView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) GMSMapView *mapView;
+@property (nonatomic, strong) Location *selectedPlace;
 
 @end
 
@@ -57,7 +63,7 @@
     self.mapView = [GMSMapView mapWithFrame:frame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.delegate = self;
-    [self.mapViewParent addSubview:self.mapView];
+    [self.mapViewParent insertSubview:self.mapView atIndex:0];
 }
 
 - (void)getRequest {
@@ -99,27 +105,94 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-// allow user to create trip when POI is tapped
+// get POI details and allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
-    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+    // get place details
+    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
-            Location *place = [[Location alloc] initWithPlace:details];
-            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
-                if (error != nil) {
-                    NSLog(@"%@", [error localizedDescription]);
-                }
-                else {
-                    place.photoData = data;
-                    [self performSegueWithIdentifier:@"mapSegue" sender:place];
-                }
-            }];
+            self.selectedPlace = [[Location alloc] initWithPlace:details location:location];
+            [self showDetails:self.selectedPlace];
         }
     }];
+}
+
+// show view with location details at the bottom of the screen
+- (void)showDetails:(Location *)place {
+    [self.detailView setHidden:NO];
+    self.nameLabel.text = place.name;
+    self.addressLabel.text = place.address;
+    self.ratingLabel.text = place.rating;
+    self.priceLabel.text = [@"" stringByPaddingToLength:place.priceLevel withString:@"$" startingAtIndex:0];
+}
+
+// open selected POI in maps
+- (IBAction)onOpenMap:(id)sender {
+    // try Google Maps
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        NSString *queryString = [NSString stringWithFormat:@"comgooglemaps://?daddr=%@&zoom=15&q=%@",self.selectedPlace.address,self.selectedPlace.name];
+        NSString *urlString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {
+            if(success == NO) {
+                UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error opening map" action:@"Cancel" message:@"There was an unexpected error while trying to open Google Maps"];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }
+    // try Apple maps
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]) {
+        NSString *queryString = [NSString stringWithFormat:@"http://maps.apple.com/?address=%@&q=%@",self.selectedPlace.address,self.selectedPlace.name];
+        NSString *urlString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {
+            if(success == NO) {
+                UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error opening map" action:@"Cancel" message:@"There was an unexpected error while trying to open Maps"];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }
+    // no maps available
+    else {
+        UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Map unavailable" action:@"Cancel" message:@"Can't access maps"];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+// segue to creation view controller
+- (IBAction)onCreateTrip:(id)sender {
+    [APIUtility getPhoto:self.selectedPlace.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            self.selectedPlace.photoData = data;
+            [self performSegueWithIdentifier:@"mapSegue" sender:self.selectedPlace];
+        }
+    }];
+}
+
+// hide details view
+- (IBAction)onClose:(id)sender {
+    [self.detailView setHidden:YES];
+}
+
+// add an info window marker to the POI
+- (void)createMarker:(Location *)place {
+    // Declare a GMSMarker instance at the class level.
+    GMSMarker *infoMarker;
+    infoMarker = [GMSMarker markerWithPosition:place.location];
+    infoMarker.snippet = place.placeId;
+    infoMarker.title = place.name;
+    infoMarker.opacity = 0;
+    CGPoint pos = infoMarker.infoWindowAnchor;
+    pos.y = 1;
+    infoMarker.infoWindowAnchor = pos;
+    infoMarker.map = self.mapView;
+    self.mapView.selectedMarker = infoMarker;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -128,7 +201,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LocationCell *cell = [self.locationsTableView dequeueReusableCellWithIdentifier:@"LocationCell"];
-    Location *place = [[Location alloc] initWithPlace: self.locations[indexPath.row]];
+    NSDictionary *locationData = self.locations[indexPath.row];
+    NSNumber *latitude = locationData[@"geometry"][@"location"][@"lat"];
+    NSNumber *longitude = locationData[@"geometry"][@"location"][@"lng"];
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+    Location *place = [[Location alloc] initWithPlace: locationData location:location];
     cell = [cell setCell:place];
     return cell;
 }

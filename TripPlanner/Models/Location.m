@@ -10,7 +10,7 @@
 #import "Key.h"
 
 @implementation Location
-- (instancetype)initWithPlace:(NSDictionary *)place {
+- (instancetype)initWithPlace:(NSDictionary *)place location:(CLLocationCoordinate2D)location {
     self = [super init];
     self.place = place;
     self.name = self.place[@"name"];
@@ -18,6 +18,8 @@
     self.address = self.place[@"formatted_address"];
     self.photosArray = self.place[@"photos"];
     self.placeId = self.place[@"place_id"];
+    self.priceLevel = [self.place[@"price_level"] integerValue];
+    self.location = location;
     return self;
 }
 

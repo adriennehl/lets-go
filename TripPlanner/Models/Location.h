@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *photosArray;
 @property (strong, nonatomic) NSDictionary *place;
 @property (strong, nonatomic) NSString *placeId;
+@property (nonatomic) CLLocationCoordinate2D location;
+@property (nonatomic) NSInteger priceLevel;
 
-- (instancetype)initWithPlace:(NSDictionary *)place;
+- (instancetype)initWithPlace:(NSDictionary *)place location:(CLLocationCoordinate2D)location;
 @end
 
 NS_ASSUME_NONNULL_END
