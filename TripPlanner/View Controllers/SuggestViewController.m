@@ -14,6 +14,7 @@
 #import "APIUtility.h"
 #import "DateUtility.h"
 #import "AlertUtility.h"
+#import "CalendarUtility.h"
 #import "AppDelegate.h"
 #import "TimeSlotCell.h"
 
@@ -103,61 +104,11 @@
     }];
 }
 
-// get all events between start range and end range
-- (NSArray *)retrieveEvents {
-    // Create the predicate from the event store's instance method
-    NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:self.startRangePicker.date
-                                                                      endDate:self.endRangePicker.date
-                                                                    calendars:nil];
-    
-    // Fetch all events that match the predicate
-    NSArray *events = [self.eventStore eventsMatchingPredicate:predicate];
-    return events;
-}
-
-// given a list of events, find free times in range between events.
-- (void)findFreeTimes:(NSArray *)events withCompletion:(void(^)(BOOL finished))completion {
-    self.freeTimes = [[NSMutableArray alloc] init];
-    EKEvent *startEvent;
-    EKEvent *endEvent;
-    NSDate *startBound;
-    NSDate *endBound;
-    // iterate through events to find gaps between start and end dates
-    for(int i = 0; i <= events.count; i++) {
-        // set start bound
-        if(i == 0) {
-            startBound = self.startRangePicker.date;
-        }
-        else {
-            startEvent = events[i-1];
-            if([startBound compare:startEvent.endDate] == NSOrderedAscending) {
-                startBound = startEvent.endDate;
-            }
-        }
-        // set end bound
-        if(i == events.count) {
-            endBound = self.endRangePicker.date;
-        }
-        else {
-            endEvent = events[i];
-            endBound = endEvent.startDate;
-        }
-        
-        // break blocks into time slots equal to specified duration
-        while([endBound timeIntervalSinceDate:startBound] >= self.durationPicker.countDownDuration) {
-            NSDate *timeslotEnd = [startBound dateByAddingTimeInterval:self.durationPicker.countDownDuration];
-            NSDictionary *timeslot = [[NSDictionary alloc] initWithObjectsAndKeys:startBound, @"startDate", timeslotEnd, @"endDate", nil];
-            [self.freeTimes addObject:timeslot];
-            startBound = timeslotEnd;
-        }
-    }
-    completion(YES);
-}
-
 - (IBAction)showTimes:(id)sender {
     // find free times around events
-    NSArray *events = [self retrieveEvents];
-    [self findFreeTimes:events withCompletion:^(BOOL finished) {
+    NSArray *events = [CalendarUtility retrieveEvents:self.eventStore withStartDate:self.startRangePicker.date withEndDate:self.endRangePicker.date];
+    [CalendarUtility findFreeTimes:events withStartRange:self.startRangePicker.date withEndRange:self.endRangePicker.date withDuration:self.durationPicker.countDownDuration withCompletion:^(BOOL finished, NSMutableArray * _Nonnull freeTimes) {
+        self.freeTimes = freeTimes;
         [self.timesTableView reloadData];
         // show alert if no free times are found
         if(self.freeTimes.count == 0) {
