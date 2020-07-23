@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) GMSMapView *mapView;
+@property (nonatomic, strong) Location *selectedPlace;
 
 @end
 
@@ -114,21 +115,13 @@
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
-            Location *place = [[Location alloc] initWithPlace:details location:location];
-            [self showDetails:place];
-//            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
-//                if (error != nil) {
-//                    NSLog(@"%@", [error localizedDescription]);
-//                }
-//                else {
-//                    place.photoData = data;
-//                    [self performSegueWithIdentifier:@"mapSegue" sender:place];
-//                }
-//            }];
+            self.selectedPlace = [[Location alloc] initWithPlace:details location:location];
+            [self showDetails:self.selectedPlace];
         }
     }];
 }
 
+// show view with location details at the bottom of the screen
 - (void)showDetails:(Location *)place {
     [self.detailView setHidden:NO];
     self.nameLabel.text = place.name;
@@ -137,12 +130,52 @@
     self.priceLabel.text = [@"" stringByPaddingToLength:place.priceLevel withString:@"$" startingAtIndex:0];
 }
 
+// open selected POI in maps
 - (IBAction)onOpenMap:(id)sender {
+    // try Google Maps
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        NSString *queryString = [NSString stringWithFormat:@"comgooglemaps://?daddr=%@&zoom=15&q=%@",self.selectedPlace.address,self.selectedPlace.name];
+        NSString *urlString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {
+            if(success == NO) {
+                UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error opening map" action:@"Cancel" message:@"There was an unexpected error while trying to open Google Maps"];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }
+    // try Apple maps
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.apple.com"]]) {
+        NSString *queryString = [NSString stringWithFormat:@"http://maps.apple.com/?address=%@&q=%@",self.selectedPlace.address,self.selectedPlace.name];
+        NSString *urlString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:^(BOOL success) {
+            if(success == NO) {
+                UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error opening map" action:@"Cancel" message:@"There was an unexpected error while trying to open Maps"];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }
+    // no maps available
+    else {
+        UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Map unavailable" action:@"Cancel" message:@"Can't access maps"];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
+// segue to creation view controller
 - (IBAction)onCreateTrip:(id)sender {
+    [APIUtility getPhoto:self.selectedPlace.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        else {
+            self.selectedPlace.photoData = data;
+            [self performSegueWithIdentifier:@"mapSegue" sender:self.selectedPlace];
+        }
+    }];
 }
 
+// hide details view
 - (IBAction)onClose:(id)sender {
     [self.detailView setHidden:YES];
 }
