@@ -20,6 +20,11 @@
 @property (weak, nonatomic) IBOutlet UIView *mapViewParent;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *locationsTableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *detailView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -57,7 +62,7 @@
     self.mapView = [GMSMapView mapWithFrame:frame camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.mapView.delegate = self;
-    [self.mapViewParent addSubview:self.mapView];
+    [self.mapViewParent insertSubview:self.mapView atIndex:0];
 }
 
 - (void)getRequest {
@@ -102,7 +107,7 @@
 // get POI details and allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
     // get place details
-    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }
@@ -110,7 +115,7 @@
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
             Location *place = [[Location alloc] initWithPlace:details location:location];
-            [self createMarker:place];
+            [self showDetails:place];
 //            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
 //                if (error != nil) {
 //                    NSLog(@"%@", [error localizedDescription]);
@@ -122,6 +127,24 @@
 //            }];
         }
     }];
+}
+
+- (void)showDetails:(Location *)place {
+    [self.detailView setHidden:NO];
+    self.nameLabel.text = place.name;
+    self.addressLabel.text = place.address;
+    self.ratingLabel.text = place.rating;
+    self.priceLabel.text = [@"" stringByPaddingToLength:place.priceLevel withString:@"$" startingAtIndex:0];
+}
+
+- (IBAction)onOpenMap:(id)sender {
+}
+
+- (IBAction)onCreateTrip:(id)sender {
+}
+
+- (IBAction)onClose:(id)sender {
+    [self.detailView setHidden:YES];
 }
 
 // add an info window marker to the POI

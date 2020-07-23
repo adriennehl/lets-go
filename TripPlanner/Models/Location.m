@@ -18,6 +18,7 @@
     self.address = self.place[@"formatted_address"];
     self.photosArray = self.place[@"photos"];
     self.placeId = self.place[@"place_id"];
+    self.priceLevel = [self.place[@"price_level"] integerValue];
     self.location = location;
     return self;
 }
