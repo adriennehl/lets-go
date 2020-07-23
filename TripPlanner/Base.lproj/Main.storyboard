@@ -295,11 +295,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckk-jN-8cL">
+                                <rect key="frame" x="354" y="208" width="52" height="30"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Decline">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDecline:" destination="e2L-Pi-0tS" eventType="touchUpInside" id="Ocv-D5-3ww"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="hT9-jt-A5n" firstAttribute="leading" secondItem="cUf-j0-vmT" secondAttribute="trailing" constant="11" id="2Td-XG-8xw"/>
+                            <constraint firstItem="ckk-jN-8cL" firstAttribute="centerY" secondItem="flH-91-zvV" secondAttribute="centerY" id="4Tj-d8-JOA"/>
                             <constraint firstItem="beZ-El-wAZ" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="5Kx-mS-P5z"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jlv-fL-pps" secondAttribute="trailing" constant="8" id="5vb-gW-52Z"/>
                             <constraint firstItem="Xhd-HM-gXC" firstAttribute="centerY" secondItem="fN9-Ee-Dz4" secondAttribute="centerY" id="77Q-Ke-5YJ"/>
@@ -307,6 +318,7 @@
                             <constraint firstItem="jlv-fL-pps" firstAttribute="top" secondItem="beZ-El-wAZ" secondAttribute="bottom" constant="8" id="Ao2-hx-MSn"/>
                             <constraint firstItem="fN9-Ee-Dz4" firstAttribute="top" secondItem="cUf-j0-vmT" secondAttribute="bottom" constant="11" id="Chn-Pg-y7P"/>
                             <constraint firstItem="BfH-Yg-Z47" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" constant="11" id="CoM-a8-GyB"/>
+                            <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="ckk-jN-8cL" secondAttribute="trailing" constant="8" id="E4w-tJ-O3e"/>
                             <constraint firstItem="u26-2b-EPh" firstAttribute="top" secondItem="fN9-Ee-Dz4" secondAttribute="bottom" constant="11" id="Hew-Um-7Ta"/>
                             <constraint firstItem="BfH-Yg-Z47" firstAttribute="top" secondItem="Au5-7g-NeH" secondAttribute="bottom" constant="8" id="Icv-LT-koM"/>
                             <constraint firstItem="hT9-jt-A5n" firstAttribute="centerY" secondItem="cUf-j0-vmT" secondAttribute="centerY" id="MAl-nJ-88Y"/>
@@ -314,7 +326,6 @@
                             <constraint firstItem="flH-91-zvV" firstAttribute="top" secondItem="jlv-fL-pps" secondAttribute="bottom" constant="8" id="RNG-1O-kRf"/>
                             <constraint firstItem="u26-2b-EPh" firstAttribute="trailing" secondItem="TCK-Ql-KBc" secondAttribute="trailing" id="Rqu-7w-Did"/>
                             <constraint firstItem="flH-91-zvV" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="TjY-Nu-6wx"/>
-                            <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="flH-91-zvV" secondAttribute="trailing" constant="8" id="UaV-lR-abc"/>
                             <constraint firstItem="u26-2b-EPh" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" id="X5A-5N-0Aq"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="beZ-El-wAZ" secondAttribute="trailing" constant="11" id="ZbU-se-SH6"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="Xhd-HM-gXC" secondAttribute="trailing" constant="11" id="a2G-Dl-68e"/>
@@ -329,6 +340,7 @@
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Au5-7g-NeH" secondAttribute="trailing" constant="8" id="jR7-dt-BmZ"/>
                             <constraint firstItem="Au5-7g-NeH" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" constant="11" id="kfz-xQ-6t3"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="B4m-FF-0FB" secondAttribute="trailing" constant="11" id="kpa-cM-tHy"/>
+                            <constraint firstItem="ckk-jN-8cL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="flH-91-zvV" secondAttribute="trailing" constant="8" id="n2n-k7-hBR"/>
                             <constraint firstItem="fN9-Ee-Dz4" firstAttribute="leading" secondItem="cUf-j0-vmT" secondAttribute="leading" id="nSr-O1-ZJu"/>
                             <constraint firstItem="jJs-Z8-PaO" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" id="nYP-yk-8Mb"/>
                             <constraint firstItem="ESg-yj-cnR" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="qUv-Eh-qiT"/>
@@ -362,6 +374,7 @@
                         <outlet property="addButton" destination="Kdt-pK-Ypn" id="Fgy-YL-3WN"/>
                         <outlet property="albumCollectionView" destination="u26-2b-EPh" id="Rlo-uV-uJ2"/>
                         <outlet property="cancelButton" destination="dRn-hA-eE9" id="UdW-F4-MmX"/>
+                        <outlet property="declineButton" destination="ckk-jN-8cL" id="F9W-Wp-2X3"/>
                         <outlet property="descriptionTextView" destination="BfH-Yg-Z47" id="CNB-3w-twr"/>
                         <outlet property="endDateField" destination="Xhd-HM-gXC" id="HX7-tR-sgt"/>
                         <outlet property="guestList" destination="flH-91-zvV" id="rvX-tL-dEx"/>
@@ -458,10 +471,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSlotCell" id="IIn-Pi-iJW" customClass="TimeSlotCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="74.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IIn-Pi-iJW" id="R6n-3Z-bKe">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ1-HU-ofR">
@@ -471,7 +484,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="End Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pq2-bW-tjv">
-                                                    <rect key="frame" x="11" y="42.5" width="75" height="21.5"/>
+                                                    <rect key="frame" x="11" y="42.5" width="75" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
+@property (weak, nonatomic) IBOutlet UIButton *declineButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateField;
@@ -141,6 +142,11 @@
     // add upload photo button
     UIBarButtonItem *uploadButton = [[UIBarButtonItem alloc] initWithTitle:@"Upload Photo" style:UIBarButtonItemStylePlain target:self action:@selector(onViewTap:)];
     self.navigationItem.rightBarButtonItem = uploadButton;
+    
+    // if current user is a guest, show decline button
+    if(self.trip.author != PFUser.currentUser.username) {
+        [self.declineButton setHidden:NO];
+    }
     
     // remove other buttons
     self.addButton.alpha = 0;
@@ -264,6 +270,10 @@
         }
         self.guestsField.text = @"";
     }];
+}
+
+- (IBAction)onDecline:(id)sender {
+    
 }
 
 // hide keyboard anytime user taps outside of fields
