@@ -99,8 +99,9 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-// allow user to create trip when POI is tapped
+// get POI details and allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
+    // get place details
     [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
@@ -108,18 +109,34 @@
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *details = [dataDictionary valueForKeyPath:@"result"];
-            Location *place = [[Location alloc] initWithPlace:details];
-            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
-                if (error != nil) {
-                    NSLog(@"%@", [error localizedDescription]);
-                }
-                else {
-                    place.photoData = data;
-                    [self performSegueWithIdentifier:@"mapSegue" sender:place];
-                }
-            }];
+            Location *place = [[Location alloc] initWithPlace:details location:location];
+            [self createMarker:place];
+//            [APIUtility getPhoto:place.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+//                if (error != nil) {
+//                    NSLog(@"%@", [error localizedDescription]);
+//                }
+//                else {
+//                    place.photoData = data;
+//                    [self performSegueWithIdentifier:@"mapSegue" sender:place];
+//                }
+//            }];
         }
     }];
+}
+
+// add an info window marker to the POI
+- (void)createMarker:(Location *)place {
+    // Declare a GMSMarker instance at the class level.
+    GMSMarker *infoMarker;
+    infoMarker = [GMSMarker markerWithPosition:place.location];
+    infoMarker.snippet = place.placeId;
+    infoMarker.title = place.name;
+    infoMarker.opacity = 0;
+    CGPoint pos = infoMarker.infoWindowAnchor;
+    pos.y = 1;
+    infoMarker.infoWindowAnchor = pos;
+    infoMarker.map = self.mapView;
+    self.mapView.selectedMarker = infoMarker;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -128,7 +145,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LocationCell *cell = [self.locationsTableView dequeueReusableCellWithIdentifier:@"LocationCell"];
-    Location *place = [[Location alloc] initWithPlace: self.locations[indexPath.row]];
+    NSDictionary *locationData = self.locations[indexPath.row];
+    NSNumber *latitude = locationData[@"geometry"][@"location"][@"lat"];
+    NSNumber *longitude = locationData[@"geometry"][@"location"][@"lng"];
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+    Location *place = [[Location alloc] initWithPlace: locationData location:location];
     cell = [cell setCell:place];
     return cell;
 }
