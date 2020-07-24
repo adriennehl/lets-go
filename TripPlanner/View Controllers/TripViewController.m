@@ -273,7 +273,15 @@
 }
 
 - (IBAction)onDecline:(id)sender {
+    // remove user from trip guests
+    [self.trip removeObject:PFUser.currentUser.username forKey:@"guests"];
+    NSLog(@"%@", self.trip.guests);
+    [self.trip saveInBackground];
     
+    // remove trip from user's list of trips
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
+    [relation removeObject:self.trip];
+    [PFUser.currentUser saveInBackground];
 }
 
 // hide keyboard anytime user taps outside of fields
