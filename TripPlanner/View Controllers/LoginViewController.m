@@ -42,7 +42,7 @@
             // display view controller that needs to shown after successful login
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         } else {
-            UIAlertController *loginAlert = [AlertUtility createDoubleActionAlert:error.localizedDescription title:@"Error Logging In"];
+            UIAlertController *loginAlert = [AlertUtility createCancelActionAlert:@"Error Logging In" action:@"Cancel" message:error.localizedDescription];
             
             // show the alert controller
             [self presentViewController: loginAlert animated:YES completion:^{
@@ -56,7 +56,7 @@
 - (IBAction)onSignUp:(id)sender {
     // show error if fields are empty
     if ([self.usernameField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
-        UIAlertController *alert = [AlertUtility createDoubleActionAlert:@"Please enter a username and password" title:@"Username and Password Required"];
+        UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Username and Password Required" action:@"Cancel" message:@"Please enter a username and password"];
         
         // show the alert controller
         [self presentViewController:alert animated:YES completion:^{
@@ -83,7 +83,7 @@
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
-            UIAlertController *signupAlert = [AlertUtility createDoubleActionAlert:error.localizedDescription title:@"Error Signing Up"];
+            UIAlertController *signupAlert = [AlertUtility createCancelActionAlert:@"Error Signing Up" action:@"Cancel" message:error.localizedDescription];
             NSLog(@"%@", error);
             
             // show the alert controller

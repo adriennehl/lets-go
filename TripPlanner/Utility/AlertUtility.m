@@ -12,7 +12,7 @@
 @implementation AlertUtility
 
 // alert with cancel and ok buttons
-+ (UIAlertController *) createDoubleActionAlert: (NSString *) errorDescription title: (NSString *) title {
++ (UIAlertController *) createDoubleActionAlert: (NSString *) errorDescription title: (NSString *) title withHandler:(void(^)(UIAlertAction * _Nonnull action))handler {
     
     
     // create a cancel action
@@ -25,9 +25,7 @@
     // create an OK action
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                        style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-        // handle response here.
-    }];
+                                                     handler:handler];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle: title
                                                                    message:errorDescription

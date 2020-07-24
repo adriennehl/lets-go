@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateField;
@@ -147,6 +148,10 @@
     // if current user is a guest, show decline button
     if(self.trip.author != PFUser.currentUser.username) {
         [self.declineButton setHidden:NO];
+    }
+    // otherwise, show delete button
+    else {
+        [self.deleteButton setHidden:NO];
     }
     
     // remove other buttons
@@ -294,6 +299,21 @@
     [PFUser.currentUser saveInBackground];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onDelete:(id)sender {
+    UIAlertController *deleteAlert = [AlertUtility createDoubleActionAlert:@"Deleted trips cannot be retrieved." title:@"Confirm Delete" withHandler:^(UIAlertAction * _Nonnull action) {
+        [self.trip deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error == nil) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+               UIAlertController *alert =  [AlertUtility createCancelActionAlert:@"Error Deleting Trip" action:@"Cancel" message:error.localizedDescription];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }];
+    [self presentViewController:deleteAlert animated:YES completion:nil];
 }
 
 // hide keyboard anytime user taps outside of fields

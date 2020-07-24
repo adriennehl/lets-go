@@ -311,16 +311,28 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHU-qw-xkl">
+                                <rect key="frame" x="361" y="179.5" width="45" height="30"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDelete:" destination="e2L-Pi-0tS" eventType="touchUpInside" id="YVR-kN-yD7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="hT9-jt-A5n" firstAttribute="leading" secondItem="cUf-j0-vmT" secondAttribute="trailing" constant="11" id="2Td-XG-8xw"/>
+                            <constraint firstItem="GHU-qw-xkl" firstAttribute="centerY" secondItem="jlv-fL-pps" secondAttribute="centerY" id="2fb-Mj-9Re"/>
                             <constraint firstItem="ckk-jN-8cL" firstAttribute="centerY" secondItem="flH-91-zvV" secondAttribute="centerY" id="4Tj-d8-JOA"/>
                             <constraint firstItem="beZ-El-wAZ" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="5Kx-mS-P5z"/>
-                            <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jlv-fL-pps" secondAttribute="trailing" constant="8" id="5vb-gW-52Z"/>
+                            <constraint firstItem="GHU-qw-xkl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jlv-fL-pps" secondAttribute="trailing" constant="8" id="5vb-gW-52Z"/>
                             <constraint firstItem="u26-2b-EPh" firstAttribute="top" secondItem="dfR-bc-65f" secondAttribute="bottom" constant="11" id="6EA-O6-qXR"/>
                             <constraint firstItem="Xhd-HM-gXC" firstAttribute="centerY" secondItem="fN9-Ee-Dz4" secondAttribute="centerY" id="77Q-Ke-5YJ"/>
+                            <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="GHU-qw-xkl" secondAttribute="trailing" constant="8" id="8Eb-cz-qrV"/>
                             <constraint firstItem="Xhd-HM-gXC" firstAttribute="leading" secondItem="fN9-Ee-Dz4" secondAttribute="trailing" constant="11" id="AS4-t5-bCA"/>
                             <constraint firstItem="jlv-fL-pps" firstAttribute="top" secondItem="beZ-El-wAZ" secondAttribute="bottom" constant="8" id="Ao2-hx-MSn"/>
                             <constraint firstItem="fN9-Ee-Dz4" firstAttribute="top" secondItem="cUf-j0-vmT" secondAttribute="bottom" constant="11" id="Chn-Pg-y7P"/>
@@ -385,6 +397,7 @@
                         <outlet property="cancelButton" destination="dRn-hA-eE9" id="UdW-F4-MmX"/>
                         <outlet property="declineButton" destination="ckk-jN-8cL" id="F9W-Wp-2X3"/>
                         <outlet property="declinedLabel" destination="zWv-eQ-pWO" id="3B8-Yf-i9w"/>
+                        <outlet property="deleteButton" destination="GHU-qw-xkl" id="a0i-DF-Ps3"/>
                         <outlet property="descriptionTextView" destination="BfH-Yg-Z47" id="CNB-3w-twr"/>
                         <outlet property="endDateField" destination="Xhd-HM-gXC" id="HX7-tR-sgt"/>
                         <outlet property="guestList" destination="flH-91-zvV" id="rvX-tL-dEx"/>
@@ -1188,7 +1201,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yhI-L7-Vge"/>
+        <segue reference="5lX-ZK-S9K"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
