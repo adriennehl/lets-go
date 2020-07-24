@@ -14,6 +14,7 @@
 @dynamic tripID;
 @dynamic author;
 @dynamic guests;
+@dynamic declined;
 @dynamic images;
 @dynamic description;
 @dynamic title;
@@ -30,6 +31,7 @@
     Trip *newTrip = [Trip new];
     newTrip.author = PFUser.currentUser.username;
     newTrip.guests = guestUsernames;
+    newTrip.declined = [[NSMutableArray alloc] init];
     newTrip.images = images;
     newTrip.description = description;
     newTrip.title = title;

@@ -23,11 +23,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
 @property (weak, nonatomic) IBOutlet UITextField *guestsField;
 @property (weak, nonatomic) IBOutlet UILabel *guestList;
+@property (weak, nonatomic) IBOutlet UILabel *declinedLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
+@property (weak, nonatomic) IBOutlet UIButton *declineButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateField;
@@ -142,6 +144,11 @@
     UIBarButtonItem *uploadButton = [[UIBarButtonItem alloc] initWithTitle:@"Upload Photo" style:UIBarButtonItemStylePlain target:self action:@selector(onViewTap:)];
     self.navigationItem.rightBarButtonItem = uploadButton;
     
+    // if current user is a guest, show decline button
+    if(self.trip.author != PFUser.currentUser.username) {
+        [self.declineButton setHidden:NO];
+    }
+    
     // remove other buttons
     self.addButton.alpha = 0;
     self.guestsField.alpha = 0;
@@ -162,6 +169,13 @@
     if(images.count > 0) {
         self.tripImageView.file = self.trip[@"images"][0];
         [self.tripImageView loadInBackground];
+    }
+    if(self.trip.declined.count > 0) {
+        [self.declinedLabel setHidden:NO];
+        self.declinedLabel.text = @"Declined: ";
+        for(NSString *guestUsername in self.trip[@"declined"]) {
+            self.declinedLabel.text = [NSString stringWithFormat:@"%@%@, ", self.declinedLabel.text, guestUsername];
+        }
     }
     
     // prevent editing
@@ -264,6 +278,22 @@
         }
         self.guestsField.text = @"";
     }];
+}
+
+- (IBAction)onDecline:(id)sender {
+    // remove user from trip guests
+    [self.trip removeObject:PFUser.currentUser.username forKey:@"guests"];
+    
+    // add user to trip declined list
+    [self.trip addObject:PFUser.currentUser.username forKey:@"declined"];
+    [self.trip saveInBackground];
+    
+    // remove trip from user's list of trips
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
+    [relation removeObject:self.trip];
+    [PFUser.currentUser saveInBackground];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 // hide keyboard anytime user taps outside of fields
