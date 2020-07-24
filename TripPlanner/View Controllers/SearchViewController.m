@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UITableView *reviewsTableView;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -108,7 +109,7 @@
 // get POI details and allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
     // get place details
-    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level,reviews" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }
