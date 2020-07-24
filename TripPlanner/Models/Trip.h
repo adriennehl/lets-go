@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *tripID;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSMutableArray *guests;
+@property (nonatomic, strong) NSMutableArray *declined;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *title;
