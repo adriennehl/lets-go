@@ -164,10 +164,10 @@
     }
     self.startDatePicker.date = self.trip[@"startDate"];
     self.endDatePicker.date = self.trip[@"endDate"];
-    self.descriptionTextView.text = self.trip[@"description"];
-    NSArray *images = self.trip[@"images"];
+    self.descriptionTextView.text = self.trip[@"descriptionText"];
+    NSArray *images = self.trip[@"album"];
     if(images.count > 0) {
-        self.tripImageView.file = self.trip[@"images"][0];
+        self.tripImageView.file = self.trip[@"album"][0];
         [self.tripImageView loadInBackground];
     }
     if(self.trip.declined.count > 0) {
@@ -189,12 +189,12 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.trip.images.count - 1;
+    return self.trip.album.count - 1;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     photoAlbumCell *cell = [self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoAlbumCell" forIndexPath:indexPath];
-    cell = [cell setCell:self.trip.images[indexPath.row + 1]];
+    cell = [cell setCell:self.trip.album[indexPath.row + 1]];
     return cell;
 }
 
@@ -323,8 +323,8 @@
     
     // if in detail view, upload photo to photo album
     if(self.trip) {
-        NSArray *images = [self.trip.images arrayByAddingObject:[ImageUtility getPFFileFromImage:resizedImage]];
-        self.trip.images = images;
+        NSArray *album = [self.trip.album arrayByAddingObject:[ImageUtility getPFFileFromImage:resizedImage]];
+        self.trip.album = album;
         [self.trip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded) {
                 [self.albumCollectionView reloadData];
@@ -362,7 +362,7 @@
          ImageViewController *destinationViewController = [segue destinationViewController];
          photoAlbumCell *tappedCell = sender;
          NSIndexPath *indexPath = [self.albumCollectionView indexPathForCell:tappedCell];
-         destinationViewController.image = self.trip.images[indexPath.row + 1];
+         destinationViewController.image = self.trip.album[indexPath.row + 1];
      }
      
  }

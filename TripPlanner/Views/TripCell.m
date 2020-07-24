@@ -34,10 +34,10 @@
     }
     self.startDateLabel.text = [DateUtility dateToString:self.trip[@"startDate"]];
     self.endDateLabel.text = [DateUtility dateToString:self.trip[@"endDate"]];
-    self.descriptionLabel.text = self.trip[@"description"];
-    NSArray *images = self.trip[@"images"];
+    self.descriptionLabel.text = self.trip[@"descriptionText"];
+    NSArray *images = self.trip[@"album"];
     if(images.count > 0) {
-        PFFileObject *tripImage = self.trip[@"images"][0];
+        PFFileObject *tripImage = self.trip[@"album"][0];
         self.tripView.file = tripImage;
         [self.tripView loadInBackground];
     }
