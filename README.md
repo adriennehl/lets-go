@@ -42,17 +42,20 @@ Let's Go helps users plan outings and meetings with their friends. Afterwards, u
 **Optional Nice-to-have Stories**
 
 * user can see photos that other attendees have added to their trip
-* user can see their profile page with past trips
+* user can see/edit their profile page with past trips
+* user can decline trips from other users
+* user can see if their friend has declined their invite
 * user can see a list of popular places
 * user see yelp reviews
-* user can delete trips
+* user can delete trips they are the host of
 
 **Extra Stretch**
 
-* user can see if their friend has accepted their invite
-* user can edit their profile
-* user can search and add other users
 * user gets notifications before their trips
+* user can search and add other users in the app
+* user can send invites/trip details to friends outside the app (integrate with Facebook SDK or email)
+* app can post events to calendar
+* integrate with calendars
 * app recommends new places for users
 * user can edit trips
 * user can visit other user's profiles and see their past trips
@@ -122,7 +125,7 @@ User
 |number of trips|number|number of trips|
 |createdAt|DateTime|date when trip is created (default field)|
 |updatedAt|DateTime|date when post is last update (default field)|
-|trips|Array|list of trip Ids of trips the user is invited to|
+|trips|Array/Relation|list of trip Ids/pointers to trips the user is invited to|
 
 Trip
 
@@ -130,7 +133,7 @@ Trip
 | -------- | -------- | -------- |
 | objectId| String| unique id for the user post (default field)|
 |author|Pointer to user| trip creator|
-|guests|Array|list of usernames of users who are invited|
+|invitees|Array/Relation|list of usernames/pointers to users who are invited|
 |images|Array|list of trip images|
 |description|String|trip description|
 |title|String|trip title|
