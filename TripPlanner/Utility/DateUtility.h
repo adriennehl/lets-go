@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DateUtility : NSObject
 + (NSString *)dateToString: (NSDate *)date;
 + (UIDatePicker *)createDatePicker;
++ (NSDate *)getRoundedCurrentDate;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -55,7 +55,6 @@
     // set date pickers
     [self setDatePickers];
     
-    
     // if self.trip is set, show trip detail
     if(self.trip) {
         [self setElements];
@@ -237,8 +236,11 @@
     self.guestList.text = @"Guests: ";
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.guests = [[NSMutableArray alloc] init];
-    self.startDatePicker.date = [NSDate date];
-    self.endDatePicker.date = [NSDate date];
+    NSDate *roundedCurrentDate = [DateUtility getRoundedCurrentDate];
+    self.startDatePicker.date = roundedCurrentDate;
+    [self updateStartField];
+    self.endDatePicker.date = roundedCurrentDate;
+    [self updateEndField];
     self.descriptionTextView.text = nil;
     self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
     if(self.place) {
