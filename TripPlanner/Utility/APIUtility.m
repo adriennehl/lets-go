@@ -8,7 +8,6 @@
 
 #import "APIUtility.h"
 #import "Key.h"
-#import <GoogleMaps/GoogleMaps.h>
 
 @implementation APIUtility
 
@@ -46,6 +45,17 @@
     Key *key = [[Key alloc] init];
     
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxheight=185&photoreference=%@&key=%@", photoReference, key.key];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:completion];
+    [task resume];
+}
+
+// get top nearby places
++ (void)getRecommendations:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion {
+    Key *key = [[Key alloc] init];
+    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=%@&location=%f,%f&radius=%d&type=tourist_attraction", key.key, latitude, longitude, 20000];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];

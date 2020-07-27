@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getPlaces:(NSString *)searchTerm withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion;
 + (void)getPlaceDetails:(NSString *)placeId fields:(NSString *)fields withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error))completion;
 + (void)getPhoto:(NSString *)photoReference withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion;
++ (void)getRecommendations:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude withCompletion:(void(^)(NSData *data, NSURLResponse *response, NSError *error)) completion;
 @end
 
 NS_ASSUME_NONNULL_END

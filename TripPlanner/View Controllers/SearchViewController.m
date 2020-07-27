@@ -33,6 +33,7 @@
 @property (nonatomic) GMSMapView *mapView;
 @property (nonatomic, strong) Location *selectedPlace;
 @property (nonatomic, strong) ReviewsTableViewUtility *reviewsUtility;
+@property (nonatomic, strong) CLLocation *location;
 
 @end
 
@@ -94,9 +95,9 @@
 
 // move camera when user's location is updated
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *location = [locations lastObject];
-    CLLocationDegrees latitude = location.coordinate.latitude;
-    CLLocationDegrees longitude = location.coordinate.longitude;
+    self.location = [locations lastObject];
+    CLLocationDegrees latitude = self.location.coordinate.latitude;
+    CLLocationDegrees longitude = self.location.coordinate.longitude;
     GMSCameraUpdate *newCamera = [GMSCameraUpdate setCamera:[GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:16.0]];
     [self.mapView moveCamera:newCamera];
     [self.locationManager stopUpdatingLocation];
@@ -230,7 +231,23 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
     [self.mapViewParent setHidden:YES];
-    self.locationsTableView.alpha = 1.0;
+
+    // show table view with list of recommended places
+    // get nearby places from api
+    [APIUtility getRecommendations:self.location.coordinate.latitude longitude:self.location.coordinate.longitude withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+        if (error == nil) {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSArray *unfiltered = [dataDictionary valueForKeyPath:@"results"];
+            // filter locations that are not operational
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"business_status == [c] %@", @"OPERATIONAL"];
+            self.locations = [unfiltered filteredArrayUsingPredicate:pred];
+            [self.locationsTableView reloadData];
+            self.locationsTableView.alpha = 1.0;
+        }
+        else {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    }];
 }
 
 // removed text and hide keyboard on cancel
