@@ -13,10 +13,11 @@
 #import "AlertUtility.h"
 #import "ImageUtility.h"
 #import "DateUtility.h"
+#import "albumCollectionViewUtility.h"
 #import "Trip.h"
 @import Parse;
 
-@interface TripViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TripViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UILabel *hostField;
 @property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
@@ -32,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (strong, nonatomic) albumCollectionViewUtility *albumUtility;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateField;
 @property (strong, nonatomic) NSMutableArray *guests;
@@ -49,8 +51,9 @@
     self.guests = [[NSMutableArray alloc] init];
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.descriptionTextView.layer.borderWidth = 2;
-    self.albumCollectionView.delegate = self;
-    self.albumCollectionView.dataSource = self;
+    self.albumUtility = [[albumCollectionViewUtility alloc] initWithAlbum:self.trip.album];
+    self.albumCollectionView.delegate = self.albumUtility;
+    self.albumCollectionView.dataSource = self.albumUtility;
     
     // set date pickers
     [self setDatePickers];
@@ -92,23 +95,6 @@
 
 - (void)updateEndField {
     self.endDateField.text = [DateUtility dateToString:self.endDatePicker.date];
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat minimumInteritemSpacing = 5;
-    
-    CGFloat postersPerLine = 3;
-    CGFloat itemWidth = (self.albumCollectionView.frame.size.width - minimumInteritemSpacing * (postersPerLine - 1)) / postersPerLine;
-    CGFloat itemHeight = itemWidth * 1.5;
-    return CGSizeMake(itemWidth, itemHeight);
 }
 
 // switches to previous controller
@@ -192,16 +178,6 @@
     self.tripImageView.userInteractionEnabled = NO;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.trip.album.count - 1;
-}
-
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    photoAlbumCell *cell = [self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoAlbumCell" forIndexPath:indexPath];
-    cell = [cell setCell:self.trip.album[indexPath.row + 1]];
-    return cell;
-}
-
 // checks if user with username is in the guest list
 - (BOOL)hasGuest: (NSString *)username guests: (NSMutableArray *)guests {
     for(NSString *guestUsername in guests) {
@@ -256,34 +232,29 @@
     [query whereKey:@"username" equalTo:username];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable users, NSError * _Nullable error) {
+        UIAlertController *alert;
+        
         // user does not exist
         if(users.count == 0) {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Username does not exist"];
-            [self presentViewController: alert animated:YES completion:^{
-            }];
+            alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Username does not exist"];
         }
         // user is already added
         else if([self hasGuest:username guests:self.guestUsernames]) {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"User already added"];
-            [self presentViewController: alert animated:YES completion:^{
-            }];
+            alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"User already added"];
         }
         // user is current user
         else if([username isEqualToString:PFUser.currentUser.username]) {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Can't add yourself"];
-            [self presentViewController: alert animated:YES completion:^{
-            }];
+            alert = [AlertUtility createCancelActionAlert:@"Error Adding Guest" action:@"Cancel" message:@"Can't add yourself"];
         }
         // user can be added to list
         else {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Successful" action:@"Ok" message:@"Guest was successfully added"];
-            [self presentViewController: alert animated:YES completion:^{
-            }];
+            alert = [AlertUtility createCancelActionAlert:@"Successful" action:@"Ok" message:@"Guest was successfully added"];
             self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, username];
             [self.guestUsernames addObject:username];
             [self.guests addObject:users[0]];
         }
         self.guestsField.text = @"";
+        [self presentViewController: alert animated:YES completion:nil];
     }];
 }
 
@@ -347,6 +318,7 @@
     if(self.trip) {
         NSArray *album = [self.trip.album arrayByAddingObject:[ImageUtility getPFFileFromImage:resizedImage]];
         self.trip.album = album;
+        [self.albumUtility updateAlbum:album];
         [self.trip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded) {
                 [self.albumCollectionView reloadData];

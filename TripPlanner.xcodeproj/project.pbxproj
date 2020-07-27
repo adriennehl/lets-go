@@ -12,6 +12,7 @@
 		C187D05650BEA5293BE8A066 /* Pods_TripPlanner_TripPlannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8A0B9BF50FF65D3AE0CD16 /* Pods_TripPlanner_TripPlannerUITests.framework */; };
 		C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C85323FD24C1FA700059C90E /* TimeSlotCell.m */; };
 		C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C85AC18D24CA276600B1C3BC /* CalendarUtility.m */; };
+		C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */; };
 		C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F424BEB94D0061EC0A /* SearchViewController.m */; };
 		C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AB24BCCC44006C3A67 /* AppDelegate.m */; };
 		C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AE24BCCC44006C3A67 /* SceneDelegate.m */; };
@@ -74,6 +75,8 @@
 		C85323FD24C1FA700059C90E /* TimeSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeSlotCell.m; sourceTree = "<group>"; };
 		C85AC18C24CA276600B1C3BC /* CalendarUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarUtility.h; sourceTree = "<group>"; };
 		C85AC18D24CA276600B1C3BC /* CalendarUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarUtility.m; sourceTree = "<group>"; };
+		C86E64C024CF834300BC2AD7 /* albumCollectionViewUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = albumCollectionViewUtility.h; sourceTree = "<group>"; };
+		C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = albumCollectionViewUtility.m; sourceTree = "<group>"; };
 		C88995F024BEB71E0061EC0A /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		C88995F324BEB94D0061EC0A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C88995F424BEB94D0061EC0A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
@@ -325,6 +328,8 @@
 				C85AC18D24CA276600B1C3BC /* CalendarUtility.m */,
 				C8E3C8EF24CF350700E3FD82 /* ReviewsTableViewUtility.h */,
 				C8E3C8F024CF350700E3FD82 /* ReviewsTableViewUtility.m */,
+				C86E64C024CF834300BC2AD7 /* albumCollectionViewUtility.h */,
+				C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -622,6 +627,7 @@
 				C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */,
 				C8B534BD24BCCC45006C3A67 /* main.m in Sources */,
 				C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */,
+				C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */,
 				C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */,
 				C8D7172C24BFAC7B005227D9 /* AlertUtility.m in Sources */,
 				C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */,
