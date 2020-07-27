@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *placeId;
 @property (nonatomic) CLLocationCoordinate2D location;
 @property (nonatomic) NSInteger priceLevel;
+@property (nonatomic, strong) NSArray *reviews;
 
 - (instancetype)initWithPlace:(NSDictionary *)place location:(CLLocationCoordinate2D)location;
 @end

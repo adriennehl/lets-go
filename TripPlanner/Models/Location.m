@@ -19,6 +19,7 @@
     self.photosArray = self.place[@"photos"];
     self.placeId = self.place[@"place_id"];
     self.priceLevel = [self.place[@"price_level"] integerValue];
+    self.reviews = self.place[@"reviews"];
     self.location = location;
     return self;
 }

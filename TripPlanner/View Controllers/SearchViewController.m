@@ -10,6 +10,7 @@
 #import "TripViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ReviewsTableViewUtility.h"
 #import "LocationCell.h"
 #import "APIUtility.h"
 #import "AlertUtility.h"
@@ -25,11 +26,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UITableView *reviewsTableView;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) GMSMapView *mapView;
 @property (nonatomic, strong) Location *selectedPlace;
+@property (nonatomic, strong) ReviewsTableViewUtility *reviewsUtility;
 
 @end
 
@@ -108,7 +111,7 @@
 // get POI details and allow user to create trip when POI is tapped
 - (void)mapView:(GMSMapView *)mapView didTapPOIWithPlaceID:(NSString *)placeID name:(NSString *)name location:(CLLocationCoordinate2D)location {
     // get place details
-    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
+    [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level,reviews" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }
@@ -128,6 +131,10 @@
     self.addressLabel.text = place.address;
     self.ratingLabel.text = place.rating;
     self.priceLabel.text = [@"" stringByPaddingToLength:place.priceLevel withString:@"$" startingAtIndex:0];
+    self.reviewsUtility = [[ReviewsTableViewUtility alloc] initWithReviews:place.reviews];
+    self.reviewsTableView.delegate = self.reviewsUtility;
+    self.reviewsTableView.dataSource = self.reviewsUtility;
+    [self.reviewsTableView reloadData];
 }
 
 // open selected POI in maps

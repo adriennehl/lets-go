@@ -38,6 +38,8 @@
 		C8D7173524BFB276005227D9 /* DateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173424BFB276005227D9 /* DateUtility.m */; };
 		C8D7173824BFB323005227D9 /* APIUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173724BFB323005227D9 /* APIUtility.m */; };
 		C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D7173A24BFBD31005227D9 /* ParseUtility.m */; };
+		C8E3C8F124CF350700E3FD82 /* ReviewsTableViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E3C8F024CF350700E3FD82 /* ReviewsTableViewUtility.m */; };
+		C8E3C8F424CF3A4E00E3FD82 /* ReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E3C8F324CF3A4E00E3FD82 /* ReviewCell.m */; };
 		C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */; };
 		C8F0318224C0F943009B5430 /* SuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0318124C0F942009B5430 /* SuggestViewController.m */; };
 		C8F0318524C0FD53009B5430 /* EventsUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F0318424C0FD53009B5430 /* EventsUtility.m */; };
@@ -124,6 +126,10 @@
 		C8D7173724BFB323005227D9 /* APIUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIUtility.m; sourceTree = "<group>"; };
 		C8D7173924BFBD31005227D9 /* ParseUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseUtility.h; sourceTree = "<group>"; };
 		C8D7173A24BFBD31005227D9 /* ParseUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseUtility.m; sourceTree = "<group>"; };
+		C8E3C8EF24CF350700E3FD82 /* ReviewsTableViewUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewsTableViewUtility.h; sourceTree = "<group>"; };
+		C8E3C8F024CF350700E3FD82 /* ReviewsTableViewUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewsTableViewUtility.m; sourceTree = "<group>"; };
+		C8E3C8F224CF3A4E00E3FD82 /* ReviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewCell.h; sourceTree = "<group>"; };
+		C8E3C8F324CF3A4E00E3FD82 /* ReviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewCell.m; sourceTree = "<group>"; };
 		C8F0317A24C0A9B6009B5430 /* photoAlbumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = photoAlbumCell.h; sourceTree = "<group>"; };
 		C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = photoAlbumCell.m; sourceTree = "<group>"; };
 		C8F0318024C0F942009B5430 /* SuggestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestViewController.h; sourceTree = "<group>"; };
@@ -292,6 +298,8 @@
 				C8F0317B24C0A9B6009B5430 /* photoAlbumCell.m */,
 				C85323FC24C1FA700059C90E /* TimeSlotCell.h */,
 				C85323FD24C1FA700059C90E /* TimeSlotCell.m */,
+				C8E3C8F224CF3A4E00E3FD82 /* ReviewCell.h */,
+				C8E3C8F324CF3A4E00E3FD82 /* ReviewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +323,8 @@
 				C8F0318424C0FD53009B5430 /* EventsUtility.m */,
 				C85AC18C24CA276600B1C3BC /* CalendarUtility.h */,
 				C85AC18D24CA276600B1C3BC /* CalendarUtility.m */,
+				C8E3C8EF24CF350700E3FD82 /* ReviewsTableViewUtility.h */,
+				C8E3C8F024CF350700E3FD82 /* ReviewsTableViewUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -603,8 +613,10 @@
 				C8D7171E24BF5FF2005227D9 /* Location.m in Sources */,
 				C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */,
 				C8B534FA24BE2664006C3A67 /* TripCell.m in Sources */,
+				C8E3C8F124CF350700E3FD82 /* ReviewsTableViewUtility.m in Sources */,
 				C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */,
 				C8F0318524C0FD53009B5430 /* EventsUtility.m in Sources */,
+				C8E3C8F424CF3A4E00E3FD82 /* ReviewCell.m in Sources */,
 				C8B534EE24BD080A006C3A67 /* Trip.m in Sources */,
 				C8D7173524BFB276005227D9 /* DateUtility.m in Sources */,
 				C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */,
