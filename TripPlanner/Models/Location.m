@@ -15,7 +15,15 @@
     self.place = place;
     self.name = self.place[@"name"];
     self.rating = [NSString stringWithFormat:@"%@", self.place[@"rating"]];
-    self.address = self.place[@"formatted_address"];
+    if (self.place[@"formatted_address"]) {
+        self.address = self.place[@"formatted_address"];
+    }
+    else if (self.place[@"vicinity"]) {
+        self.address = self.place[@"vicinity"];
+    }
+    else {
+        self.address = @"";
+    }
     self.photosArray = self.place[@"photos"];
     self.placeId = self.place[@"place_id"];
     self.priceLevel = [self.place[@"price_level"] integerValue];

@@ -27,6 +27,7 @@
     self.nameLabel.text = place.name;
     self.addressLabel.text = place.address;
     self.ratingLabel.text = place.rating;
+    self.priceLabel.text = [@"" stringByPaddingToLength:place.priceLevel withString:@"$" startingAtIndex:0];
     [self setPhoto:place.photosArray];
     return self;
 }
