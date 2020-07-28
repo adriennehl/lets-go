@@ -8,6 +8,7 @@
 
 #import "Trip.h"
 #import "AlertUtility.h"
+#import "CalendarUtility.h"
 
 @implementation Trip
 
@@ -43,19 +44,27 @@
     [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         [controller.savingIndicator stopAnimating];
         if (error != nil) {
+            // create error alert
             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Adding Trip" action:@"Cancel" message:error.localizedDescription];
             [controller presentViewController: alert animated:YES completion:^{
             }];
         }
         else {
+            // create success alert
             UIAlertController *alert = [AlertUtility createSingleActionAlert:@"Successful" action:@"Ok" message:@"Trip was successfully added" withCompletion:^(BOOL finished) {
                 [controller onCancel:self];
             }];
             [controller presentViewController: alert animated:YES completion:^{
             }];
             
-            PFRelation *relation;
+            // create notification for the trip
+            // get date components for one day before trip startDate
+            NSDateComponents *dateComponents = [CalendarUtility getDateComponents:newTrip.startDate];
+            // schedule the notification
+            [NotificationUtility setNotification:newTrip.title withDescription:newTrip.descriptionText withDate:dateComponents withID:newTrip.objectId];
+            
             // add trip to author's list of trips
+            PFRelation *relation;
             relation = [PFUser.currentUser relationForKey:@"trips"];
             [relation addObject:newTrip];
             [PFUser.currentUser saveInBackground];

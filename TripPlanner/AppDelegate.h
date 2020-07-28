@@ -11,6 +11,5 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (nonatomic, strong) EventsUtility *eventManager;
-@property (nonatomic) BOOL allowsNotifs;
 @end
 

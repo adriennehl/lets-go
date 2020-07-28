@@ -37,7 +37,6 @@
     
     // get permission for notifications
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        self.allowsNotifs = granted;
     }];
     
     return YES;
