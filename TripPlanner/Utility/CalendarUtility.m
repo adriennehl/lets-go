@@ -61,4 +61,11 @@
     completion(YES, freeTimes);
 }
 
++ (NSDateComponents *)getDateComponents:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
+    dateComponents.day = dateComponents.day - 1;
+    return dateComponents;
+}
 @end

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CalendarUtility : NSObject
 + (NSArray *)retrieveEvents:(EKEventStore *)eventStore withStartDate:(NSDate *)startDate withEndDate:(NSDate *)endDate;
 + (void)findFreeTimes:(NSArray *)events withStartRange:(NSDate *)startRange withEndRange:(NSDate *)endRange withDuration:(NSTimeInterval)duration withCompletion:(void(^)(BOOL finished, NSMutableArray *freeTimes))completion;
++ (NSDateComponents *)getDateComponents:(NSDate *)date;
 @end
 
 NS_ASSUME_NONNULL_END

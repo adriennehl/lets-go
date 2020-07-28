@@ -14,6 +14,7 @@
 #import "ImageUtility.h"
 #import "DateUtility.h"
 #import "albumCollectionViewUtility.h"
+#import "NotificationUtility.h"
 #import "Trip.h"
 @import Parse;
 
@@ -271,6 +272,9 @@
     [relation removeObject:self.trip];
     [PFUser.currentUser saveInBackground];
     
+    // delete notification
+    [NotificationUtility deleteNotification:self.trip.objectId];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -278,6 +282,8 @@
     UIAlertController *deleteAlert = [AlertUtility createDoubleActionAlert:@"Deleted trips cannot be retrieved." title:@"Confirm Delete" withHandler:^(UIAlertAction * _Nonnull action) {
         [self.trip deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(error == nil) {
+                // delete notification
+                [NotificationUtility deleteNotification:self.trip.objectId];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else {

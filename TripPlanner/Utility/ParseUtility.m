@@ -9,6 +9,7 @@
 #import "ParseUtility.h"
 #import <Parse/Parse.h>
 #import "Trip.h"
+#import "NotificationUtility.h"
 
 @implementation ParseUtility
 
@@ -25,6 +26,9 @@
                 for(NSString *guestUsername in trip[@"guests"]) {
                     if ([PFUser.currentUser.username isEqualToString:guestUsername]) {
                         [relation addObject:trip];
+                        
+                        // create notification for trip
+                        [NotificationUtility setNotification:trip];
                         break;
                     }
                 }

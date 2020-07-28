@@ -10,7 +10,6 @@
 #import "ImageUtility.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
-#import "ParseUtility.h"
 #import "Trip.h"
 
 @interface LoginViewController ()
@@ -35,9 +34,6 @@
         
         if (error == nil) {
             NSLog(@"User logged in successfully");
-            
-            // update user's list of trips
-            [ParseUtility updateCurrentUserTrips];
             
             // display view controller that needs to shown after successful login
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
