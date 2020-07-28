@@ -272,6 +272,9 @@
     [relation removeObject:self.trip];
     [PFUser.currentUser saveInBackground];
     
+    // delete notification
+    [NotificationUtility deleteNotification:self.trip.objectId];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

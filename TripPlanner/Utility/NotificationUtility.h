@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Trip.h"
 #import <UserNotifications/UserNotifications.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotificationUtility : NSObject <UNUserNotificationCenterDelegate>
-
-+ (void)setNotification:(NSString *)title withDescription:(NSString *)description withDate:(NSDateComponents *)date withID:(NSString *)tripId;
+- (instancetype)init;
++ (void)setNotification:(Trip *)trip;
 + (void)deleteNotification:(NSString *)tripId;
 
 @end

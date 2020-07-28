@@ -8,7 +8,6 @@
 
 #import "Trip.h"
 #import "AlertUtility.h"
-#import "CalendarUtility.h"
 
 @implementation Trip
 
@@ -58,10 +57,7 @@
             }];
             
             // create notification for the trip
-            // get date components for one day before trip startDate
-            NSDateComponents *dateComponents = [CalendarUtility getDateComponents:newTrip.startDate];
-            // schedule the notification
-            [NotificationUtility setNotification:newTrip.title withDescription:newTrip.descriptionText withDate:dateComponents withID:newTrip.objectId];
+            [NotificationUtility setNotification:newTrip];
             
             // add trip to author's list of trips
             PFRelation *relation;

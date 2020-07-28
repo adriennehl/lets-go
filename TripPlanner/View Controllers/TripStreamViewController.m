@@ -10,6 +10,7 @@
 #import "TripViewController.h"
 #import "Trip.h"
 #import "TripCell.h"
+#import "ParseUtility.h"
 
 @interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
@@ -21,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.tripsTableView.delegate = self;
     self.tripsTableView.dataSource = self;
@@ -37,6 +39,9 @@
 
 // get trips from user's trips relation
 - (void)fetchTrips {
+   // update user's list of trips
+    [ParseUtility updateCurrentUserTrips];
+    
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"startDate"];
