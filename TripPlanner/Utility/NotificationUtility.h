@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NotificationUtility : NSObject <UNUserNotificationCenterDelegate>
 
 + (void)setNotification:(NSString *)title withDescription:(NSString *)description withDate:(NSDateComponents *)date withID:(NSString *)tripId;
++ (void)deleteNotification:(NSString *)tripId;
 
 @end
 
