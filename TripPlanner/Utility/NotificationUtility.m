@@ -52,21 +52,11 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    [UNUserNotificationCenter.currentNotificationCenter getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-        for (UNNotificationRequest *request in requests) {
-            NSLog(@"%@", request);
-        }
-    }];
 }
 
 + (void)deleteNotification:(NSString *)tripId {
     NSArray *trips = [NSArray arrayWithObject:tripId];
     [UNUserNotificationCenter.currentNotificationCenter removePendingNotificationRequestsWithIdentifiers:trips];
-    [UNUserNotificationCenter.currentNotificationCenter getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-        for (UNNotificationRequest *request in requests) {
-            NSLog(@"%@", request);
-        }
-    }];
 }
 
 // called when a user selects an action in a delivered notification
