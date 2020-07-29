@@ -32,7 +32,6 @@
     // Do any additional setup after loading the view.
     self.pastTripsTableView.delegate = self;
     self.pastTripsTableView.dataSource = self;
-    [self.saveButton setHidden:YES];
     
     self.usernameLabel.text = PFUser.currentUser.username;
     self.nameLabel.text = PFUser.currentUser[@"name"];
@@ -65,16 +64,24 @@
     [self.editButton setHidden:YES];
     self.nameLabel.userInteractionEnabled = YES;
     self.profileImageView.userInteractionEnabled = YES;
+    self.nameLabel.borderStyle = UITextBorderStyleRoundedRect;
+    self.nameLabel.backgroundColor = UIColor.whiteColor;
     
     
 }
 
-- (IBAction)onCancel:(id)sender {
+- (void)endEditing {
     [self.saveButton setHidden:YES];
     [self.cancelButton setHidden:YES];
     [self.editButton setHidden:NO];
     self.nameLabel.userInteractionEnabled = NO;
     self.profileImageView.userInteractionEnabled = NO;
+    self.nameLabel.borderStyle = UITextBorderStyleNone;
+    self.nameLabel.backgroundColor = UIColor.clearColor;
+}
+
+- (IBAction)onCancel:(id)sender {
+    [self endEditing];
     self.nameLabel.text = PFUser.currentUser[@"name"];
     self.profileImageView.file = PFUser.currentUser[@"profileImage"];
     [self.profileImageView loadInBackground];
@@ -82,11 +89,7 @@
 
 // save changes to Parse
 - (IBAction)onSave:(id)sender {
-    [self.saveButton setHidden:YES];
-    [self.cancelButton setHidden:YES];
-    [self.editButton setHidden:NO];
-    self.nameLabel.userInteractionEnabled = NO;
-    self.profileImageView.userInteractionEnabled = NO;
+    [self endEditing];
     PFUser.currentUser[@"name"] = self.nameLabel.text;
     PFFileObject *profileImage = [ImageUtility getPFFileFromImage:self.profileImageView.image];
     PFUser.currentUser[@"profileImage"] = profileImage;
