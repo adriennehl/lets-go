@@ -284,3 +284,5 @@ Base URL - https://api.foursquare.com/v2/venues/
         }
     }];
 ```
+
+Daily Check-In Document: https://hackmd.io/iry6wHVWQXqqf6kOkHlA2Q?view#Monday
