@@ -38,6 +38,8 @@
     self.nameLabel.text = PFUser.currentUser[@"name"];
     self.profileImageView.file = PFUser.currentUser[@"profileImage"];
     [self.profileImageView loadInBackground];
+    self.profileImageView.layer.borderWidth = 2;
+    [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

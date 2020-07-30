@@ -180,10 +180,25 @@
                                     <outletCollection property="gestureRecognizers" destination="cz2-J6-Nrw" appends="YES" id="swY-ow-pKQ"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-El-wAZ">
-                                <rect key="frame" x="188" y="142" width="215" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Location" textAlignment="natural" minimumFontSize="17" id="beZ-El-wAZ" customClass="HoshiTextField" customModule="TextFieldEffects">
+                                <rect key="frame" x="188" y="165" width="215" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderActiveColor">
+                                        <color key="value" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="placeholderFontScale">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BfH-Yg-Z47">
                                 <rect key="frame" x="11" y="315" width="395" height="70"/>
@@ -195,18 +210,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B4m-FF-0FB">
-                                <rect key="frame" x="188" y="99" width="215" height="35"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="18" id="B4m-FF-0FB" customClass="HoshiTextField" customModule="TextFieldEffects">
+                                <rect key="frame" x="188" y="103" width="215" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderActiveColor">
+                                        <color key="value" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="placeholderFontScale">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guest username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ESg-yj-cnR">
-                                <rect key="frame" x="188" y="241" width="134" height="34"/>
+                                <rect key="frame" x="188" y="269" width="134" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdt-pK-Ypn" customClass="MDCFloatingButton">
-                                <rect key="frame" x="330" y="248" width="20" height="20"/>
+                                <rect key="frame" x="330" y="276" width="20" height="20"/>
                                 <color key="backgroundColor" red="0.22510877530000001" green="0.75663537839999995" blue="0.57306208219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="IWt-a1-ihD"/>
@@ -227,13 +258,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlv-fL-pps">
-                                <rect key="frame" x="188" y="184" width="45.5" height="20.5"/>
+                                <rect key="frame" x="188" y="212" width="45.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guests: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flH-91-zvV">
-                                <rect key="frame" x="188" y="212.5" width="63" height="20.5"/>
+                                <rect key="frame" x="188" y="240.5" width="63" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -300,13 +331,14 @@
                             <constraint firstItem="BfH-Yg-Z47" firstAttribute="top" secondItem="Au5-7g-NeH" secondAttribute="bottom" constant="8" id="Icv-LT-koM"/>
                             <constraint firstItem="hT9-jt-A5n" firstAttribute="centerY" secondItem="cUf-j0-vmT" secondAttribute="centerY" id="MAl-nJ-88Y"/>
                             <constraint firstItem="jlv-fL-pps" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="N8F-Tx-aIn"/>
+                            <constraint firstItem="beZ-El-wAZ" firstAttribute="top" secondItem="B4m-FF-0FB" secondAttribute="bottom" constant="8" id="P9p-z2-4Yt"/>
                             <constraint firstItem="flH-91-zvV" firstAttribute="top" secondItem="jlv-fL-pps" secondAttribute="bottom" constant="8" id="RNG-1O-kRf"/>
                             <constraint firstItem="flH-91-zvV" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="TjY-Nu-6wx"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jlv-fL-pps" secondAttribute="trailing" constant="8" id="YlO-IP-THC"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="beZ-El-wAZ" secondAttribute="trailing" constant="11" id="ZbU-se-SH6"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="Xhd-HM-gXC" secondAttribute="trailing" constant="11" id="a2G-Dl-68e"/>
                             <constraint firstItem="B4m-FF-0FB" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="auW-CK-vpL"/>
-                            <constraint firstItem="B4m-FF-0FB" firstAttribute="top" secondItem="TCK-Ql-KBc" secondAttribute="top" constant="11" id="cMs-rA-TVV"/>
+                            <constraint firstItem="B4m-FF-0FB" firstAttribute="top" secondItem="TCK-Ql-KBc" secondAttribute="top" constant="15" id="cMs-rA-TVV"/>
                             <constraint firstItem="TCK-Ql-KBc" firstAttribute="trailing" secondItem="hT9-jt-A5n" secondAttribute="trailing" constant="11" id="cVh-q4-jUc"/>
                             <constraint firstItem="Kdt-pK-Ypn" firstAttribute="centerY" secondItem="ESg-yj-cnR" secondAttribute="centerY" id="h3y-Ov-ja2"/>
                             <constraint firstItem="ESg-yj-cnR" firstAttribute="top" secondItem="flH-91-zvV" secondAttribute="bottom" constant="8" id="hkj-Ff-GwI"/>
@@ -319,7 +351,6 @@
                             <constraint firstItem="fN9-Ee-Dz4" firstAttribute="leading" secondItem="cUf-j0-vmT" secondAttribute="leading" id="nSr-O1-ZJu"/>
                             <constraint firstItem="jJs-Z8-PaO" firstAttribute="leading" secondItem="TCK-Ql-KBc" secondAttribute="leading" id="nYP-yk-8Mb"/>
                             <constraint firstItem="ESg-yj-cnR" firstAttribute="leading" secondItem="jJs-Z8-PaO" secondAttribute="trailing" constant="8" id="qUv-Eh-qiT"/>
-                            <constraint firstItem="beZ-El-wAZ" firstAttribute="top" secondItem="B4m-FF-0FB" secondAttribute="bottom" constant="8" id="qte-bj-HO1"/>
                             <constraint firstItem="cUf-j0-vmT" firstAttribute="top" secondItem="BfH-Yg-Z47" secondAttribute="bottom" constant="11" id="sYN-gR-rhW"/>
                             <constraint firstItem="dfR-bc-65f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TCK-Ql-KBc" secondAttribute="leading" constant="8" id="sf1-uf-ckA"/>
                             <constraint firstItem="dfR-bc-65f" firstAttribute="top" secondItem="Xhd-HM-gXC" secondAttribute="bottom" constant="11" id="slt-Aa-tvX"/>
@@ -1617,7 +1648,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="663-lc-b7E"/>
+        <segue reference="MX2-Zp-ddB"/>
         <segue reference="yhI-L7-Vge"/>
     </inferredMetricsTieBreakers>
     <resources>
