@@ -15,6 +15,7 @@
 @interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
 @property (strong, nonatomic) NSArray *trips;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
@@ -34,6 +35,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [self.activityIndicator startAnimating];
     [self fetchTrips];
 }
 
@@ -55,6 +57,7 @@
           NSLog(@"Error: %@", error.localizedDescription);
       }
         [self.refreshControl endRefreshing];
+        [self.activityIndicator stopAnimating];
     }];
 }
 
