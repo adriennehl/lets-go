@@ -8,12 +8,9 @@
 
 #import "TripViewController.h"
 #import "SuggestViewController.h"
-#import "ImageViewController.h"
-#import "photoAlbumCell.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
 #import "DateUtility.h"
-#import "albumCollectionViewUtility.h"
 #import "NotificationUtility.h"
 #import "Trip.h"
 @import Parse;
@@ -25,16 +22,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
 @property (weak, nonatomic) IBOutlet UITextField *guestsField;
 @property (weak, nonatomic) IBOutlet UILabel *guestList;
-@property (weak, nonatomic) IBOutlet UILabel *declinedLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
-@property (weak, nonatomic) IBOutlet UIButton *declineButton;
-@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
-@property (strong, nonatomic) albumCollectionViewUtility *albumUtility;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (weak, nonatomic) IBOutlet UITextField *endDateField;
 @property (strong, nonatomic) NSMutableArray *guests;
@@ -52,20 +44,12 @@
     self.guests = [[NSMutableArray alloc] init];
     self.guestUsernames = [[NSMutableArray alloc] init];
     self.descriptionTextView.layer.borderWidth = 2;
-    self.albumUtility = [[albumCollectionViewUtility alloc] initWithAlbum:self.trip.album];
-    self.albumCollectionView.delegate = self.albumUtility;
-    self.albumCollectionView.dataSource = self.albumUtility;
     
     // set date pickers
     [self setDatePickers];
     
-    // if self.trip is set, show trip detail
-    if(self.trip) {
-        [self setElements];
-    }
-    else {
-        self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
-    }
+    // set host
+    self.hostField.text = [NSString stringWithFormat:@"Host: %@",PFUser.currentUser.username];
     
     // if self.place is set, autofill location, title, and image
     if(self.place) {
@@ -120,63 +104,6 @@
         self.tripImageView.image = [UIImage imageNamed:@"image_placeholder"];
     }
     [self.tripImageView loadInBackground];
-}
-
-- (void)setElements {
-    // add back button
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToFeed)];
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    // add upload photo button
-    UIBarButtonItem *uploadButton = [[UIBarButtonItem alloc] initWithTitle:@"Upload Photo" style:UIBarButtonItemStylePlain target:self action:@selector(onViewTap:)];
-    self.navigationItem.rightBarButtonItem = uploadButton;
-    
-    // if current user is a guest, show decline button
-    if(self.trip.author != PFUser.currentUser.username) {
-        [self.declineButton setHidden:NO];
-    }
-    // otherwise, show delete button
-    else {
-        [self.deleteButton setHidden:NO];
-    }
-    
-    // remove other buttons
-    self.addButton.alpha = 0;
-    self.guestsField.alpha = 0;
-    self.suggestTimesButton.alpha = 0;
-    
-    // set trip details
-    self.titleField.text = self.trip[@"title"];
-    self.hostField.text = [NSString stringWithFormat:@"Host: %@",self.trip[@"author"]];
-    self.locationField.text = self.trip[@"location"];
-    self.guestList.text = @"Guests: ";
-    for(NSString *guestUsername in self.trip[@"guests"]) {
-        self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, guestUsername];
-    }
-    self.startDatePicker.date = self.trip[@"startDate"];
-    self.endDatePicker.date = self.trip[@"endDate"];
-    self.descriptionTextView.text = self.trip[@"descriptionText"];
-    NSArray *images = self.trip[@"album"];
-    if(images.count > 0) {
-        self.tripImageView.file = self.trip[@"album"][0];
-        [self.tripImageView loadInBackground];
-    }
-    if(self.trip.declined.count > 0) {
-        [self.declinedLabel setHidden:NO];
-        self.declinedLabel.text = @"Declined: ";
-        for(NSString *guestUsername in self.trip[@"declined"]) {
-            self.declinedLabel.text = [NSString stringWithFormat:@"%@%@, ", self.declinedLabel.text, guestUsername];
-        }
-    }
-    
-    // prevent editing
-    self.titleField.userInteractionEnabled = NO;
-    self.hostField.userInteractionEnabled = NO;
-    self.locationField.userInteractionEnabled = NO;
-    self.descriptionTextView.userInteractionEnabled = NO;
-    self.startDatePicker.userInteractionEnabled = NO;
-    self.endDatePicker.userInteractionEnabled = NO;
-    self.tripImageView.userInteractionEnabled = NO;
 }
 
 // checks if user with username is in the guest list
@@ -259,42 +186,6 @@
     }];
 }
 
-- (IBAction)onDecline:(id)sender {
-    // remove user from trip guests
-    [self.trip removeObject:PFUser.currentUser.username forKey:@"guests"];
-    
-    // add user to trip declined list
-    [self.trip addObject:PFUser.currentUser.username forKey:@"declined"];
-    [self.trip saveInBackground];
-    
-    // remove trip from user's list of trips
-    PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
-    [relation removeObject:self.trip];
-    [PFUser.currentUser saveInBackground];
-    
-    // delete notification
-    [NotificationUtility deleteNotification:self.trip.objectId];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)onDelete:(id)sender {
-    UIAlertController *deleteAlert = [AlertUtility createDoubleActionAlert:@"Deleted trips cannot be retrieved." title:@"Confirm Delete" withHandler:^(UIAlertAction * _Nonnull action) {
-        [self.trip deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error == nil) {
-                // delete notification
-                [NotificationUtility deleteNotification:self.trip.objectId];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-               UIAlertController *alert =  [AlertUtility createCancelActionAlert:@"Error Deleting Trip" action:@"Cancel" message:error.localizedDescription];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
-        }];
-    }];
-    [self presentViewController:deleteAlert animated:YES completion:nil];
-}
-
 // hide keyboard anytime user taps outside of fields
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
@@ -320,26 +211,9 @@
     CGSize size = CGSizeMake(width, width * aspectRatio);
     UIImage *resizedImage = [ImageUtility resizeImage:originalImage withSize:size];
     
-    // if in detail view, upload photo to photo album
-    if(self.trip) {
-        NSArray *album = [self.trip.album arrayByAddingObject:[ImageUtility getPFFileFromImage:resizedImage]];
-        self.trip.album = album;
-        [self.albumUtility updateAlbum:album];
-        [self.trip saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(succeeded) {
-                [self.albumCollectionView reloadData];
-            }
-            else {
-                NSLog(@"Error: %@", error.localizedDescription);
-            }
-        }];
-    }
-    // otherwise, in creation view, upload photo to image view
-    else {
-        // set image
-        self.aspectRatio = originalImage.size.height/originalImage.size.width;
-        [self.tripImageView setImage:resizedImage];
-    }
+    // set image
+    self.aspectRatio = originalImage.size.height/originalImage.size.width;
+    [self.tripImageView setImage:resizedImage];
     
     // Dismiss UIImagePickerController to go back to original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -358,13 +232,6 @@
              destinationViewController.place = self.place;
          }
      }
-     else if ([segue.identifier isEqualToString:@"photoSegue"]) {
-         ImageViewController *destinationViewController = [segue destinationViewController];
-         photoAlbumCell *tappedCell = sender;
-         NSIndexPath *indexPath = [self.albumCollectionView indexPathForCell:tappedCell];
-         destinationViewController.image = self.trip.album[indexPath.row + 1];
-     }
-     
  }
 
 @end

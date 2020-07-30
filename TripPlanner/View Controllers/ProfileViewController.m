@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "LoginViewController.h"
+#import "TripDetailViewController.h"
 #import "ImageUtility.h"
 #import "AlertUtility.h"
 #import "SceneDelegate.h"
@@ -163,7 +164,7 @@
     
     if([segue.identifier isEqualToString:@"detailSegue"]){
            // get destination view controller
-           TripViewController *destinationViewController = [segue destinationViewController];
+           TripDetailViewController *destinationViewController = [segue destinationViewController];
            TripCell *tappedCell = sender;
            // get indexPath of tapped cell
            NSIndexPath *indexPath = [self.pastTripsTableView indexPathForCell:tappedCell];

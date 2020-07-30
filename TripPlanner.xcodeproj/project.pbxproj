@@ -14,6 +14,7 @@
 		C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C85AC18D24CA276600B1C3BC /* CalendarUtility.m */; };
 		C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */; };
 		C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F424BEB94D0061EC0A /* SearchViewController.m */; };
+		C89B7EA824D3274E00D54038 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89B7EA724D3274E00D54038 /* TripDetailViewController.m */; };
 		C8B534AC24BCCC44006C3A67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AB24BCCC44006C3A67 /* AppDelegate.m */; };
 		C8B534AF24BCCC44006C3A67 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B534AE24BCCC44006C3A67 /* SceneDelegate.m */; };
 		C8B534B524BCCC44006C3A67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B534B324BCCC44006C3A67 /* Main.storyboard */; };
@@ -81,6 +82,8 @@
 		C88995F024BEB71E0061EC0A /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		C88995F324BEB94D0061EC0A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C88995F424BEB94D0061EC0A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		C89B7EA624D3274E00D54038 /* TripDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		C89B7EA724D3274E00D54038 /* TripDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
 		C8B534A724BCCC44006C3A67 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B534AA24BCCC44006C3A67 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C8B534AB24BCCC44006C3A67 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 				C8BEA85524C8A39600921748 /* ImagePickerViewController.m */,
 				C8BEA85724C8AF9200921748 /* ImageViewController.h */,
 				C8BEA85824C8AF9200921748 /* ImageViewController.m */,
+				C89B7EA624D3274E00D54038 /* TripDetailViewController.h */,
+				C89B7EA724D3274E00D54038 /* TripDetailViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -640,6 +645,7 @@
 				C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */,
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C8D7173824BFB323005227D9 /* APIUtility.m in Sources */,
+				C89B7EA824D3274E00D54038 /* TripDetailViewController.m in Sources */,
 				C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */,
 				C8BEA85624C8A39600921748 /* ImagePickerViewController.m in Sources */,
 				C8B534E524BD04BA006C3A67 /* ProfileViewController.m in Sources */,

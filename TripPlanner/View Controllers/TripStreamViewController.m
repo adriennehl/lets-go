@@ -7,7 +7,7 @@
 //
 
 #import "TripStreamViewController.h"
-#import "TripViewController.h"
+#import "TripDetailViewController.h"
 #import "Trip.h"
 #import "TripCell.h"
 #import "ParseUtility.h"
@@ -86,7 +86,7 @@
     
     if([segue.identifier isEqualToString:@"detailSegue"]){
         // get destination view controller
-        TripViewController *destinationViewController = [segue destinationViewController];
+        TripDetailViewController *destinationViewController = [segue destinationViewController];
         TripCell *tappedCell = sender;
         // get indexPath of tapped cell
         NSIndexPath *indexPath = [self.tripsTableView indexPathForCell:tappedCell];
