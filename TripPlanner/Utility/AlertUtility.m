@@ -8,6 +8,7 @@
 
 #import "AlertUtility.h"
 #import "ImagePickerUtility.h"
+#import <Lottie/Lottie.h>
 
 @implementation AlertUtility
 
@@ -76,6 +77,21 @@
     
 }
 
++ (UIAlertController *)createAlertWithLottie:(NSString *)title action:(NSString *)action withCompletion:(void(^)(BOOL finished))completion {
+    // create alert
+    UIAlertController *alert = [AlertUtility createSingleActionAlert:title action:@"OK" message:@"\n\n\n\n\n" withCompletion:completion];
+    alert.view.tintColor = [UIColor blackColor];
+    // add save image
+    LOTAnimationView *animation = [LOTAnimationView animationNamed:action];
+    [animation setLoopAnimation:YES];
+    [animation play];
+    // position image in alert view
+    CGRect frame = CGRectMake(85, 50, 100, 100);
+    animation.frame = frame;
+    [alert.view addSubview:animation];
+    
+    return alert;
+}
 
 // alert that allows user to choose between camera or album photo source
 + (UIAlertController *) createSourceTypeAlert: (ImagePickerViewController *)controller {

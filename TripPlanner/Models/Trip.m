@@ -50,7 +50,7 @@
         }
         else {
             // create success alert
-            UIAlertController *alert = [AlertUtility createSingleActionAlert:@"Successful" action:@"Ok" message:@"Trip was successfully added" withCompletion:^(BOOL finished) {
+            UIAlertController *alert = [AlertUtility createAlertWithLottie:@"Success!" action:@"save" withCompletion:^(BOOL finished) {
                 [controller onCancel:self];
             }];
             [controller presentViewController: alert animated:YES completion:^{
