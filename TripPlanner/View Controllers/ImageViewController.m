@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet PFImageView *albumImageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *savingIndicator;
 @property (nonatomic) CGFloat aspectRatio;
+@property (nonatomic) float scale;
 
 @end
 
@@ -33,6 +34,9 @@
         [self.savingIndicator stopAnimating];
         self.albumImageView.image = image;
     }];
+    
+    // set initial zoom scale to 1
+    self.scale = 1.0;
 }
 
 - (IBAction)onSave:(id)sender {
@@ -50,6 +54,24 @@ didFinishSavingWithError:(NSError *)error
         UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Saving Photo" action:@"Cancel" message:error.localizedDescription];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+- (IBAction)onZoom:(UIPinchGestureRecognizer *)sender {
+    if ( sender.state == UIGestureRecognizerStateBegan ||
+        sender.state == UIGestureRecognizerStateChanged) {
+        CGFloat currentScale = [[[sender view].layer valueForKeyPath:@"transform.scale"] floatValue];
+        
+        CGFloat kMaxScale = 2.0;
+        CGFloat kMinScale = 1.0;
+        
+        CGFloat newScale = 1 -  (self.scale - [sender scale]);
+        
+        newScale = MIN(newScale, kMaxScale / currentScale);
+        newScale = MAX(newScale, kMinScale / currentScale);
+        CGAffineTransform transform = CGAffineTransformScale([[sender view] transform], newScale, newScale);
+        [sender view].transform = transform;
+        
+        self.scale = [sender scale];  // Store the previous. scale factor for the next pinch gesture call
+     }
 }
 
 /*
