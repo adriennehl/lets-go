@@ -8,6 +8,7 @@
 
 #import "TripStreamViewController.h"
 #import "TripDetailViewController.h"
+#import "AlertUtility.h"
 #import "Trip.h"
 #import "TripCell.h"
 #import "ParseUtility.h"
@@ -54,7 +55,8 @@
           self.trips = trips;
           [self.tripsTableView reloadData];
       } else {
-          NSLog(@"Error: %@", error.localizedDescription);
+          UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
+          [self presentViewController:alert animated:YES completion:nil];
       }
         [self.refreshControl endRefreshing];
         [self.activityIndicator stopAnimating];

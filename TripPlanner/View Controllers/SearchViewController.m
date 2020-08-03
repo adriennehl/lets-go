@@ -73,7 +73,8 @@
 - (void)getRequest {
     [APIUtility getPlaces:self.searchTerm withCompletion: ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Retrieving Search" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -114,7 +115,8 @@
     // get place details
     [APIUtility getPlaceDetails:placeID fields:@"name,rating,formatted_address,photos,place_id,price_level,reviews" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Retrieving Details" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -181,7 +183,8 @@
 - (IBAction)onCreateTrip:(id)sender {
     [APIUtility getPhoto:self.selectedPlace.photosArray[0][@"photo_reference"] withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Creating Trip" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];;
         }
         else {
             self.selectedPlace.photoData = data;
@@ -252,7 +255,8 @@
             self.locationsTableView.alpha = 1.0;
         }
         else {
-            NSLog(@"%@", [error localizedDescription]);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Loading Places" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
 }

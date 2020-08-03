@@ -148,7 +148,8 @@
             [self.albumCollectionView reloadData];
         }
         else {
-            NSLog(@"Error: %@", error.localizedDescription);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Loading Album" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
     

@@ -50,11 +50,9 @@
     self.eventStore = eventManager.eventStore;
     [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError * _Nullable error) {
         if(granted) {
-            NSLog(@"Access granted");
             eventManager.eventsAccessGranted = YES;
         }
         else {
-            NSLog(@"Access not granted");
             eventManager.eventsAccessGranted = NO;
         }
     }];
@@ -90,7 +88,8 @@
     self.openHoursLabel.text = [NSString stringWithFormat:@"%@ Opening Hours: ", self.place.name];
     [APIUtility getPlaceDetails:self.place.placeId fields:@"opening_hours" withCompletion:^(NSData * _Nonnull data, NSURLResponse * _Nonnull response, NSError * _Nonnull error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Retrieving Hours" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -112,17 +111,24 @@
         self.suggestTimesButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
     }];
     
-    // find free times around events
-    NSArray *events = [CalendarUtility retrieveEvents:self.eventStore withStartDate:self.startRangePicker.date withEndDate:self.endRangePicker.date];
-    [CalendarUtility findFreeTimes:events withStartRange:self.startRangePicker.date withEndRange:self.endRangePicker.date withDuration:self.durationPicker.countDownDuration withCompletion:^(BOOL finished, NSMutableArray * _Nonnull freeTimes) {
-        self.freeTimes = freeTimes;
-        [self.timesTableView reloadData];
-        // show alert if no free times are found
-        if(self.freeTimes.count == 0) {
-            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"No Times Available" action:@"Cancel" message:@"No available time was found for specified range and duration"];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }];
+    // check to make sure end date is after start date
+    if([self.endRangePicker.date compare:self.startRangePicker.date] != NSOrderedAscending) {
+        // find free times around events
+        NSArray *events = [CalendarUtility retrieveEvents:self.eventStore withStartDate:self.startRangePicker.date withEndDate:self.endRangePicker.date];
+        [CalendarUtility findFreeTimes:events withStartRange:self.startRangePicker.date withEndRange:self.endRangePicker.date withDuration:self.durationPicker.countDownDuration withCompletion:^(BOOL finished, NSMutableArray * _Nonnull freeTimes) {
+            self.freeTimes = freeTimes;
+            [self.timesTableView reloadData];
+            // show alert if no free times are found
+            if(self.freeTimes.count == 0) {
+                UIAlertController *alert = [AlertUtility createCancelActionAlert:@"No Times Available" action:@"Cancel" message:@"No available time was found for specified range and duration"];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
+    }
+    else {
+        UIAlertController *invalidDateAlert = [AlertUtility createCancelActionAlert:@"Invalid Date" action:@"Cancel" message:@"End date must be after start date"];
+        [self presentViewController:invalidDateAlert animated:YES completion:nil];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

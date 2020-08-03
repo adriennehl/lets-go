@@ -7,6 +7,7 @@
 //
 
 #import "ImagePickerUtility.h"
+#import "AlertUtility.h"
 #import <UIKit/UIKit.h>
 
 @implementation ImagePickerUtility
@@ -20,7 +21,6 @@
              imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
          }
          else {
-             NSLog(@"Camera 🚫 available so we will use photo library instead");
              imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
          }
      }

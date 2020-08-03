@@ -33,8 +33,6 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         
         if (error == nil) {
-            NSLog(@"User logged in successfully");
-            
             // display view controller that needs to shown after successful login
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         } else {
@@ -80,7 +78,6 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             UIAlertController *signupAlert = [AlertUtility createCancelActionAlert:@"Error Signing Up" action:@"Cancel" message:error.localizedDescription];
-            NSLog(@"%@", error);
             
             // show the alert controller
             [self presentViewController: signupAlert animated:YES completion:^{
@@ -88,8 +85,6 @@
             }];
             
         } else {
-            NSLog(@"User registered successfully");
-            
             // manually segue to logged in view
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }

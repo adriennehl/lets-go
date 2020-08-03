@@ -34,9 +34,7 @@
                 }
             }
             [PFUser.currentUser saveInBackground];
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
+        } 
     }];
 }
 

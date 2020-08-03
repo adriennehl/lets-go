@@ -48,9 +48,6 @@
     
     // schedule request with the notification center
     [UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
-        }
     }];
 }
 

@@ -133,7 +133,8 @@
           self.trips = trips;
           [self.pastTripsTableView reloadData];
       } else {
-          NSLog(@"Error: %@", error.localizedDescription);
+          UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];
+          [self presentViewController:alert animated:YES completion:nil];
       }
     }];
 }
