@@ -10,6 +10,7 @@
 #import "DateUtility.h"
 #import "AlertUtility.h"
 #import "ImageUtility.h"
+#import "MailUtility.h"
 #import "photoAlbumCell.h"
 #import "ImageViewController.h"
 
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet PFImageView *tripImageView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (strong, nonatomic) albumCollectionViewUtility *albumUtility;
 
 @end
@@ -54,9 +56,10 @@
     if(self.trip.author != PFUser.currentUser.username) {
         [self.declineButton setHidden:NO];
     }
-    // otherwise, show delete button
+    // otherwise, show delete and share button
     else {
         [self.deleteButton setHidden:NO];
+        [self.shareButton setHidden:NO];
     }
     
     // set trip details
@@ -120,6 +123,27 @@
     [self presentViewController:deleteAlert animated:YES completion:nil];
 }
 
+// allow user to send an email on tap
+- (IBAction)onShare:(id)sender {
+    // check to make sure device can send mail
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
+        mailVC.mailComposeDelegate = self;
+        [mailVC setSubject:self.trip.title];
+        NSString *message = [MailUtility composeMessage:self.trip];
+        [mailVC setMessageBody:message isHTML:NO];
+        if(self.trip.album.count > 0) {
+            PFFileObject *image = self.trip.album[0];
+            NSData *imageData = [image getData];
+            [mailVC addAttachmentData:imageData mimeType:@"image/png" fileName:@"trip image"];
+        }
+        [self presentViewController:mailVC animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Cannot access mail" action:@"Cancel" message:@"Cannot send mail from this device"];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 // allow user to pick an image source type on tap
 - (void)onViewTap:(id)sender {
     UIAlertController *sourceTypeAlert = [AlertUtility createSourceTypeAlert:self];
@@ -155,6 +179,11 @@
     
     // Dismiss UIImagePickerController to go back to original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - Navigation

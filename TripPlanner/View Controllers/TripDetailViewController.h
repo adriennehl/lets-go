@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "albumCollectionViewUtility.h"
 #import "Trip.h"
+#import <MessageUI/MessageUI.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TripDetailViewController : ImagePickerViewController
+@interface TripDetailViewController : ImagePickerViewController <MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) Trip *trip;
 
