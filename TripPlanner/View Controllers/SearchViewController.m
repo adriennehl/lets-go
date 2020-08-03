@@ -127,7 +127,14 @@
 
 // show view with location details at the bottom of the screen
 - (void)showDetails:(Location *)place {
-    [self.detailView setHidden:NO];
+    // animate show view
+    if (self.detailView.hidden) {
+        [self.detailView setHidden:NO];
+        self.detailView.frame = CGRectMake(0, self.mapViewParent.frame.size.height, self.detailView.frame.size.width, self.detailView.frame.size.height);
+        [UIView animateWithDuration:0.25 animations:^{
+            self.detailView.frame = CGRectMake(0, self.mapViewParent.frame.size.height - 300, self.detailView.frame.size.width, self.detailView.frame.size.height);
+        }];
+    }
     self.nameLabel.text = place.name;
     self.addressLabel.text = place.address;
     self.ratingLabel.text = place.rating;

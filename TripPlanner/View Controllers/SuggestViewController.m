@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *startRangeField;
 @property (weak, nonatomic) IBOutlet UITextField *endRangeField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *durationPicker;
+@property (weak, nonatomic) IBOutlet UIButton *suggestTimesButton;
 @property (strong, nonatomic) UIDatePicker *startRangePicker;
 @property (strong, nonatomic) UIDatePicker *endRangePicker;
 @property (weak, nonatomic) IBOutlet UITableView *timesTableView;
@@ -105,6 +106,12 @@
 }
 
 - (IBAction)showTimes:(id)sender {
+    // animate button
+    [UIView animateWithDuration:0.25 animations:^{
+        self.suggestTimesButton.transform = CGAffineTransformMakeScale(2.5, 2.5);
+        self.suggestTimesButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    }];
+    
     // find free times around events
     NSArray *events = [CalendarUtility retrieveEvents:self.eventStore withStartDate:self.startRangePicker.date withEndDate:self.endRangePicker.date];
     [CalendarUtility findFreeTimes:events withStartRange:self.startRangePicker.date withEndRange:self.endRangePicker.date withDuration:self.durationPicker.countDownDuration withCompletion:^(BOOL finished, NSMutableArray * _Nonnull freeTimes) {

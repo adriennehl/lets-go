@@ -21,17 +21,19 @@
       "size" : "29x29"
     },
     {
+      "filename" : "hotairballoon80-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "hotairballoon120-1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "hot-air-balloon.png",
+      "filename" : "hotairballoon120.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
@@ -67,26 +69,31 @@
       "size" : "40x40"
     },
     {
+      "filename" : "hotairballoon80.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "hotairballoon76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
+      "filename" : "hotairballoon152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
+      "filename" : "hotairballoon167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "hotairballoon1024x1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
