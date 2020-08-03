@@ -561,6 +561,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7M-jy-oDY" customClass="MDCFloatingButton">
+                                <rect key="frame" x="188" y="216.5" width="25" height="25"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Dl4-fa-OrF"/>
+                                    <constraint firstAttribute="width" constant="25" id="vHd-Gq-g13"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="envelope" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onShare:" destination="DZz-tG-ghO" eventType="touchUpInside" id="elW-N2-GzO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -576,6 +591,8 @@
                             <constraint firstItem="CqT-P8-uUn" firstAttribute="top" secondItem="Dsk-bS-IqE" secondAttribute="bottom" constant="11" id="FRo-O3-vJt"/>
                             <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="F4x-9U-54c" secondAttribute="trailing" constant="8" id="Fat-SK-Xw1"/>
                             <constraint firstItem="ypm-vJ-S2w" firstAttribute="leading" secondItem="Srx-Nt-EWk" secondAttribute="trailing" constant="2" id="I6E-Z3-l05"/>
+                            <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="I7M-jy-oDY" secondAttribute="trailing" constant="11" id="Jz1-0F-BIY"/>
+                            <constraint firstItem="I7M-jy-oDY" firstAttribute="leading" secondItem="XGl-hQ-ArO" secondAttribute="trailing" constant="8" id="M0m-Ff-j5w"/>
                             <constraint firstItem="24d-Av-DMD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Vh-b2-lfs" secondAttribute="trailing" constant="8" id="Mic-Fl-OOT"/>
                             <constraint firstItem="wqT-AZ-lgc" firstAttribute="leading" secondItem="XGl-hQ-ArO" secondAttribute="trailing" constant="8" id="Mzk-Ip-Eea"/>
                             <constraint firstItem="Srp-qG-oBI" firstAttribute="top" secondItem="lyT-Cf-hQU" secondAttribute="bottom" constant="8" id="Niu-b1-wNH"/>
@@ -590,7 +607,7 @@
                             <constraint firstItem="3B1-Pf-kkv" firstAttribute="top" secondItem="ypm-vJ-S2w" secondAttribute="bottom" constant="11" id="dzl-Ps-o6G"/>
                             <constraint firstItem="24d-Av-DMD" firstAttribute="centerY" secondItem="1Vh-b2-lfs" secondAttribute="centerY" id="gXI-Uc-rES"/>
                             <constraint firstItem="CBh-tw-ifc" firstAttribute="centerY" secondItem="eCs-IT-q1v" secondAttribute="centerY" id="hVu-Bl-kgN"/>
-                            <constraint firstItem="ypm-vJ-S2w" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1Vh-b2-lfs" secondAttribute="bottom" constant="11" id="hYu-ph-oEZ"/>
+                            <constraint firstItem="ypm-vJ-S2w" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I7M-jy-oDY" secondAttribute="bottom" constant="11" id="hYu-ph-oEZ"/>
                             <constraint firstItem="qON-6A-G0J" firstAttribute="top" secondItem="3B1-Pf-kkv" secondAttribute="bottom" constant="11" id="ibA-zT-eVj"/>
                             <constraint firstItem="NDP-zW-XUQ" firstAttribute="leading" secondItem="XGl-hQ-ArO" secondAttribute="trailing" constant="8" id="jbE-te-9oN"/>
                             <constraint firstItem="F4x-9U-54c" firstAttribute="centerY" secondItem="wqT-AZ-lgc" secondAttribute="centerY" id="k9g-CZ-sLp"/>
@@ -606,6 +623,7 @@
                             <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3B1-Pf-kkv" secondAttribute="trailing" constant="8" id="vK6-kf-bNL"/>
                             <constraint firstItem="XGl-hQ-ArO" firstAttribute="top" secondItem="rDt-nZ-FKV" secondAttribute="top" id="wNg-UN-axF"/>
                             <constraint firstItem="Srp-qG-oBI" firstAttribute="trailing" secondItem="rDt-nZ-FKV" secondAttribute="trailing" id="xDS-Tu-MZh"/>
+                            <constraint firstItem="I7M-jy-oDY" firstAttribute="top" secondItem="1Vh-b2-lfs" secondAttribute="bottom" constant="11" id="xXv-6Y-US6"/>
                             <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NDP-zW-XUQ" secondAttribute="trailing" constant="8" id="xrT-Jx-HEA"/>
                             <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qON-6A-G0J" secondAttribute="trailing" constant="8" id="xs2-Ng-hqR"/>
                             <constraint firstItem="rDt-nZ-FKV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lyT-Cf-hQU" secondAttribute="trailing" constant="8" id="yel-iY-gxo"/>
@@ -624,6 +642,7 @@
                         <outlet property="guestLabel" destination="1Vh-b2-lfs" id="dPA-Fw-eYc"/>
                         <outlet property="hostLabel" destination="eCs-IT-q1v" id="KeS-sk-jhH"/>
                         <outlet property="locationLabel" destination="F4x-9U-54c" id="evT-fT-uGc"/>
+                        <outlet property="shareButton" destination="I7M-jy-oDY" id="E9h-hu-rbp"/>
                         <outlet property="startLabel" destination="3B1-Pf-kkv" id="SB5-uQ-qxu"/>
                         <outlet property="titleLabel" destination="NDP-zW-XUQ" id="8HR-wa-rtX"/>
                         <outlet property="tripImageView" destination="XGl-hQ-ArO" id="S7s-0N-Yzi"/>
@@ -718,10 +737,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSlotCell" id="IIn-Pi-iJW" customClass="TimeSlotCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="74.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IIn-Pi-iJW" id="R6n-3Z-bKe">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ1-HU-ofR">
@@ -731,7 +750,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="End Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pq2-bW-tjv">
-                                                    <rect key="frame" x="11" y="42.5" width="75" height="21"/>
+                                                    <rect key="frame" x="11" y="42.5" width="75" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1218,10 +1237,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" id="lax-02-HCy" customClass="TripCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="274"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="274.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lax-02-HCy" id="zlM-tD-4ya">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="274"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="274.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="pkz-S3-EDv" customClass="PFImageView">
@@ -1262,7 +1281,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ4-sS-qGd">
-                                                    <rect key="frame" x="8" y="241" width="83" height="22"/>
+                                                    <rect key="frame" x="8" y="241" width="83" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1659,6 +1678,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="image_placeholder" width="375" height="375"/>
         <image name="location.fill" catalog="system" width="128" height="115"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
