@@ -11,6 +11,9 @@
 		82170202CF7DEC4B6FED7820 /* Pods_TripPlannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */; };
 		C187D05650BEA5293BE8A066 /* Pods_TripPlanner_TripPlannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8A0B9BF50FF65D3AE0CD16 /* Pods_TripPlanner_TripPlannerUITests.framework */; };
 		C835FF6424D8A0F700B58A40 /* MailUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6324D8A0F700B58A40 /* MailUtility.m */; };
+		C835FF6724D8B64900B58A40 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6624D8B64900B58A40 /* ContactsViewController.m */; };
+		C835FF6A24D8BAAC00B58A40 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6924D8BAAC00B58A40 /* UserCell.m */; };
+		C835FF7024D8C41300B58A40 /* UsersTableViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6F24D8C41300B58A40 /* UsersTableViewUtility.m */; };
 		C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C85323FD24C1FA700059C90E /* TimeSlotCell.m */; };
 		C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C85AC18D24CA276600B1C3BC /* CalendarUtility.m */; };
 		C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */; };
@@ -78,6 +81,12 @@
 		ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C835FF6224D8A0F700B58A40 /* MailUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailUtility.h; sourceTree = "<group>"; };
 		C835FF6324D8A0F700B58A40 /* MailUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailUtility.m; sourceTree = "<group>"; };
+		C835FF6524D8B64900B58A40 /* ContactsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		C835FF6624D8B64900B58A40 /* ContactsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		C835FF6824D8BAAC00B58A40 /* UserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
+		C835FF6924D8BAAC00B58A40 /* UserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		C835FF6E24D8C41300B58A40 /* UsersTableViewUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsersTableViewUtility.h; sourceTree = "<group>"; };
+		C835FF6F24D8C41300B58A40 /* UsersTableViewUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersTableViewUtility.m; sourceTree = "<group>"; };
 		C85323FC24C1FA700059C90E /* TimeSlotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeSlotCell.h; sourceTree = "<group>"; };
 		C85323FD24C1FA700059C90E /* TimeSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeSlotCell.m; sourceTree = "<group>"; };
 		C85AC18C24CA276600B1C3BC /* CalendarUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarUtility.h; sourceTree = "<group>"; };
@@ -289,6 +298,8 @@
 				C8BEA85824C8AF9200921748 /* ImageViewController.m */,
 				C89B7EA624D3274E00D54038 /* TripDetailViewController.h */,
 				C89B7EA724D3274E00D54038 /* TripDetailViewController.m */,
+				C835FF6524D8B64900B58A40 /* ContactsViewController.h */,
+				C835FF6624D8B64900B58A40 /* ContactsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -328,6 +339,8 @@
 				C85323FD24C1FA700059C90E /* TimeSlotCell.m */,
 				C8E3C8F224CF3A4E00E3FD82 /* ReviewCell.h */,
 				C8E3C8F324CF3A4E00E3FD82 /* ReviewCell.m */,
+				C835FF6824D8BAAC00B58A40 /* UserCell.h */,
+				C835FF6924D8BAAC00B58A40 /* UserCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +372,8 @@
 				C8C3CCBD24D07BC400300B45 /* NotificationUtility.m */,
 				C835FF6224D8A0F700B58A40 /* MailUtility.h */,
 				C835FF6324D8A0F700B58A40 /* MailUtility.m */,
+				C835FF6E24D8C41300B58A40 /* UsersTableViewUtility.h */,
+				C835FF6F24D8C41300B58A40 /* UsersTableViewUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -653,6 +668,7 @@
 				C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */,
 				C8F0318524C0FD53009B5430 /* EventsUtility.m in Sources */,
 				C8E3C8F424CF3A4E00E3FD82 /* ReviewCell.m in Sources */,
+				C835FF6A24D8BAAC00B58A40 /* UserCell.m in Sources */,
 				C8B534EE24BD080A006C3A67 /* Trip.m in Sources */,
 				C8D7173524BFB276005227D9 /* DateUtility.m in Sources */,
 				C8D7173B24BFBD31005227D9 /* ParseUtility.m in Sources */,
@@ -661,9 +677,11 @@
 				C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */,
 				C8D7171B24BF5E6B005227D9 /* LocationCell.m in Sources */,
 				C8D7172C24BFAC7B005227D9 /* AlertUtility.m in Sources */,
+				C835FF6724D8B64900B58A40 /* ContactsViewController.m in Sources */,
 				C8B534F724BD104E006C3A67 /* TripViewController.m in Sources */,
 				C8C3CCBE24D07BC400300B45 /* NotificationUtility.m in Sources */,
 				C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */,
+				C835FF7024D8C41300B58A40 /* UsersTableViewUtility.m in Sources */,
 				C8B534F124BD0C91006C3A67 /* TripStreamViewController.m in Sources */,
 				C8D7173824BFB323005227D9 /* APIUtility.m in Sources */,
 				C89B7EA824D3274E00D54038 /* TripDetailViewController.m in Sources */,
