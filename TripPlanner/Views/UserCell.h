@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
+@import Parse;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UserCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet PFImageView *profileImage;
+@property (strong, nonatomic) PFUser *user;
 
-- (UserCell *)setCell:(NSString *) username;
+- (UserCell *)setCell:(PFUser *) user withContacts:(NSArray *) contacts;
 
 @end
 

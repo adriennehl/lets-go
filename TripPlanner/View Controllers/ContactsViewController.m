@@ -9,6 +9,7 @@
 #import "ContactsViewController.h"
 #import "UserCell.h"
 #import "UsersTableViewUtility.h"
+#import "AlertUtility.h"
 #import <Parse/Parse.h>
 
 @interface ContactsViewController () <UISearchBarDelegate>
@@ -16,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *contactsTableView;
 @property (weak, nonatomic) IBOutlet UITableView *usersTableView;
 @property (strong, nonatomic) UsersTableViewUtility *usersTableUtility;
-@property (strong, nonatomic) NSMutableArray *contacts;
+@property (strong, nonatomic) NSArray *contacts;
 
 @end
 
@@ -25,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.contacts = PFUser.currentUser[@"contacts"];
     self.contactsTableView.delegate = self;
     self.contactsTableView.dataSource = self;
     
@@ -34,6 +34,29 @@
     self.usersTableView.dataSource = self.usersTableUtility;
     
     self.searchBar.delegate = self;
+    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self refreshContacts];
+}
+
+// get list of contacts from relation
+- (void)refreshContacts {
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"contactBook"];
+       PFQuery *query = [relation query];
+       
+       [query findObjectsInBackgroundWithBlock:^(NSArray *contacts, NSError *error) {
+         if (!error) {
+             self.contacts = contacts;
+             self.usersTableUtility.contacts = self.contacts;
+             [self.contactsTableView reloadData];
+         } else {
+             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Contacts" action:@"Cancel" message:error.localizedDescription];
+             [self presentViewController:alert animated:YES completion:nil];
+         }
+       }];
+    [self.contactsTableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -42,7 +65,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
-    cell = [cell setCell:self.contacts[indexPath.row]];
+    cell = [cell setCell:self.contacts[indexPath.row] withContacts:self.contacts];
     return cell;
 }
 
@@ -52,10 +75,12 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    // update users table view
-    [self.usersTableUtility updateSearch:searchText withCompletion:^(BOOL finished) {
-        [self.usersTableView reloadData];
-    }];
+    // update users table view if search bar is not empty
+    if([searchText length] > 0) {
+        [self.usersTableUtility updateSearch:searchText withCompletion:^(BOOL finished) {
+            [self.usersTableView reloadData];
+        }];
+    }
 }
 
 // removed text and hide keyboard on cancel
@@ -64,6 +89,7 @@
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
     [self.usersTableView setHidden:YES];
+    [self refreshContacts];
 }
 
 // fetch results when search button is clicked

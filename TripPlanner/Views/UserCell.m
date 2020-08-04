@@ -7,6 +7,7 @@
 //
 
 #import "UserCell.h"
+#import "UsersTableViewUtility.h"
 
 @implementation UserCell
 
@@ -15,9 +16,14 @@
     // Initialization code
 }
 
-- (UserCell *)setCell:(NSString *) username {
-    self.usernameLabel.text = username;
-    BOOL isFavorited = [PFUser.currentUser[@"contacts"] containsObject:username];
+- (UserCell *)setCell:(PFUser *) user withContacts:(NSArray *) contacts{
+    self.user = user;
+    self.usernameLabel.text = self.user.username;
+    self.nameLabel.text = self.user[@"name"];
+    PFFileObject *profileImage = self.user[@"profileImage"];
+    self.profileImage.file = profileImage;
+    [self.profileImage loadInBackground];
+    BOOL isFavorited = [UsersTableViewUtility containsUser:self.user inContacts:contacts];
     if(isFavorited) {
         self.favoriteButton.tintColor = UIColor.yellowColor;
     }
@@ -30,13 +36,14 @@
 // if favorited, unfavorite and remove from contacts
 // if unfavorited, favorite and add to contacts
 - (IBAction)onFavorite:(id)sender {
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"contactBook"];
     if(self.favoriteButton.tintColor == UIColor.yellowColor) {
         self.favoriteButton.tintColor = UIColor.grayColor;
-        [PFUser.currentUser[@"contacts"] removeObject:self.usernameLabel.text];
+        [relation removeObject:self.user];
     }
     else {
         self.favoriteButton.tintColor = UIColor.yellowColor;
-        [PFUser.currentUser[@"contacts"] addObject:self.usernameLabel.text];
+        [relation addObject:self.user];
     }
     [PFUser.currentUser saveInBackground];
 }

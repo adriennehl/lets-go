@@ -13,8 +13,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UsersTableViewUtility : NSObject <UITableViewDataSource, UITableViewDelegate>
-@property (strong, nonatomic) NSMutableArray *users;
+@property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSArray *contacts;
 - (void)updateSearch:(NSString *)searchTerm withCompletion:(void(^)(BOOL finished))completion;
++ (BOOL)containsUser:(PFUser *)user inContacts:(NSArray *)contacts;
 @end
 
 NS_ASSUME_NONNULL_END
