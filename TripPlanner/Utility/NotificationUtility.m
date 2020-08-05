@@ -7,14 +7,17 @@
 //
 
 #import "NotificationUtility.h"
+#import "TripDetailViewController.h"
 #import "DateUtility.h"
 #import "CalendarUtility.h"
 #import "AlertUtility.h"
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @implementation NotificationUtility
-- (instancetype)init {
+- (instancetype)initWithRoot:(UIViewController *)rootViewController {
     self = [super init];
+    self.rootViewController = rootViewController;
     
     // create category with dismiss and view actions
     UNNotificationAction *dismissAction = [UNNotificationAction actionWithIdentifier:@"Dismiss" title:@"Dismiss" options: UNNotificationActionOptionNone];
@@ -39,6 +42,7 @@
     content.subtitle = [NSString stringWithFormat:@"Starts: %@", [DateUtility dateToString:trip.startDate]];
     content.body = trip.descriptionText;
     content.categoryIdentifier = @"TripReminderCategory";
+    content.userInfo = @{@"tripId": trip.objectId};
     
     // specify delivery conditions
     UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponents repeats:NO];
@@ -58,6 +62,26 @@
 
 // called when a user selects an action in a delivered notification
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    // get trip info
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
+    NSString *tripId = userInfo[@"tripId"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    [query whereKey:@"objectId" equalTo:tripId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        // if trip has been found, show detail VC
+        if (objects.count > 0) {
+            // open trip detail view controller
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            TripDetailViewController *tripDetailVC = [storyboard instantiateViewControllerWithIdentifier:@"TripDetailViewController"];
+            tripDetailVC.trip = objects[0];
+            [self.rootViewController presentViewController:tripDetailVC animated:YES completion:nil];
+        }
+        // otherwise, show error alert
+        else {
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Retrieiving Trip" action:@"Close" message:@"The specified trip was not found."];
+            [self.rootViewController presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 // called when a notification is delivered to a foreground app

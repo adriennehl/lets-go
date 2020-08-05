@@ -7,10 +7,12 @@
 //
 
 #import "SceneDelegate.h"
+#import <NotificationCenter/NotificationCenter.h>
+#import "NotificationUtility.h"
 #import <Parse/Parse.h>
 
 @interface SceneDelegate ()
-
+@property (nonatomic, strong) NotificationUtility *notificationDelegate;
 @end
 
 @implementation SceneDelegate
@@ -27,6 +29,14 @@
         
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
     }
+    
+    // get permission for notifications
+    [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    }];
+    
+    // set notification delegate
+    self.notificationDelegate = [[NotificationUtility alloc] initWithRoot:self.window.rootViewController];
+       UNUserNotificationCenter.currentNotificationCenter.delegate = self.notificationDelegate;
 }
 
 

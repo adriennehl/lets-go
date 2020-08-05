@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "Trip.h"
 #import <UserNotifications/UserNotifications.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotificationUtility : NSObject <UNUserNotificationCenterDelegate>
-- (instancetype)init;
+
+@property (nonatomic, strong) UIViewController *rootViewController;
+
+- (instancetype)initWithRoot:(UIViewController *)rootViewController;
 + (void)setNotification:(Trip *)trip;
 + (void)deleteNotification:(NSString *)tripId;
 

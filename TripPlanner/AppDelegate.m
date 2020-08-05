@@ -9,11 +9,8 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "APIUtility.h"
-#import <UserNotifications/UserNotifications.h>
-#import "NotificationUtility.h"
 
 @interface AppDelegate ()
-@property (nonatomic, strong) NotificationUtility *notificationDelegate;
 @end
 
 @implementation AppDelegate
@@ -35,13 +32,6 @@
     
     // initialize maps sdk
     [APIUtility initializeMapsSDK];
-    
-    // get permission for notifications
-    [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
-    }];
-    // set notification delegate
-    self.notificationDelegate = [[NotificationUtility alloc] init];
-    UNUserNotificationCenter.currentNotificationCenter.delegate = self.notificationDelegate;
     
     return YES;
 }
