@@ -15,6 +15,8 @@
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) NSArray *imagesArray;
 
 @end
 
@@ -23,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.imagesArray = @[@"amsterdam-unsplash", @"china-unsplash", @"japan-unsplash-2", @"newyork-unsplash", @"singapore-unsplash", @"tokyo-unsplash", @"venice-unsplash-2"];
+    uint32_t index = arc4random_uniform((int) self.imagesArray.count);
+    self.backgroundImage.image = [UIImage imageNamed:self.imagesArray[index]];
 }
 
 // enable log in on button click
@@ -85,8 +90,11 @@
             }];
             
         } else {
-            // manually segue to logged in view
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            UIAlertController *alert = [AlertUtility createAlertWithLottie:@"Success!" message:@"Sign Up Successful" action:@"takeoff" withCompletion:^(BOOL finished) {
+                // manually segue to logged in view
+                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            }];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
 }

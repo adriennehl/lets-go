@@ -176,7 +176,7 @@
         }
         // user can be added to list
         else {
-            alert = [AlertUtility createAlertWithLottie:@"Success!" action:@"invite" withCompletion:^(BOOL finished) {
+            alert = [AlertUtility createAlertWithLottie:@"Success!" message:@"Guest added" action:@"invite" withCompletion:^(BOOL finished) {
             }];
             self.guestList.text = [NSString stringWithFormat:@"%@%@, ", self.guestList.text, username];
             [self.guestUsernames addObject:username];

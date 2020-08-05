@@ -16,6 +16,7 @@
 		C835FF7024D8C41300B58A40 /* UsersTableViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6F24D8C41300B58A40 /* UsersTableViewUtility.m */; };
 		C85323FE24C1FA700059C90E /* TimeSlotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C85323FD24C1FA700059C90E /* TimeSlotCell.m */; };
 		C85AC18E24CA276600B1C3BC /* CalendarUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C85AC18D24CA276600B1C3BC /* CalendarUtility.m */; };
+		C86C0C4A24DB1FF8009E3D5F /* takeoff.json in Resources */ = {isa = PBXBuildFile; fileRef = C86C0C4924DB1FF8009E3D5F /* takeoff.json */; };
 		C86E64C224CF834300BC2AD7 /* albumCollectionViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */; };
 		C88995F524BEB94D0061EC0A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88995F424BEB94D0061EC0A /* SearchViewController.m */; };
 		C89B7EA824D3274E00D54038 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89B7EA724D3274E00D54038 /* TripDetailViewController.m */; };
@@ -91,6 +92,7 @@
 		C85323FD24C1FA700059C90E /* TimeSlotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeSlotCell.m; sourceTree = "<group>"; };
 		C85AC18C24CA276600B1C3BC /* CalendarUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarUtility.h; sourceTree = "<group>"; };
 		C85AC18D24CA276600B1C3BC /* CalendarUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarUtility.m; sourceTree = "<group>"; };
+		C86C0C4924DB1FF8009E3D5F /* takeoff.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = takeoff.json; path = ../../../../Downloads/takeoff.json; sourceTree = "<group>"; };
 		C86E64C024CF834300BC2AD7 /* albumCollectionViewUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = albumCollectionViewUtility.h; sourceTree = "<group>"; };
 		C86E64C124CF834300BC2AD7 /* albumCollectionViewUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = albumCollectionViewUtility.m; sourceTree = "<group>"; };
 		C88995F024BEB71E0061EC0A /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		C8D3025524D479DC00AA8E0D /* Lotties */ = {
 			isa = PBXGroup;
 			children = (
+				C86C0C4924DB1FF8009E3D5F /* takeoff.json */,
 				C8D3025824D48A4100AA8E0D /* invite.json */,
 				C8D3025624D47A0400AA8E0D /* save.json */,
 			);
@@ -492,6 +495,7 @@
 				C8D3025924D48A4100AA8E0D /* invite.json in Resources */,
 				C8B534BA24BCCC45006C3A67 /* LaunchScreen.storyboard in Resources */,
 				C8B534B724BCCC45006C3A67 /* Assets.xcassets in Resources */,
+				C86C0C4A24DB1FF8009E3D5F /* takeoff.json in Resources */,
 				C8B534B524BCCC44006C3A67 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

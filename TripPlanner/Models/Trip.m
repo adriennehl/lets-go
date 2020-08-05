@@ -50,7 +50,7 @@
         }
         else {
             // create success alert
-            UIAlertController *alert = [AlertUtility createAlertWithLottie:@"Success!" action:@"save" withCompletion:^(BOOL finished) {
+            UIAlertController *alert = [AlertUtility createAlertWithLottie:@"Success!" message:@"" action:@"save" withCompletion:^(BOOL finished) {
                 [controller onCancel:self];
             }];
             [controller presentViewController: alert animated:YES completion:^{

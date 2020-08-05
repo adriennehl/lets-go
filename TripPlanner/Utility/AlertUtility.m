@@ -77,17 +77,19 @@
     
 }
 
-+ (UIAlertController *)createAlertWithLottie:(NSString *)title action:(NSString *)action withCompletion:(void(^)(BOOL finished))completion {
++ (UIAlertController *)createAlertWithLottie:(NSString *)title message:(NSString *)message action:(NSString *)action withCompletion:(void(^)(BOOL finished))completion {
     // create alert
-    UIAlertController *alert = [AlertUtility createSingleActionAlert:title action:@"OK" message:@"\n\n\n\n\n" withCompletion:completion];
+    NSString *alertMessage = [NSString stringWithFormat:@"%@\n\n\n\n\n\n", message];
+    UIAlertController *alert = [AlertUtility createSingleActionAlert:title action:@"OK" message:alertMessage withCompletion:completion];
     alert.view.tintColor = [UIColor blackColor];
     // add save image
     LOTAnimationView *animation = [LOTAnimationView animationNamed:action];
     [animation setLoopAnimation:YES];
     [animation play];
     // position image in alert view
-    CGRect frame = CGRectMake(85, 50, 100, 100);
+    CGRect frame = CGRectMake(85, 60, 100, 100);
     animation.frame = frame;
+    animation.contentMode = UIViewContentModeScaleAspectFit;
     [alert.view addSubview:animation];
     
     return alert;
