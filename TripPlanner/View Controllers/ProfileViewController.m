@@ -15,7 +15,7 @@
 #import "TripCell.h"
 #import <Parse/Parse.h>
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *pastTripsTableView;
 @property (weak, nonatomic) IBOutlet PFImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -23,7 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (nonatomic, strong) NSArray *trips;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (nonatomic, strong) NSMutableArray *trips;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 @end
 
 @implementation ProfileViewController
@@ -40,6 +42,9 @@
     [self.profileImageView loadInBackground];
     self.profileImageView.layer.borderWidth = 2;
     [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    
+    // position loading indicator
+    self.loadingIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -123,19 +128,46 @@
 
 // get past trips from user's trips relation
 - (void)fetchPastTrips {
+    [self.loadingIndicator startAnimating];
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
     [query orderByDescending:@"startDate"];
     [query whereKey:@"endDate" lessThan:[NSDate date]];
+    query.limit = 10;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
       if (!error) {
-          self.trips = trips;
+          self.trips = (NSMutableArray *)trips;
           [self.pastTripsTableView reloadData];
+          NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+          [self.pastTripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
       } else {
           UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];
           [self presentViewController:alert animated:YES completion:nil];
       }
+        [self.loadingIndicator stopAnimating];
+    }];
+}
+
+// get next trips
+- (void)fetchMorePastTrips {
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
+    PFQuery *query = [relation query];
+    [query orderByDescending:@"startDate"];
+    [query whereKey:@"endDate" lessThan:[NSDate date]];
+    query.limit = 10;
+    query.skip = self.trips.count;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
+        if (!error) {
+            [self.trips addObjectsFromArray:trips];
+            [self.pastTripsTableView reloadData];
+        } else {
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        self.isMoreDataLoading = NO;
+        [self.loadingIndicator stopAnimating];
     }];
 }
 
@@ -147,6 +179,20 @@
     TripCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TripCell" forIndexPath:indexPath];
     cell = [cell setCell:self.trips[indexPath.row]];
     return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.isMoreDataLoading) {
+        int scrollViewContentHeight = self.pastTripsTableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.pastTripsTableView.bounds.size.height;
+        
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.pastTripsTableView.isDragging) {
+            self.isMoreDataLoading = YES;
+            [self.loadingIndicator startAnimating];
+            
+            [self fetchMorePastTrips];
+        }
+    }
 }
 
 #pragma mark - Navigation

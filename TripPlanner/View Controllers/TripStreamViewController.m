@@ -13,11 +13,12 @@
 #import "TripCell.h"
 #import "ParseUtility.h"
 
-@interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
-@property (strong, nonatomic) NSArray *trips;
+@property (strong, nonatomic) NSMutableArray *trips;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 @end
 
 @implementation TripStreamViewController
@@ -33,6 +34,9 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchTrips) forControlEvents:UIControlEventValueChanged];
     [self.tripsTableView insertSubview:self.refreshControl atIndex:0];
+    
+    // position activity indicator
+    self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -44,21 +48,45 @@
 - (void)fetchTrips {
    // update user's list of trips
     [ParseUtility updateCurrentUserTrips];
-    
+
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"startDate"];
     [query whereKey:@"endDate" greaterThan:[NSDate date]];
+    query.limit = 10;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
-      if (!error) {
-          self.trips = trips;
-          [self.tripsTableView reloadData];
-      } else {
-          UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
-          [self presentViewController:alert animated:YES completion:nil];
-      }
-        [self.refreshControl endRefreshing];
+         if (!error) {
+             self.trips = (NSMutableArray *) trips;
+             [self.tripsTableView reloadData];
+             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+             [self.tripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+         } else {
+             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
+             [self presentViewController:alert animated:YES completion:nil];
+         }
+           [self.refreshControl endRefreshing];
+           [self.activityIndicator stopAnimating];
+       }];
+}
+
+// fetch more trips when user scrolls down
+- (void)fetchMoreTrips {
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
+    PFQuery *query = [relation query];
+    query.skip = self.trips.count;
+    [query orderByAscending:@"startDate"];
+    [query whereKey:@"endDate" greaterThan:[NSDate date]];
+    query.limit = 10;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
+        if (!error) {
+            [self.trips addObjectsFromArray:trips];
+            [self.tripsTableView reloadData];
+        } else {
+            UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        self.isMoreDataLoading = NO;
         [self.activityIndicator stopAnimating];
     }];
 }
@@ -71,6 +99,23 @@
     TripCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TripCell" forIndexPath:indexPath];
     cell = [cell setCell:self.trips[indexPath.row]];
     return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.isMoreDataLoading) {
+        // calculate th position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tripsTableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tripsTableView.bounds.size.height;
+        
+        // when user is past threshold, request more data
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tripsTableView.isDragging) {
+            self.isMoreDataLoading = YES;
+            [self.activityIndicator startAnimating];
+            
+            // request data from Parse server
+            [self fetchMoreTrips];
+        }
+    }
 }
 
 #pragma mark - Navigation
