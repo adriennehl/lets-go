@@ -741,10 +741,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSlotCell" id="IIn-Pi-iJW" customClass="TimeSlotCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="74.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IIn-Pi-iJW" id="R6n-3Z-bKe">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ1-HU-ofR">
@@ -754,7 +754,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="End Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pq2-bW-tjv">
-                                                    <rect key="frame" x="11" y="42.5" width="75" height="21.5"/>
+                                                    <rect key="frame" x="11" y="42.5" width="75" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1413,10 +1413,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" id="lax-02-HCy" customClass="TripCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="274.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="274"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lax-02-HCy" id="zlM-tD-4ya">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="274.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="274"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="pkz-S3-EDv" customClass="PFImageView">
@@ -1457,7 +1457,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ4-sS-qGd">
-                                                    <rect key="frame" x="8" y="241" width="83" height="22.5"/>
+                                                    <rect key="frame" x="8" y="241" width="83" height="22"/>
                                                     <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1598,6 +1598,19 @@
                                             <action selector="onSave:" destination="MUx-QB-wLq" eventType="touchUpInside" id="z44-e0-o7q"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTB-Hx-rfB" customClass="MDCFloatingButton">
+                                        <rect key="frame" x="208" y="67.5" width="39" height="39"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="39" id="LML-zq-9cg"/>
+                                            <constraint firstAttribute="width" constant="39" id="dkS-Bq-Z4q"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="gear" catalog="system"/>
+                                        <connections>
+                                            <segue destination="gSs-g9-WrI" kind="show" id="K3p-dc-LbM"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.86746937185660966" green="0.87740124475864256" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <gestureRecognizers/>
@@ -1605,17 +1618,19 @@
                                     <constraint firstItem="NDf-60-2iF" firstAttribute="top" secondItem="u6P-zd-NF6" secondAttribute="bottom" constant="11" id="27N-rV-dQ1"/>
                                     <constraint firstItem="4Dp-gD-CRi" firstAttribute="leading" secondItem="xcq-Kb-jAF" secondAttribute="trailing" constant="11" id="8Az-hK-OFA"/>
                                     <constraint firstItem="u6P-zd-NF6" firstAttribute="leading" secondItem="xcq-Kb-jAF" secondAttribute="trailing" constant="11" id="Eck-dA-En8"/>
+                                    <constraint firstItem="tTB-Hx-rfB" firstAttribute="leading" secondItem="4Dp-gD-CRi" secondAttribute="trailing" constant="11" id="FcA-uW-jge"/>
                                     <constraint firstItem="xcq-Kb-jAF" firstAttribute="leading" secondItem="iIA-DS-nJa" secondAttribute="leading" constant="11" id="Fmt-Ke-GeC"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vQY-Qa-2kA" secondAttribute="trailing" constant="8" id="Gx4-NI-fla"/>
                                     <constraint firstAttribute="height" constant="170" id="Ibd-SA-tQ3"/>
                                     <constraint firstItem="4Dp-gD-CRi" firstAttribute="top" secondItem="NDf-60-2iF" secondAttribute="bottom" constant="11" id="Pug-h3-KDd"/>
                                     <constraint firstItem="rt8-6m-7aF" firstAttribute="leading" secondItem="4Dp-gD-CRi" secondAttribute="leading" id="Ulx-5l-SY4"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tTB-Hx-rfB" secondAttribute="trailing" constant="11" id="V2e-Jd-QWz"/>
                                     <constraint firstItem="NDf-60-2iF" firstAttribute="leading" secondItem="xcq-Kb-jAF" secondAttribute="trailing" constant="11" id="WEK-Ed-DM2"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Dp-gD-CRi" secondAttribute="trailing" constant="8" id="ZM7-qd-lTL"/>
                                     <constraint firstItem="xcq-Kb-jAF" firstAttribute="top" secondItem="iIA-DS-nJa" secondAttribute="top" constant="11" id="a3Y-70-XTG"/>
                                     <constraint firstItem="rt8-6m-7aF" firstAttribute="top" secondItem="4Dp-gD-CRi" secondAttribute="bottom" id="ccn-1q-4d2"/>
                                     <constraint firstItem="u6P-zd-NF6" firstAttribute="top" secondItem="iIA-DS-nJa" secondAttribute="top" constant="11" id="eMt-X7-cMd"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="u6P-zd-NF6" secondAttribute="trailing" constant="11" id="gvr-05-Knj"/>
+                                    <constraint firstItem="tTB-Hx-rfB" firstAttribute="centerY" secondItem="4Dp-gD-CRi" secondAttribute="centerY" id="nYd-Ji-fwJ"/>
                                     <constraint firstItem="vQY-Qa-2kA" firstAttribute="leading" secondItem="rt8-6m-7aF" secondAttribute="trailing" constant="11" id="ohs-uX-7yy"/>
                                     <constraint firstItem="vQY-Qa-2kA" firstAttribute="top" secondItem="4Dp-gD-CRi" secondAttribute="bottom" id="wQD-HP-OsU"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NDf-60-2iF" secondAttribute="trailing" constant="11" id="xEa-zI-DN1"/>
@@ -1653,6 +1668,7 @@
                         <outlet property="pastTripsTableView" destination="N5w-8m-6oH" id="Lxa-yc-iwk"/>
                         <outlet property="profileImageView" destination="xcq-Kb-jAF" id="5m1-m5-DKq"/>
                         <outlet property="saveButton" destination="vQY-Qa-2kA" id="WkA-F9-CzO"/>
+                        <outlet property="settingsButton" destination="tTB-Hx-rfB" id="Y64-C9-d0j"/>
                         <outlet property="usernameLabel" destination="u6P-zd-NF6" id="nao-vw-nQi"/>
                     </connections>
                 </viewController>
@@ -1669,6 +1685,51 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2713" y="552"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="7oL-Hl-CiQ">
+            <objects>
+                <viewController id="gSs-g9-WrI" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Msl-G4-Tb8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JyK-16-Dwv">
+                                <rect key="frame" x="20" y="108" width="146" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="before trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EO-1E-yXc">
+                                <rect key="frame" x="313" y="176" width="81" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" countDownDuration="1800" minuteInterval="5" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV2-6V-8Pe">
+                                <rect key="frame" x="11" y="145" width="283" height="86"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85911624648894458" green="0.85652070923104329" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="lh4-Er-gy4"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yeZ-eV-2iH">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="CXO-dM-wmq">
+                            <connections>
+                                <action selector="onSave:" destination="gSs-g9-WrI" id="Dml-Ke-luv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="notificationDatePicker" destination="PV2-6V-8Pe" id="W6e-7F-XFp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ysA-YP-jMd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3431.884057971015" y="553.125"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="9Zg-cu-LFb">
@@ -1886,6 +1947,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="image_placeholder" width="375" height="375"/>
         <image name="location.fill" catalog="system" width="128" height="115"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

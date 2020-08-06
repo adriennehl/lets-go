@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) NSMutableArray *trips;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
@@ -69,6 +70,7 @@
 - (IBAction)onEdit:(id)sender {
     [self.saveButton setHidden:NO];
     [self.cancelButton setHidden:NO];
+    [self.settingsButton setHidden:YES];
     [self.editButton setHidden:YES];
     self.nameLabel.userInteractionEnabled = YES;
     self.profileImageView.userInteractionEnabled = YES;
@@ -82,6 +84,7 @@
     [self.saveButton setHidden:YES];
     [self.cancelButton setHidden:YES];
     [self.editButton setHidden:NO];
+    [self.settingsButton setHidden:NO];
     self.nameLabel.userInteractionEnabled = NO;
     self.profileImageView.userInteractionEnabled = NO;
     self.nameLabel.borderStyle = UITextBorderStyleNone;
