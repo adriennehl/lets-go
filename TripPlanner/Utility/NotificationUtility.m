@@ -82,6 +82,7 @@
             [self.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     }];
+    completionHandler();
 }
 
 // called when a notification is delivered to a foreground app

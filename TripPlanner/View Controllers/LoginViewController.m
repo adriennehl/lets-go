@@ -78,6 +78,7 @@
     newUser[@"profileImage"] = [ImageUtility getPFFileFromImage:[UIImage imageNamed:@"image_placeholder"]];
     newUser[@"name"] = @"";
     newUser[@"numTrips"] = [[NSNumber alloc] initWithInt:0];
+    newUser[@"notificationDate"] = [[NSNumber alloc] initWithInt:30];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {

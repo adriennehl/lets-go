@@ -10,6 +10,7 @@
 		58D064918149501CA72D5AA8 /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */; };
 		82170202CF7DEC4B6FED7820 /* Pods_TripPlannerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */; };
 		C187D05650BEA5293BE8A066 /* Pods_TripPlanner_TripPlannerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8A0B9BF50FF65D3AE0CD16 /* Pods_TripPlanner_TripPlannerUITests.framework */; };
+		C82DA9F024DCB69D0056EB84 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C82DA9EF24DCB69D0056EB84 /* SettingsViewController.m */; };
 		C835FF6424D8A0F700B58A40 /* MailUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6324D8A0F700B58A40 /* MailUtility.m */; };
 		C835FF6724D8B64900B58A40 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6624D8B64900B58A40 /* ContactsViewController.m */; };
 		C835FF6A24D8BAAC00B58A40 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C835FF6924D8BAAC00B58A40 /* UserCell.m */; };
@@ -80,6 +81,8 @@
 		9317418C6D8BE1EBC63FDFD7 /* Pods-TripPlannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlannerTests.release.xcconfig"; path = "Target Support Files/Pods-TripPlannerTests/Pods-TripPlannerTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC6EBE60DD2CC94DD1727CC9 /* Pods_TripPlannerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlannerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB082C28ECCA9FAF27522F7 /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C82DA9EE24DCB69D0056EB84 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		C82DA9EF24DCB69D0056EB84 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C835FF6224D8A0F700B58A40 /* MailUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailUtility.h; sourceTree = "<group>"; };
 		C835FF6324D8A0F700B58A40 /* MailUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailUtility.m; sourceTree = "<group>"; };
 		C835FF6524D8B64900B58A40 /* ContactsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 		C8B534DF24BCFD75006C3A67 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C82DA9EE24DCB69D0056EB84 /* SettingsViewController.h */,
+				C82DA9EF24DCB69D0056EB84 /* SettingsViewController.m */,
 				C8B534E024BCFD82006C3A67 /* LoginViewController.h */,
 				C8B534E124BCFD82006C3A67 /* LoginViewController.m */,
 				C8B534E324BD04BA006C3A67 /* ProfileViewController.h */,
@@ -661,6 +666,7 @@
 				C8BEA85924C8AF9200921748 /* ImageViewController.m in Sources */,
 				C8F0318224C0F943009B5430 /* SuggestViewController.m in Sources */,
 				C8D7173224BFB14E005227D9 /* ImageUtility.m in Sources */,
+				C82DA9F024DCB69D0056EB84 /* SettingsViewController.m in Sources */,
 				C8D7172F24BFAD66005227D9 /* ImagePickerUtility.m in Sources */,
 				C8F0317C24C0A9B6009B5430 /* photoAlbumCell.m in Sources */,
 				C8D7172824BF8198005227D9 /* Key.m in Sources */,

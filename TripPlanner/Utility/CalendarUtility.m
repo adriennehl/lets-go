@@ -8,6 +8,7 @@
 
 #import "CalendarUtility.h"
 #import <EventKit/EventKit.h>
+#import <Parse/Parse.h>
 
 @implementation CalendarUtility
 
@@ -62,10 +63,16 @@
 }
 
 + (NSDateComponents *)getDateComponents:(NSDate *)date {
+    // subtract user's notification date values from date
+    int minutes = [PFUser.currentUser[@"notificationDate"] intValue];
+    NSDateComponents *minutesDateComponents = [[NSDateComponents alloc] init];
+    [minutesDateComponents setMinute: -1 * minutes];
+    NSDate *notificationDate = [[NSCalendar currentCalendar] dateByAddingComponents:minutesDateComponents toDate:date options:0];
+    
+    // return date components
     NSCalendar *calendar = [NSCalendar currentCalendar];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute;
-    NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
-    dateComponents.day = dateComponents.day - 1;
+    NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:notificationDate];
     return dateComponents;
 }
 @end
