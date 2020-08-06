@@ -143,7 +143,9 @@
           self.trips = (NSMutableArray *)trips;
           [self.pastTripsTableView reloadData];
           NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-          [self.pastTripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+          if (self.trips.count > 0) {
+              [self.pastTripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+          }
       } else {
           UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];
           [self presentViewController:alert animated:YES completion:nil];

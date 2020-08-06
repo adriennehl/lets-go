@@ -60,7 +60,9 @@
              self.trips = (NSMutableArray *) trips;
              [self.tripsTableView reloadData];
              NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-             [self.tripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+             if (self.trips.count > 0) {
+                 [self.tripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+             }
          } else {
              UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
              [self presentViewController:alert animated:YES completion:nil];
