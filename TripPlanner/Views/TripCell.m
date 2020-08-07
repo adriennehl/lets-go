@@ -41,7 +41,26 @@
         self.tripView.file = tripImage;
         [self.tripView loadInBackground];
     }
+    self.tripView.alpha = 1.0;
+    
+    // add long press gesture recognizer
+    UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onPress:)];
+    [self.contentView addGestureRecognizer:pressRecognizer];
+    
     return self;
+}
+
+- (void)onPress:(UILongPressGestureRecognizer *)longPress {
+    if([longPress state] == UIGestureRecognizerStateBegan) {
+        [UIView animateWithDuration:0.5 animations:^{
+            if (self.tripView.alpha == 1.0) {
+                self.tripView.alpha = 0.25;
+            }
+            else {
+                self.tripView.alpha = 1.0;
+            }
+        }];
+    }
 }
 
 @end
