@@ -36,12 +36,12 @@
     self.endDateLabel.text = [DateUtility dateToString:self.trip[@"endDate"]];
     self.descriptionLabel.text = self.trip[@"descriptionText"];
     NSArray *images = self.trip[@"album"];
+    self.tripView.alpha = 1.0;
     if(images.count > 0) {
         PFFileObject *tripImage = self.trip[@"album"][0];
         self.tripView.file = tripImage;
         [self.tripView loadInBackground];
     }
-    self.tripView.alpha = 1.0;
     
     // add long press gesture recognizer
     UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onPress:)];
