@@ -68,4 +68,13 @@
     }];
 }
 
+// get a list of ids from a list of trips
++ (NSMutableArray *)getIds:(NSArray *)trips {
+    NSMutableArray *tripIds = [NSMutableArray array];
+    for(Trip *trip in trips) {
+        [tripIds addObject:trip.objectId];
+    }
+    return tripIds;
+}
+
 @end

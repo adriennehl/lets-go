@@ -26,7 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) NSMutableArray *trips;
+@property (strong, nonatomic) NSMutableArray *pastTripIds;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation ProfileViewController
@@ -44,11 +46,14 @@
     self.profileImageView.layer.borderWidth = 2;
     [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
     
+    // add a UIRefreshControl
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchPastTrips) forControlEvents:UIControlEventValueChanged];
+    [self.pastTripsTableView insertSubview:self.refreshControl atIndex:0];
+    
     // position loading indicator
     self.loadingIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-}
-
-- (void)viewDidAppear:(BOOL)animated {
+    
     [self fetchPastTrips];
 }
 
@@ -141,16 +146,14 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
       if (!error) {
           self.trips = (NSMutableArray *)trips;
+          self.pastTripIds = [Trip getIds:self.trips];
           [self.pastTripsTableView reloadData];
-          if (self.trips.count > 0) {
-              NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-              [self.pastTripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-          }
       } else {
           UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];
           [self presentViewController:alert animated:YES completion:nil];
       }
         [self.loadingIndicator stopAnimating];
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -161,11 +164,13 @@
     [query orderByDescending:@"startDate"];
     [query whereKey:@"endDate" lessThan:[NSDate date]];
     query.limit = 10;
-    query.skip = self.trips.count;
+    [query whereKey:@"objectId" notContainedIn:self.pastTripIds];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
         if (!error) {
             [self.trips addObjectsFromArray:trips];
+            NSMutableArray *tripIds = [Trip getIds:trips];
+            [self.pastTripIds addObjectsFromArray:tripIds];
             [self.pastTripsTableView reloadData];
         } else {
             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Updating Trips" action:@"Cancel" message:error.localizedDescription];

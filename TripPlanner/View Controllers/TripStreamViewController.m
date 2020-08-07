@@ -16,6 +16,7 @@
 @interface TripStreamViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tripsTableView;
 @property (strong, nonatomic) NSMutableArray *trips;
+@property (strong, nonatomic) NSMutableArray *tripIds;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
@@ -37,9 +38,8 @@
     
     // position activity indicator
     self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-}
-
-- (void)viewDidAppear:(BOOL)animated {
+    
+    // refresh table view
     [self.activityIndicator startAnimating];
     [self fetchTrips];
 }
@@ -58,11 +58,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
          if (!error) {
              self.trips = (NSMutableArray *) trips;
+             self.tripIds = [Trip getIds:self.trips];
              [self.tripsTableView reloadData];
-             if (self.trips.count > 0) {
-                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-                 [self.tripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-             }
          } else {
              UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
              [self presentViewController:alert animated:YES completion:nil];
@@ -76,13 +73,15 @@
 - (void)fetchMoreTrips {
     PFRelation *relation = [PFUser.currentUser relationForKey:@"trips"];
     PFQuery *query = [relation query];
-    query.skip = self.trips.count;
     [query orderByAscending:@"startDate"];
     [query whereKey:@"endDate" greaterThan:[NSDate date]];
+    [query whereKey:@"objectId" notContainedIn:self.tripIds];
     query.limit = 10;
     [query findObjectsInBackgroundWithBlock:^(NSArray *trips, NSError *error) {
         if (!error) {
             [self.trips addObjectsFromArray:trips];
+            NSMutableArray *tripIds = [Trip getIds:trips];
+            [self.tripIds addObjectsFromArray:tripIds];
             [self.tripsTableView reloadData];
         } else {
             UIAlertController *alert = [AlertUtility createCancelActionAlert:@"Error Fetching Trips" action:@"Cancel" message:error.localizedDescription];
