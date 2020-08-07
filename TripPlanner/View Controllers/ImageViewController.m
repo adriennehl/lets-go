@@ -74,6 +74,12 @@ didFinishSavingWithError:(NSError *)error
      }
 }
 
+- (IBAction)onPan:(UIPanGestureRecognizer *)sender {
+    CGPoint translation = [sender translationInView:self.albumImageView];
+    self.albumImageView.center = CGPointMake(self.albumImageView.center.x + translation.x, self.albumImageView.center.y + translation.y);
+    [sender setTranslation:CGPointZero inView:self.albumImageView];
+}
+
 /*
 #pragma mark - Navigation
 

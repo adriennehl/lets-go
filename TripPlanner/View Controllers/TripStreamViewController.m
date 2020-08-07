@@ -59,8 +59,8 @@
          if (!error) {
              self.trips = (NSMutableArray *) trips;
              [self.tripsTableView reloadData];
-             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
              if (self.trips.count > 0) {
+                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
                  [self.tripsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
              }
          } else {
