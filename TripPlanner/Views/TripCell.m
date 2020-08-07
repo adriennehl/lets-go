@@ -36,12 +36,31 @@
     self.endDateLabel.text = [DateUtility dateToString:self.trip[@"endDate"]];
     self.descriptionLabel.text = self.trip[@"descriptionText"];
     NSArray *images = self.trip[@"album"];
+    self.tripView.alpha = 1.0;
     if(images.count > 0) {
         PFFileObject *tripImage = self.trip[@"album"][0];
         self.tripView.file = tripImage;
         [self.tripView loadInBackground];
     }
+    
+    // add long press gesture recognizer
+    UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onPress:)];
+    [self.contentView addGestureRecognizer:pressRecognizer];
+    
     return self;
+}
+
+- (void)onPress:(UILongPressGestureRecognizer *)longPress {
+    if([longPress state] == UIGestureRecognizerStateBegan) {
+        [UIView animateWithDuration:0.5 animations:^{
+            if (self.tripView.alpha == 1.0) {
+                self.tripView.alpha = 0.25;
+            }
+            else {
+                self.tripView.alpha = 1.0;
+            }
+        }];
+    }
 }
 
 @end
