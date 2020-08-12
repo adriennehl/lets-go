@@ -2,7 +2,7 @@ Original App Design Project - README Template
 ===
 
 # Let's Go
-
+[Link to video walkthrough](https://github.com/adriennehl/lets-go/blob/master/IMG_9117.MOV)
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
